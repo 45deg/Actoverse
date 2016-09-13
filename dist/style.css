@@ -1,6 +1,7 @@
 
 html, body {
   margin: 0;
+  overflow: hidden;
 }
 #wrapper {
   width: 100vw;
@@ -56,8 +57,7 @@ html, body {
   cursor: pointer;
 }
 .vis-panel #canvas {
-  width:100%;
-  height:400px;
+  overflow-y: scroll;
   background-color: #FFF;
 }
 #canvas text {
@@ -97,8 +97,7 @@ html, body {
 }
 
 .vis-panel > .Pane2 {
-  height:100%;
-  overflow:scroll;
+  overflow: scroll;
 }
 
 /* table */
@@ -150,6 +149,7 @@ html, body {
 .debug-panel .stripe-table thead tr { border-bottom:1px solid #CCC; }
 
 /* Resizer */
+
 *, *:before, *:after {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;

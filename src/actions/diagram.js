@@ -10,6 +10,6 @@ export function hideToolTip(){
     return { type: 'HIDE_TOOLTIP' };
 }
 
-export function transformViewPort(transform){
-    return { type: 'TRANSFORM_VIEWPORT', transform };
+export function scrollTo(value){
+    return { type: 'SCROLL_TO', value };
 }

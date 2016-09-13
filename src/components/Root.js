@@ -25,9 +25,7 @@ class Root extends React.Component {
                     </Tab>
                 </SplitPane>
                 <SplitPane split="horizontal" className="vis-panel" defaultSize={500}>
-                    <div>
-                        <div id="canvas"><Diagram /></div>
-                    </div>
+                    <Diagram />
                     <Tab className="inspector">
                         <Page label="Status"><StatusPanel /></Page>
                         <Page label="History"><HistoryPanel /></Page>

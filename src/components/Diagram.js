@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import {zoom} from 'd3-zoom';
-import {select, event} from 'd3-selection';
-
 import MarkerDef from './svg/MarkerDef';
 import Actor from './svg/Actor';
 import Message from './svg/Message';
@@ -11,7 +8,7 @@ import CandidateMessage from './svg/CandidateMessage';
 import Point from './svg/Point';
 
 import {stepActor, backActor} from '../actions/vm';
-import {moveToFront, transformViewPort} from '../actions/diagram';
+import {moveToFront, scrollTo} from '../actions/diagram';
 
 import store from '../store';
 
@@ -33,12 +30,13 @@ function sortElement(index, elements){
 
 class Diagram extends Component {
     render() {
-        var {actors, messageLog, messageQueue, frontIndex, transform, width, height} = this.props;
+        var {actors, messageLog, messageQueue, frontIndex, scrollTo, width, height} = this.props;
         var {moveToFront} = this.props;
-        var {margin, timeSpan} = CONFIG;
-        return (
-            <svg width={width} height={height}>
-              <g id="container" transform={transform}>{
+        var {margin} = CONFIG;
+        var timeSpan = width / 8;
+        return (<div id="canvas" style={{height, width}} onScroll={() => scrollTo(ReactDOM.findDOMNode(this).scrollTop)}>
+            <svg width="100%" height={(messageLog.length + 1) * timeSpan + margin + 10}>
+              {
                 actors.map((actor, i) => 
                   <Actor x={width / actors.length * actor.pid}
                          textY={18}
@@ -78,23 +76,17 @@ class Diagram extends Component {
                          actorPid={msg.to} key={index} />
                 )
               }
-              </g>
               <defs>
                 <MarkerDef color="#000" id="arrowhead-normal" />
                 <MarkerDef color="#F00" id="arrowhead-hover" />
                 <MarkerDef color="#777" id="arrowhead-candidate" />
               </defs>
             </svg>
-        );
+       </div>);
     }
-    componentDidMount(){
-      // zooming by d3 support
-      var svg = ReactDOM.findDOMNode(this);
-      select(svg).call(zoom()
-        .on("zoom", function () {
-          store.dispatch(transformViewPort(event.transform));
-        })
-      );
+    componentDidUpdate() {
+      var node = ReactDOM.findDOMNode(this);
+      node.scrollTop = this.props.scrollValue;
     }
 }
 
@@ -104,7 +96,7 @@ function mapStateToProps(state) {
         messageLog: state.vm.messageLog,
         messageQueue: state.vm.messageQueue,
         frontIndex: state.diagram.frontElementIndex,
-        transform: state.diagram.transform,
+        scrollValue: state.diagram.scrollValue,
         width: state.panels['root-panel'] || 400,
         height: state.panels['vis-panel'] || 500
     };
@@ -112,7 +104,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    moveToFront: (id) => dispatch(moveToFront(id))
+    moveToFront: id => dispatch(moveToFront(id)),
+    scrollTo: value => dispatch(scrollTo(value))
   };
 }
 

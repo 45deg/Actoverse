@@ -4,7 +4,7 @@ import Message from './Message';
 import { connect } from 'react-redux';
 
 import { stepActor } from '../../actions/vm';
-import { transformViewPort } from '../../actions/diagram';
+import { scrollTo } from '../../actions/diagram';
 
 function mapStateToProps(state) {
     return { 
@@ -20,7 +20,7 @@ function mapDispatchToProps(dispatch, ownProps) {
       var target = actors[msg.to];
       dispatch(stepActor(ownProps.index));
       target[target._state](...msg.data);
-      dispatch(transformViewPort(`translate(0, ${Math.min(-ownProps.toY + height - 20 * 3, 0)})`)); // evil magic nmber
+      dispatch(scrollTo(ownProps.toY));
     }
   };
 }

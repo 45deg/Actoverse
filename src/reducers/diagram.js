@@ -3,7 +3,7 @@ function initState(){
         frontElementIndex: -1,
         tooltip: false,
         tooltipData: null,
-        transform: '',
+        scrollValue: 0,
     };
 }
 
@@ -18,8 +18,8 @@ const diagram = (state = initState(), action) => {
             });
         case 'HIDE_TOOLTIP':
             return Object.assign({}, state, { tooltip: false });
-        case 'TRANSFORM_VIEWPORT':
-            return Object.assign({}, state, { transform: action.transform});
+        case 'SCROLL_TO':
+            return Object.assign({}, state, { scrollValue: action.value });
         default:
             return state;
     }

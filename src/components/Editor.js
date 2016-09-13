@@ -26,6 +26,7 @@ const Editor = ({ code, onChange }) => {
 
 function mapStateToProps(state) {
     return {
+        size: state.panels.editor_panel,
         code: state.code.toString()
     };
 }

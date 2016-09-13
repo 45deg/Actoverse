@@ -15,15 +15,15 @@ class Root extends React.Component {
     render(){
         return (<div>
             <header><ToolBar /></header>
-            <SplitPane split="vertical" className="root_panel" defaultSize="70%">
-                <SplitPane split="horizontal" className="editor_panel" defaultSize="70%">
+            <SplitPane split="vertical" className="root-panel" defaultSize="70%">
+                <SplitPane split="horizontal" className="editor-panel" defaultSize="70%">
                     <Editor />
                     <Tab className="debug-panel">
                         <Page label="Step"><StepField /></Page>
                         <Page label="Auto">not implemented</Page>
                     </Tab>
                 </SplitPane>
-                <SplitPane split="horizontal" className="vis_panel" defaultSize={500}>
+                <SplitPane split="horizontal" className="vis-panel" defaultSize={500}>
                     <div>
                         <h2>Network</h2>
                         <div id="canvas"><Diagram /></div>

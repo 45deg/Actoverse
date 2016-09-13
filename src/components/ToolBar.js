@@ -19,7 +19,7 @@ const ToolBar = ({ code, submitCode }) => {
 
 function mapStateToProps(state) {
     return {
-        code: state.code.toString()
+        code: state.editor.code
     };
 }
 function mapDispatchToProps(dispatch, ownProps) {

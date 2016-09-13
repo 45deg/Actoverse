@@ -4,35 +4,44 @@ import { connect } from 'react-redux'
 import brace from 'brace';
 import AceEditor from 'react-ace';
 
-import {setCode} from '../actions/code';
+import {setCode, setEditor} from '../actions/editor';
 import 'brace/mode/javascript';
 import 'brace/theme/github';
 
-const Editor = ({ code, onChange }) => {
-    var options = {
-        mode: 'javascript',
-        lineNumbers: true
-    };
-    return (<AceEditor
-                fontSize={14}
-                value={code}
-                onChange={onChange}
-                onLoad={editor => window.editor = editor}
-                mode="javascript"
-                theme="github" />);
+class Editor extends React.Component {
+    render() {
+        var { code, setEditor, setCode, editor} = this.props;
+        var options = {
+            mode: 'javascript',
+            lineNumbers: true
+        };
+        if(editor !== null) {
+            console.log('resize');
+            editor.resize();
+        }
+        return (<AceEditor
+                    fontSize={14}
+                    value={code}
+                    onChange={setCode}
+                    onLoad={setEditor}
+                    mode="javascript"
+                    theme="github" />);
+    }
 };
 
 // separate this file 
 
 function mapStateToProps(state) {
     return {
-        size: state.panels.editor_panel,
-        code: state.code.toString()
+        size:   state.panels['editor-panel'],
+        code:   state.editor.code,
+        editor: state.editor.editor,
     };
 }
 function mapDispatchToProps(dispatch, ownProps) {
     return {
-        onChange : (code) => dispatch(setCode(code))
+        setCode : (code) => dispatch(setCode(code)),
+        setEditor : (editor) => dispatch(setEditor(editor))
     }
 }
 

@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import code from './code';
+import editor from './editor';
 import vm from './vm';
 import diagram from './diagram';
 import panels from './panels';
 
 var reducers = combineReducers({
     vm,
-    code,
+    editor,
     diagram,
     panels
 });

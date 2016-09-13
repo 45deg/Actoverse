@@ -1,4 +1,6 @@
-import React from 'react';
+import React from 'react'
+
+import ToolBar from './ToolBar';
 import Editor from './Editor';
 import Page from './Page';
 import Tab from './Tab';
@@ -7,26 +9,33 @@ import Diagram from './Diagram';
 import StatusPanel from './StatusPanel';
 import HistoryPanel from './HistoryPanel';
 import ToolTip from './ToolTip';
+import SplitPane from 'react-split-pane';
 
 class Root extends React.Component {
     render(){
         return (<div>
-            <div className="main-panel">
+            <header><ToolBar /></header>
+            <SplitPane split="vertical" defaultSize="70%">
+            <SplitPane split="horizontal" className="main-panel" defaultSize="70%">
                 <Editor />
                 <Tab className="debug-panel">
                     <Page label="Step"><StepField /></Page>
                     <Page label="Auto">not implemented</Page>
                 </Tab>
-            </div>
-            <div className="vis-panel">
-                <h2>Network</h2>
-                <div id="canvas"><Diagram /></div>
+            </SplitPane>
+            <SplitPane split="horizontal" className="vis-panel" defaultSize="70%">
+                <div>
+                    <h2>Network</h2>
+                    <div id="canvas"><Diagram /></div>
+                </div>
                 <Tab className="inspector">
                     <Page label="Status"><StatusPanel /></Page>
                     <Page label="History"><HistoryPanel /></Page>
                 </Tab>
-            </div>
-            <ToolTip />
+            </SplitPane>
+            {/* */}
+        </SplitPane>
+        <ToolTip />
         </div>);
     }
 }

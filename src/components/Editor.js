@@ -10,26 +10,18 @@ import {initActor} from '../actions/vm';
 import 'brace/mode/javascript';
 import 'brace/theme/github';
 
-const Editor = ({ code, onChange, onSubmit }) => {
+const Editor = ({ code, onChange }) => {
     var options = {
         mode: 'javascript',
         lineNumbers: true
     };
-    return (<div className="editor-panel">
-        <div className="toolbar-panel">
-            <form id="execute" onSubmit={e => {e.preventDefault(); onSubmit(code)}}>
-                <input type="submit" value="Run" className="btn-submit" />
-            </form>
-        </div>
-        <div id="editor">
-            <AceEditor
+    return (<AceEditor
                 fontSize={14}
                 value={code}
+                height={100}
                 onChange={onChange}
                 mode="javascript"
-                theme="github" />
-        </div>
-    </div>);
+                theme="github" />);
 };
 
 // separate this file 
@@ -41,11 +33,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch, ownProps) {
     return {
-        onChange : (code) => dispatch(setCode(code)),
-        onSubmit : (code) => {
-            dispatch(initActor());
-            (0,eval)(code);
-        }
+        onChange : (code) => dispatch(setCode(code))
     }
 }
 

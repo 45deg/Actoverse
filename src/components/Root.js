@@ -9,33 +9,32 @@ import Diagram from './Diagram';
 import StatusPanel from './StatusPanel';
 import HistoryPanel from './HistoryPanel';
 import ToolTip from './ToolTip';
-import SplitPane from 'react-split-pane';
+import SplitPane from './SplitPane';
 
 class Root extends React.Component {
     render(){
         return (<div>
             <header><ToolBar /></header>
-            <SplitPane split="vertical" defaultSize="70%">
-            <SplitPane split="horizontal" className="main-panel" defaultSize="70%">
-                <Editor />
-                <Tab className="debug-panel">
-                    <Page label="Step"><StepField /></Page>
-                    <Page label="Auto">not implemented</Page>
-                </Tab>
+            <SplitPane split="vertical" className="root-panel" defaultSize="70%">
+                <SplitPane split="horizontal" className="editor-panel" defaultSize="70%">
+                    <Editor />
+                    <Tab className="debug-panel">
+                        <Page label="Step"><StepField /></Page>
+                        <Page label="Auto">not implemented</Page>
+                    </Tab>
+                </SplitPane>
+                <SplitPane split="horizontal" className="vis-panel" defaultSize={500}>
+                    <div>
+                        <h2>Network</h2>
+                        <div id="canvas"><Diagram /></div>
+                    </div>
+                    <Tab className="inspector">
+                        <Page label="Status"><StatusPanel /></Page>
+                        <Page label="History"><HistoryPanel /></Page>
+                    </Tab>
+                </SplitPane>
             </SplitPane>
-            <SplitPane split="horizontal" className="vis-panel" defaultSize="70%">
-                <div>
-                    <h2>Network</h2>
-                    <div id="canvas"><Diagram /></div>
-                </div>
-                <Tab className="inspector">
-                    <Page label="Status"><StatusPanel /></Page>
-                    <Page label="History"><HistoryPanel /></Page>
-                </Tab>
-            </SplitPane>
-            {/* */}
-        </SplitPane>
-        <ToolTip />
+            <ToolTip />
         </div>);
     }
 }

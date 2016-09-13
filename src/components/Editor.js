@@ -5,8 +5,6 @@ import brace from 'brace';
 import AceEditor from 'react-ace';
 
 import {setCode} from '../actions/code';
-import {initActor} from '../actions/vm';
-
 import 'brace/mode/javascript';
 import 'brace/theme/github';
 
@@ -18,8 +16,8 @@ const Editor = ({ code, onChange }) => {
     return (<AceEditor
                 fontSize={14}
                 value={code}
-                height={100}
                 onChange={onChange}
+                onLoad={editor => window.editor = editor}
                 mode="javascript"
                 theme="github" />);
 };

@@ -1,14 +1,18 @@
 
 html, body {
-  height: 100%;
-  margin: 0; 
-  overflow:hidden;
+  margin: 0;
 }
-#root {
-  position: relative;
-  width: 100%;
-  height: 100%;
+#wrapper {
+  width: 100vw;
+  height: 100vh;
+  display:flex;
+  flex-direction: column;
 }
+#panel-wrapper {
+  flex: 1;
+  display: flex;
+}
+
 .toolbar-panel {
   height: 50px;
   background-color: #ccc;
@@ -92,6 +96,11 @@ html, body {
   margin: 0.5em 5px;
 }
 
+.vis-panel > .Pane2 {
+  height:100%;
+  overflow:scroll;
+}
+
 /* table */
 .stripe-table {
   border-collapse: collapse; 
@@ -140,9 +149,14 @@ html, body {
 .debug-panel .stripe-table { border:none; }
 .debug-panel .stripe-table thead tr { border-bottom:1px solid #CCC; }
 
-
-
 /* Resizer */
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+}
+
 .Resizer {
     background: #000;
     opacity: .2;

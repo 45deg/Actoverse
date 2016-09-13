@@ -13,8 +13,9 @@ import SplitPane from './SplitPane';
 
 class Root extends React.Component {
     render(){
-        return (<div>
+        return (<div id="wrapper">
             <header><ToolBar /></header>
+            <section id="panel-wrapper">
             <SplitPane split="vertical" className="root-panel" primary="second" defaultSize={400}>
                 <SplitPane split="horizontal" className="editor-panel" defaultSize="70%">
                     <Editor />
@@ -33,6 +34,7 @@ class Root extends React.Component {
                     </Tab>
                 </SplitPane>
             </SplitPane>
+            </section>
             <ToolTip />
         </div>);
     }

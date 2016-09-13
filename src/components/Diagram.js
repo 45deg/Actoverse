@@ -16,9 +16,8 @@ import {moveToFront, transformViewPort} from '../actions/diagram';
 import store from '../store';
 
 const CONFIG = {
-    width: 500,
     margin: 40,
-    timeSpan: 30
+    timeSpan: 50
 }
 
 function sortElement(index, elements){
@@ -36,8 +35,7 @@ class Diagram extends Component {
     render() {
         var {actors, messageLog, messageQueue, frontIndex, transform, width, height} = this.props;
         var {moveToFront} = this.props;
-        var {margin} = CONFIG;
-        var timeSpan = height / 10;
+        var {margin, timeSpan} = CONFIG;
         return (
             <svg width={width} height={height}>
               <g id="container" transform={transform}>{

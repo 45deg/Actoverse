@@ -16,7 +16,6 @@ class Editor extends React.Component {
             lineNumbers: true
         };
         if(editor !== null) {
-            console.log('resize');
             editor.resize();
         }
         return (<AceEditor

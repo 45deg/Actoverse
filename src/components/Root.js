@@ -15,7 +15,7 @@ class Root extends React.Component {
     render(){
         return (<div>
             <header><ToolBar /></header>
-            <SplitPane split="vertical" className="root-panel" defaultSize="70%">
+            <SplitPane split="vertical" className="root-panel" primary="second" defaultSize={400}>
                 <SplitPane split="horizontal" className="editor-panel" defaultSize="70%">
                     <Editor />
                     <Tab className="debug-panel">
@@ -25,7 +25,6 @@ class Root extends React.Component {
                 </SplitPane>
                 <SplitPane split="horizontal" className="vis-panel" defaultSize={500}>
                     <div>
-                        <h2>Network</h2>
                         <div id="canvas"><Diagram /></div>
                     </div>
                     <Tab className="inspector">

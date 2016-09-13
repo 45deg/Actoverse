@@ -1,4 +1,11 @@
-const panels = (state = {}, action) => {
+function initState(){
+  return {
+    'root-panel' : 400,
+    'vis-panel': 500
+  };
+}
+
+const panels = (state = initState(), action) => {
     switch(action.type) {
         case 'CHANGE_SIZE':
             return Object.assign({}, state, {

@@ -9,17 +9,18 @@ import { transformViewPort } from '../../actions/diagram';
 function mapStateToProps(state) {
     return { 
         actors: state.vm.actors,
-        messageQueue: state.vm.messageQueue
+        messageQueue: state.vm.messageQueue,
+        height: state.panels['vis-panel']
     };
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    onClickDispatch: (actors, msg) => {
+    onClickDispatch: (actors, msg, height) => {
       var target = actors[msg.to];
       dispatch(stepActor(ownProps.index));
       target[target._state](...msg.data);
-      dispatch(transformViewPort(`translate(0, ${Math.min(-ownProps.toY + 400 - 20 * 3, 0)})`)); // evil magic nmber
+      dispatch(transformViewPort(`translate(0, ${Math.min(-ownProps.toY + height - 20 * 3, 0)})`)); // evil magic nmber
     }
   };
 }
@@ -29,7 +30,7 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
     onClick: () => dispatchProps.onClickDispatch(
       stateProps.actors,
       stateProps.messageQueue[ownProps.index],
-      ownProps.index
+      stateProps.height
     )
   })
 }

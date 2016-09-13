@@ -34,11 +34,12 @@ function sortElement(index, elements){
 
 class Diagram extends Component {
     render() {
-        var {actors, messageLog, messageQueue, frontIndex, moveToFront, transform} = this.props;
-        var {onCandidateClick} = this.props;
-        var {width, margin, timeSpan} = CONFIG;
+        var {actors, messageLog, messageQueue, frontIndex, transform, width, height} = this.props;
+        var {moveToFront} = this.props;
+        var {margin} = CONFIG;
+        var timeSpan = height / 10;
         return (
-            <svg width="500" height="400">
+            <svg width={width} height={height}>
               <g id="container" transform={transform}>{
                 actors.map((actor, i) => 
                   <Actor x={width / actors.length * actor.pid}
@@ -92,8 +93,6 @@ class Diagram extends Component {
       // zooming by d3 support
       var svg = ReactDOM.findDOMNode(this);
       select(svg).call(zoom()
-        .translateExtent([[0, 0], [CONFIG.width, Infinity]])
-        .scaleExtent([1, 2])
         .on("zoom", function () {
           store.dispatch(transformViewPort(event.transform));
         })
@@ -107,7 +106,9 @@ function mapStateToProps(state) {
         messageLog: state.vm.messageLog,
         messageQueue: state.vm.messageQueue,
         frontIndex: state.diagram.frontElementIndex,
-        transform: state.diagram.transform
+        transform: state.diagram.transform,
+        width: state.panels['root-panel'] || 400,
+        height: state.panels['vis-panel'] || 500
     };
 }
 

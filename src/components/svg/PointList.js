@@ -2,18 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Point from './Point';
 
-const PointList = ({ timeSpan, margin, messageLog, width, actors }) => {
+const PointList = ({ timeSpan, margin, messageLog, width, actors, history }) => {
+  var currentTime = history;
   return <g>{
-    messageLog.map((msg, index) => {
+    messageLog.concat().reverse().map((msg, index) => {
       var actor;
-      if( messageLog.length - 1 === index )
+      if( index === 0 ) {
         actor = actors[msg.to];
-      else
-        actor = history[index + 1].actors[msg.to];
+      } else {
+        actor = currentTime.actors[msg.to];
+        currentTime = currentTime._prev;
+      }
 
-      return <Point cx={ width / actor.length * msg.to }
-        cy={ (index + 1) * timeSpan + margin }
-        backCount={messageLog.length - index - 1}
+      return <Point cx={ width / actors.length * msg.to }
+        cy={ (messageLog.length - index) * timeSpan + margin }
+        backCount={index}
         actor={actor} key={msg.uid} />;
     })
   }</g>;
@@ -21,6 +24,7 @@ const PointList = ({ timeSpan, margin, messageLog, width, actors }) => {
 function mapStateToProps(state) {
   return {
     actors: state.vm.actors,
+    history: state.vm.history,
     messageLog: state.vm.messageLog,
     width: state.panels['root-panel'],
     timeSpan: state.diagram.timeSpan,

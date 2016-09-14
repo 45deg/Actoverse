@@ -1,7 +1,9 @@
+import { times, constant, get, defaultTo } from 'lodash';
+
 function initState(){
     return {
         actors : [],
-        history : [],
+        history : {},
         lastPid : 0,
         clock : 0,
         messageQueue: [],
@@ -49,10 +51,11 @@ const vm = (state = initState(), action) => {
             let msgIndex = messageQueue.findIndex(m => m.uid === action.uid);
             if(msgIndex < 0) return state;
             return Object.assign({}, state, { 
-                history: [...history, {
+                history: {
                     actors: actors.map(e => e.clone()),
-                    queue: messageQueue.concat()
-                }],
+                    queue: messageQueue.concat(),
+                    _prev: history
+                },
                 actors: actors.concat(),
                 messageLog: [...messageLog, messageQueue[msgIndex]],
                 messageQueue: remove(messageQueue, msgIndex),
@@ -60,10 +63,11 @@ const vm = (state = initState(), action) => {
             });
         case 'ACTOR_BACK':
             if(action.count === 0) return state;
-            let count = action.count || 1;
-            let point = history[history.length - count];
+            let count = defaultTo(action.count,1);
+            // point = history._prev._prev [... count times ...] ._prev
+            let point = get(history, times(count, constant('_prev')));
             return Object.assign({}, state, { 
-                history: history.slice(0, -count),
+                history: point,
                 actors: point.actors,
                 messageQueue: point.queue,
                 messageLog: messageLog.slice(0, -count),

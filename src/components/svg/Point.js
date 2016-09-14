@@ -10,7 +10,6 @@ import { showToolTip, hideToolTip } from '../../actions/diagram';
 
 function mapStateToProps(state) {
     return {
-        clock: state.vm.clock,
         actors: state.vm.actors,
         history: state.vm.history,
     };

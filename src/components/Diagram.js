@@ -7,7 +7,7 @@ import PointList from './svg/PointList';
 import MessageList from './svg/MessageList';
 import DiagramScroller from './DiagramScroller';
 
-const Diagram = ({ timeSpan, messageNum, width }) => {
+const Diagram = ({ timeSpan, messageNum }) => {
     var margin = 40;
     return (<DiagramScroller>
       <svg width="100%" height={(messageNum + 1) * timeSpan + margin + 10}>

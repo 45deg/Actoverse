@@ -100,8 +100,21 @@ html, body {
   margin: 0.5em 5px;
 }
 
-.vis-panel > .Pane2 {
-  overflow: scroll;
+.Pane {
+  display: flex;
+}
+.tab {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.tab .tab-controller {
+  flex: 0 0 auto;
+  height: 30px;
+}
+.tab .tab-page {
+  flex: 1 1 0%;
+  overflow-y: scroll;
 }
 
 /* table */
@@ -124,10 +137,6 @@ html, body {
 }
 
 /* debug panel */
-.debug-panel .tab-page {
-  overflow:auto;
-  height:220px;
-}
 .btn-control {
   padding: 0.4em 1em;
   background-color: #fff;
@@ -149,8 +158,8 @@ html, body {
 }
 
 /* table fro deug */
-.debug-panel .stripe-table { border:none; }
-.debug-panel .stripe-table thead tr { border-bottom:1px solid #CCC; }
+#debug-panel .stripe-table { border:none; }
+#debug-panel .stripe-table thead tr { border-bottom:1px solid #CCC; }
 
 /* Resizer */
 

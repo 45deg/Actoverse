@@ -22,14 +22,14 @@ class Root extends React.Component {
             <SplitPane split="vertical" className="root-panel" primary="second" defaultSize={400}>
                 <SplitPane split="horizontal" className="editor-panel" defaultSize="70%">
                     <Editor />
-                    <Tab className="debug-panel">
+                    <Tab id="debug-panel">
                         <Page label="Step"><StepField /></Page>
                         <Page label="Auto">not implemented</Page>
                     </Tab>
                 </SplitPane>
                 <SplitPane split="horizontal" className="vis-panel" defaultSize={500}>
                     <Diagram />
-                    <Tab className="inspector">
+                    <Tab id="inspector">
                         <Page label="Status"><StatusPanel /></Page>
                         <Page label="History"><HistoryPanel /></Page>
                         <Page label="Config"><ConfigPanel /></Page>

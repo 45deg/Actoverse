@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { moveToFront } from '../../actions/diagram';
 
-const ElementArranger = ({ front, moveToFront, children }) => {
+const ElementArranger = ({ frontKey, moveToFront, children }) => {
   var newChildren = children.concat();
-  console.log(front);
-  if (front >= 0) {
-    newChildren.push(newChildren.splice(front, 1)[0]);
+  var frontIndex = newChildren.findIndex(e => e.key === frontKey);
+  if (frontIndex >= 0) {
+    newChildren.push(newChildren.splice(frontIndex, 1)[0]); // pop to front
   }
   return <g>{
-    newChildren.map((child, index) =>
+    newChildren.map((child) =>
       React.cloneElement(child, {
-        onMouseOver: () => { moveToFront(index) },
-        style: { opacity: 0.8 }
+        onMouseOver: () => moveToFront(child.key)
       })
     )
   }</g>;
@@ -20,7 +19,7 @@ const ElementArranger = ({ front, moveToFront, children }) => {
 
 function mapStateToProps(state) {
   return {
-    front: state.diagram.frontElementIndex
+    frontKey: state.diagram.frontElementIndex
   };
 }
 

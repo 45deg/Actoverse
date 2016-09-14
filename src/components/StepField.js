@@ -13,13 +13,12 @@ const StepField = ({ step, back, sendAll, messages, actors, clock }) => {
             messages.map((msg, index) => 
                 <input type="button" className="btn-control" key={msg.uid}
                     value={`${msg.from}-(${JSON.stringify(msg.data)})->${msg.to}`}
-                    onClick={() => step(actors, msg)} />
+                    onClick={() => step(index)} />
             )
         }
         </p>
         <p>
-            { messages.length > 0 ? <input type="button" className="btn-control" value="flush" onClick={
-                () => sendAll(messages)} /> : null}
+            { messages.length > 0 ? <input type="button" className="btn-control" value="flush" onClick={sendAll} /> : null}
             { clock > 0 ? <input type="button" className="btn-control" value="back" onClick={back} /> : null}
         </p>
     </form>);
@@ -51,4 +50,13 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StepField);
+
+function mergeProps(stateProps, dispatchProps, ownProps) {
+  return Object.assign({}, ownProps, dispatchProps, stateProps, {
+    step: (index) => dispatchProps.step(stateProps.actors, stateProps.messages[index]),
+    sendAll: () => dispatchProps.sendAll(stateProps.messages)
+  })
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(StepField);

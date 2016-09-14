@@ -4,22 +4,24 @@ import { moveToFront } from '../../actions/diagram';
 
 const ElementArranger = ({ front, moveToFront, children }) => {
   var newChildren = children.concat();
-  if(front >= 0) {
+  console.log(front);
+  if (front >= 0) {
     newChildren.push(newChildren.splice(front, 1)[0]);
   }
   return <g>{
-    newChildren.map((child, index) => 
-      React.cloneElement(child, { 
-        onMouseOver: () => { moveToFront(index) }
+    newChildren.map((child, index) =>
+      React.cloneElement(child, {
+        onMouseOver: () => { moveToFront(index) },
+        style: { opacity: 0.8 }
       })
     )
   }</g>;
 };
 
 function mapStateToProps(state) {
-    return {
-        front: state.diagram.frontElementIndex
-    };
+  return {
+    front: state.diagram.frontElementIndex
+  };
 }
 
 function mapDispatchToProps(dispatch) {

@@ -3,34 +3,24 @@
 import Message from './Message';
 import { connect } from 'react-redux';
 
-import { stepActor } from '../../actions/vm';
-import { scrollTo } from '../../actions/diagram';
+import sendMessage from '../../helpers/send-message';
 
 function mapStateToProps(state) {
-    return { 
-        actors: state.vm.actors,
-        messageQueue: state.vm.messageQueue,
-        height: state.panels['vis-panel']
-    };
+  return {
+    messageQueue: state.vm.messageQueue,
+  };
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    onClickDispatch: (actors, msg, height) => {
-      var target = actors[msg.to];
-      dispatch(stepActor(msg.uid));
-      target[target._state](...msg.data);
-      dispatch(scrollTo(ownProps.toY));
-    }
+    onClick: (msg) => sendMessage(msg)
   };
 }
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
   return Object.assign({}, ownProps, {
-    onClick: () => dispatchProps.onClickDispatch(
-      stateProps.actors,
+    onClick: () => dispatchProps.onClick(
       stateProps.messageQueue.find(msg => msg.uid === ownProps.id),
-      stateProps.height
     )
   })
 }

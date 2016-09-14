@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-import { stepActor, backActor } from '../actions/vm';
+import sendMessage from '../helpers/send-message';
+import { backActor } from '../actions/vm';
 import store from '../store';
 
 // maybe this is called container
@@ -34,17 +34,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    step: (actors, msg) => {
-      var target = actors[msg.to];
-      dispatch(stepActor(msg.uid));
-      target[target._state](...msg.data);
-    },
+    step: (msg) => sendMessage(msg),
     sendAll: (messages) => {
-      messages.forEach((msg) => {
-        var target = store.getState().vm.actors[msg.to];
-        dispatch(stepActor(msg.uid));
-        target[target._state](...msg.data);
-      });
+      messages.forEach((msg) => sendMessage(msg));
     },
     back: () => dispatch(backActor())
   };
@@ -53,10 +45,9 @@ function mapDispatchToProps(dispatch) {
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
   return Object.assign({}, ownProps, dispatchProps, stateProps, {
-    step: (index) => dispatchProps.step(stateProps.actors, stateProps.messages[index]),
+    step: (index) => dispatchProps.step(stateProps.messages[index]),
     sendAll: () => dispatchProps.sendAll(stateProps.messages)
   })
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(StepField);

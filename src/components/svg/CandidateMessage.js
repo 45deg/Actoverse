@@ -18,7 +18,7 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     onClickDispatch: (actors, msg, height) => {
       var target = actors[msg.to];
-      dispatch(stepActor(ownProps.index));
+      dispatch(stepActor(msg.uid));
       target[target._state](...msg.data);
       dispatch(scrollTo(ownProps.toY));
     }
@@ -29,7 +29,7 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
   return Object.assign({}, ownProps, {
     onClick: () => dispatchProps.onClickDispatch(
       stateProps.actors,
-      stateProps.messageQueue[ownProps.index],
+      stateProps.messageQueue.find(msg => msg.uid === ownProps.id),
       stateProps.height
     )
   })

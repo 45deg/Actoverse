@@ -19,10 +19,10 @@ export function spawnActor(actor, args){
     };
 }
 
-export function stepActor(msgIndex){
+export function stepActor(uid){
     return {
         type: 'ACTOR_STEP',
-        msgIndex
+        uid
     }
 }
 

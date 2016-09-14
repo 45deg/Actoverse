@@ -13,7 +13,7 @@ const StepField = ({ step, back, sendAll, messages, actors, clock }) => {
             messages.map((msg, index) => 
                 <input type="button" className="btn-control" key={msg.uid}
                     value={`${msg.from}-(${JSON.stringify(msg.data)})->${msg.to}`}
-                    onClick={() => step(actors, msg, index)} />
+                    onClick={() => step(actors, msg)} />
             )
         }
         </p>
@@ -35,17 +35,15 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    step: (actors, msg, index) => {
+    step: (actors, msg) => {
       var target = actors[msg.to];
-      dispatch(stepActor(index));
+      dispatch(stepActor(msg.uid));
       target[target._state](...msg.data);
     },
     sendAll: (messages) => {
       messages.forEach((msg) => {
         var target = store.getState().vm.actors[msg.to];
-        var index = store.getState().vm.messageQueue.findIndex(m => m.uid === msg.uid);
-        console.log(index);
-        dispatch(stepActor(index));
+        dispatch(stepActor(msg.uid));
         target[target._state](...msg.data);
       });
     },

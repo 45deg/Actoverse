@@ -46,14 +46,16 @@ const vm = (state = initState(), action) => {
                 lastPid: lastPid + 1
             });
         case 'ACTOR_STEP':
+            let msgIndex = messageQueue.findIndex(m => m.uid === action.uid);
+            if(msgIndex < 0) return state;
             return Object.assign({}, state, { 
                 history: [...history, {
                     actors: actors.map(e => e.clone()),
                     queue: messageQueue.concat()
                 }],
                 actors: actors.concat(),
-                messageLog: [...messageLog, messageQueue[action.msgIndex]],
-                messageQueue: remove(messageQueue, action.msgIndex),
+                messageLog: [...messageLog, messageQueue[msgIndex]],
+                messageQueue: remove(messageQueue, msgIndex),
                 clock: clock + 1
             });
         case 'ACTOR_BACK':

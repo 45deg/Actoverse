@@ -6,13 +6,16 @@ import ElementArranger from './ElementArranger';
 
 const MessageList = ({ timeSpan, margin, messageLog, messageQueue, width, actorNum, messageFlag }) => {
   return <ElementArranger>{
-      messageLog
+    messageLog
       .concat(messageQueue.map((m, i) =>
-        Object.assign({}, m, { candidate: true, originalIndex: i }))
+        Object.assign({}, m, { candidate: true }))
       )
       .map((msg, index) => {
         var xSpan = width / actorNum;
         var props = {
+          id: msg.uid,
+          key: msg.uid,
+          text: JSON.stringify(msg.data),
           fromX: xSpan * msg.from,
           fromY: msg.timestamp * timeSpan + margin,
           toX: xSpan * msg.to,
@@ -21,9 +24,9 @@ const MessageList = ({ timeSpan, margin, messageLog, messageQueue, width, actorN
           className: [msg.candidate ? 'candidate' : 'log', messageFlag ? '' : 'hide-message'].join(' '),
         };
         if (msg.candidate)
-          return <CandidateMessage {...props} id={msg.uid} index={msg.originalIndex} key={msg.uid} text={JSON.stringify(msg.data) } />;
+          return <CandidateMessage {...props} />;
         else
-          return <Message {...props} id={msg.uid} key={msg.uid} text={JSON.stringify(msg.data) } />;
+          return <Message {...props} />;
       })
   }</ElementArranger>;
 }

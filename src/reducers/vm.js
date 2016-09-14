@@ -66,7 +66,6 @@ const vm = (state = initState(), action) => {
             let count = defaultTo(action.count, 1);
             // point = history._prev._prev [... count times ...] ._prev
             let point = get(history, times(count - 1, constant('_prev')), history);
-            console.log(JSON.stringify(point.queue), JSON.stringify(history));
             return Object.assign({}, state, { 
                 history: point._prev,
                 actors: point.actors,

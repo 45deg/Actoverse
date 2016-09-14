@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateTimeSpan, toggleMessage } from '../actions/diagram';
 
-const ConfigPanel = ({ size, messageFlag, updateTimeSpan, toggleMessage }) => {
+const ConfigPanel = ({ size, width, messageFlag, updateTimeSpan, toggleMessage }) => {
   return (<div id="config-panel">
     <p>
       <input type="checkbox" id="toggle-message" checked={messageFlag}
@@ -10,7 +10,7 @@ const ConfigPanel = ({ size, messageFlag, updateTimeSpan, toggleMessage }) => {
         <label htmlFor="toggle-message">Show all messages</label>
     </p>
     <p>
-      Interval size: <input type="range" min="1" max="100" value={size}
+      Interval size: <input type="range" min="1" max={width/3} value={size}
                        onChange={e => updateTimeSpan(e.target.value)} />
         <span>{size}</span>
     </p>
@@ -20,6 +20,7 @@ const ConfigPanel = ({ size, messageFlag, updateTimeSpan, toggleMessage }) => {
 function mapStateToProps(state) {
     return {
         size: state.diagram.timeSpan,
+        width: state.panels['root-panel'],
         messageFlag: state.diagram.showMessage,
     };
 }

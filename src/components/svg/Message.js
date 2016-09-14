@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
 const Message = ({ fromX, fromY, toX, toY, className, text, id,
     onClick, onMouseOver }) => {
   return (<g className={className} onClick={onClick} onMouseOver={onMouseOver}>
@@ -20,4 +18,4 @@ const Message = ({ fromX, fromY, toX, toY, className, text, id,
   </g>);
 };
 
-export default connect()(Message);
+export default Message;

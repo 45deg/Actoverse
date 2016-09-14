@@ -14,6 +14,10 @@ export function scrollTo(value){
     return { type: 'SCROLL_TO', value };
 }
 
-export function timeSpan(value){
+export function updateTimespan(value){
     return { type: 'UPDATE_TIMESPAN', value };
+}
+
+export function toggleMessage(value){
+    return { type: 'TOGGLE_MESSAGE', value };
 }

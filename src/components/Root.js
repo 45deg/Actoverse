@@ -6,8 +6,11 @@ import Page from './Page';
 import Tab from './Tab';
 import StepField from './StepField';
 import Diagram from './Diagram';
+
 import StatusPanel from './StatusPanel';
 import HistoryPanel from './HistoryPanel';
+import ConfigPanel from './ConfigPanel';
+
 import ToolTip from './ToolTip';
 import SplitPane from './SplitPane';
 
@@ -29,6 +32,7 @@ class Root extends React.Component {
                     <Tab className="inspector">
                         <Page label="Status"><StatusPanel /></Page>
                         <Page label="History"><HistoryPanel /></Page>
+                        <Page label="Config"><ConfigPanel /></Page>
                     </Tab>
                 </SplitPane>
             </SplitPane>

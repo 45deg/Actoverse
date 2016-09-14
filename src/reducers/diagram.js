@@ -20,6 +20,8 @@ const diagram = (state = initState(), action) => {
             return Object.assign({}, state, { tooltip: false });
         case 'SCROLL_TO':
             return Object.assign({}, state, { scrollValue: action.value });
+        case 'UPDATE_TIMESPAN':
+            return Object.assign({}, state, { timeSpan: action.value });
         default:
             return state;
     }

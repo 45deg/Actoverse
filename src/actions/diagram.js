@@ -13,3 +13,7 @@ export function hideToolTip(){
 export function scrollTo(value){
     return { type: 'SCROLL_TO', value };
 }
+
+export function timeSpan(value){
+    return { type: 'UPDATE_TIMESPAN', value };
+}

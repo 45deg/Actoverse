@@ -84,6 +84,7 @@ html, body {
   width:150px;
   margin-left:-70px;
   margin-top:10px;
+  z-index: 1000;
 }
 #tooptip div {
   white-space: nowrap;

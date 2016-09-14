@@ -14,7 +14,7 @@ export function scrollTo(value){
     return { type: 'SCROLL_TO', value };
 }
 
-export function updateTimespan(value){
+export function updateTimeSpan(value){
     return { type: 'UPDATE_TIMESPAN', value };
 }
 

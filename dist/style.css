@@ -74,6 +74,9 @@ html, body {
 #canvas .candidate:hover text { fill: red;  }
 #canvas .candidate:hover path { stroke: red; marker-end: url(#arrowhead-hover); }
 
+.hide-message text { visibility: hidden; }
+.hide-message:hover text { visibility: visible; }
+
 #tooltip {
   position:absolute;
   cursor:default;

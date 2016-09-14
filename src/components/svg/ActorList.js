@@ -18,7 +18,8 @@ function mapStateToProps(state) {
   return {
     actors: state.vm.actors,
     messageNum: state.vm.messageLog.length,
-    width: state.panels['root-panel']
+    width: state.panels['root-panel'],
+    timeSpan: state.diagram.timeSpan,
   };
 }
 

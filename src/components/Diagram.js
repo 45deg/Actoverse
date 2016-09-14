@@ -7,14 +7,13 @@ import PointList from './svg/PointList';
 import MessageList from './svg/MessageList';
 import DiagramScroller from './DiagramScroller';
 
-const Diagram = ({ messageNum, width }) => {
+const Diagram = ({ timeSpan, messageNum, width }) => {
     var margin = 40;
-    var timeSpan = width / 8;
     return (<DiagramScroller>
       <svg width="100%" height={(messageNum + 1) * timeSpan + margin + 10}>
-        <ActorList timeSpan={timeSpan} margin={margin} />
-        <MessageList timeSpan={timeSpan} margin={margin} />
-        <PointList timeSpan={timeSpan} margin={margin} />
+        <ActorList margin={margin} />
+        <MessageList margin={margin} />
+        <PointList margin={margin} />
         <defs>
           <MarkerDef color="#000" id="arrowhead-normal" />
           <MarkerDef color="#F00" id="arrowhead-hover" />
@@ -27,7 +26,8 @@ const Diagram = ({ messageNum, width }) => {
 function mapStateToProps(state) {
   return {
     messageNum: state.vm.messageLog.length,
-    width: state.panels['root-panel']
+    width: state.panels['root-panel'],
+    timeSpan: state.diagram.timeSpan,
   };
 }
 

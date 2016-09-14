@@ -4,7 +4,7 @@ import Message from './Message';
 import CandidateMessage from './CandidateMessage';
 import ElementArranger from './ElementArranger';
 
-const PointList = ({ timeSpan, margin, messageLog, messageQueue, width, actorNum }) => {
+const MessageList = ({ timeSpan, margin, messageLog, messageQueue, width, actorNum }) => {
   return <ElementArranger>{
       messageLog
       .concat(messageQueue.map((m, i) =>
@@ -36,4 +36,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(PointList);
+export default connect(mapStateToProps)(MessageList);

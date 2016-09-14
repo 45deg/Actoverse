@@ -5,7 +5,7 @@ import MarkerDef from './svg/MarkerDef';
 import Actor from './svg/Actor';
 import Message from './svg/Message';
 import CandidateMessage from './svg/CandidateMessage';
-import Point from './svg/Point';
+import PointList from './svg/PointList';
 import ElementArranger from './svg/ElementArranger';
 import DiagramScroller from './DiagramScroller';
 
@@ -37,6 +37,7 @@ class Diagram extends Component {
                          key={i} />
                 )
               }
+
               <ElementArranger>
               {
                 /* this is a little bloated so should be separated from Diagram */
@@ -61,14 +62,7 @@ class Diagram extends Component {
                 })
               }
               </ElementArranger>
-              {
-                messageLog.map((msg, index) =>  
-                  <Point cx={width / actors.length * msg.to}
-                         cy={(index + 1) * timeSpan + margin} 
-                         backCount={messageLog.length - index - 1}
-                         actorPid={msg.to} key={index} />
-                )
-              }
+              <PointList timeSpan={timeSpan} margin={margin} />
               <defs>
                 <MarkerDef color="#000" id="arrowhead-normal" />
                 <MarkerDef color="#F00" id="arrowhead-hover" />

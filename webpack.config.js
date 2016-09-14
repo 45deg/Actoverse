@@ -11,7 +11,6 @@ module.exports = {
     publicPath: '/dist/', // Required for webpack-dev-server
     filename: 'bundle.js'
   },
-  watch: true,
   module: {
     loaders: [{
       test: /\.js$/,

@@ -21,7 +21,8 @@
     "webpack-dev-server": "^1.15.1"
   },
   "scripts": {
-    "start": "webpack-dev-server --inline"
+    "start": "webpack-dev-server --inline",
+    "build": "webpack --progress --profile --colors --optimize-minimize"
   },
   "author": "",
   "license": "ISC"

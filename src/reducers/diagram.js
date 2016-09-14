@@ -4,6 +4,7 @@ function initState(){
         tooltip: false,
         tooltipData: null,
         scrollValue: 0,
+        timeSpan: 50,
     };
 }
 

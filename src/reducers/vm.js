@@ -63,9 +63,9 @@ const vm = (state = initState(), action) => {
             });
         case 'ACTOR_BACK':
             if(action.count === 0) return state;
-            let count = defaultTo(action.count,1);
+            let count = defaultTo(action.count, 1);
             // point = history._prev._prev [... count times ...] ._prev
-            let point = get(history, times(count, constant('_prev')));
+            let point = defaultTo(get(history, times(count - 1, constant('_prev'))), history);
             return Object.assign({}, state, { 
                 history: point,
                 actors: point.actors,

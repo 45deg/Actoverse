@@ -21,7 +21,9 @@ const MessageList = ({ timeSpan, margin, messageLog, messageQueue, width, actorN
           toX: xSpan * msg.to,
           toY: msg.candidate ? (messageLog.length + 1) * timeSpan + margin
             : (index + 1) * timeSpan + margin,
-          className: [msg.candidate ? 'candidate' : 'log', messageFlag ? '' : 'hide-message'].join(' '),
+          className: [msg.candidate ? 'candidate' : 'log', 
+                      messageFlag ? '' : 'hide-message',
+                      msg.discard ? 'discard' : '' ].join(' '),
         };
         if (msg.candidate)
           return <CandidateMessage {...props} />;

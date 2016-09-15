@@ -1,5 +1,5 @@
 import store from '../store';
-import { stepActor } from '../actions/vm';
+import { stepActor, discardMessage as discardMessageAction } from '../actions/vm';
 import { scrollTo } from '../actions/diagram';
 
 export function sendMessage(message){
@@ -14,6 +14,6 @@ export function sendMessage(message){
 export function discardMessage(message){
   var { vm:{ messageLog }, diagram: {timeSpan} } = store.getState();
   var scrollValue = (messageLog.length + 1) * timeSpan + 40;
-  store.dispatch(stepActor(message.uid));
+  store.dispatch(discardMessageAction(message.uid));
   store.dispatch(scrollTo(scrollValue));
 }

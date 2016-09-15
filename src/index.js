@@ -7,6 +7,7 @@ import Root from './js/components/Root';
 import { mountGlobalObject } from './js/global';
 
 import 'css/base';
+import 'bootstrap/dist/css/bootstrap';
 
 ReactDOM.render(
   <Provider store={store}>

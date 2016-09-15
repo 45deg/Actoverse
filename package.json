@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "lodash": "^4.15.0",
     "react": "^15.3.1",
     "react-ace": "^3.5.0",
@@ -23,6 +24,7 @@
     "less-loader": "^2.2.3",
     "react-hot-loader": "^3.0.0-beta.3",
     "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.15.1"
   },

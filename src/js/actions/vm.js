@@ -26,9 +26,9 @@ export function spawnActor(actor, args){
     };
 }
 
-export function stepActor(uid){
+export function sendMessage(uid){
     return {
-        type: 'ACTOR_STEP',
+        type: 'SEND_MESSAGE',
         uid
     }
 }

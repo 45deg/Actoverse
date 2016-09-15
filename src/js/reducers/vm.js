@@ -47,7 +47,7 @@ const vm = (state = initState(), action) => {
                 actors : replace(state.actors, lastPid + 1, newActor),
                 lastPid: lastPid + 1
             });
-        case 'ACTOR_STEP':
+        case 'SEND_MESSAGE':
             let msgIndex = messageQueue.findIndex(m => m.uid === action.uid);
             if(msgIndex < 0) return state;
             return Object.assign({}, state, { 

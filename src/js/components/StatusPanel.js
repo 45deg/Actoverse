@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { groupBy, toPairs, keys } from 'lodash';
-import Table from './Table';
+import DataTable from './DataTable';
 
 const StatusPanel = ({actors}) => {
   if(actors.length <= 1) return <div />;
@@ -13,7 +13,7 @@ const StatusPanel = ({actors}) => {
       { text: 'Pid', name: 'pid' },
       { text: 'Listening', name: '_state' }
     ].concat(members);
-    return <Table key={name} caption={name} headers={headers} elements={instances} />;
+    return <DataTable key={name} caption={name} headers={headers} elements={instances} />;
   })}</div>;
 }
 

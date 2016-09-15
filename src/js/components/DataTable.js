@@ -1,7 +1,7 @@
 import React from 'react';
 import 'css/table';
 
-const Table = ({ elements, caption, headers }) => {
+const DataTable = ({ elements, caption, headers }) => {
   return (<table className="stripe-table">
             { caption !== undefined ? <caption>{caption}</caption> : null  }
             <thead><tr>
@@ -18,4 +18,4 @@ const Table = ({ elements, caption, headers }) => {
            </table>);
 }
 
-export default Table;
+export default DataTable;

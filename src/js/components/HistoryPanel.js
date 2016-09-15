@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Table from './Table';
+import DataTable from './DataTable';
 
 const HistoryPanel = ({ messageLog }) => {
-  return <Table key={name} caption={name} headers={[
+  return <DataTable key={name} caption={name} headers={[
     { text: '#', name: 'index' },
     { text: 'From', name : 'from' },
     { text: 'To', name: 'to' },

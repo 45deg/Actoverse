@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import MarkerDef from './svg/MarkerDef';
-import ActorList from './svg/ActorList';
-import PointList from './svg/PointList';
-import MessageList from './svg/MessageList';
+import MarkerDef from './diagram/MarkerDef';
+import ActorList from './diagram/ActorList';
+import PointList from './diagram/PointList';
+import MessageList from './diagram/MessageList';
 import DiagramScroller from './DiagramScroller';
 
 const Diagram = ({ timeSpan, messageNum }) => {

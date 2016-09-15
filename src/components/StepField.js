@@ -27,6 +27,9 @@ const StepField = ({ step, back, sendAll, sendAllRandomly, messages, actors, clo
               : null}
             { clock > 0 ? <input type="button" className="btn-control" value="back" onClick={back} /> : null}
         </p>
+        <p>
+          <input type="button" className="btn-control" value="store" />
+        </p>
     </form>);
 }
 

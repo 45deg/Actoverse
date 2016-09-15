@@ -4,7 +4,7 @@ import Message from './Message';
 import CandidateMessage from './CandidateMessage';
 import ElementArranger from './ElementArranger';
 
-const MessageList = ({ timeSpan, margin, messageLog, messageQueue, width, actorNum, messageFlag }) => {
+const MessageList = ({ timeInterval, margin, messageLog, messageQueue, width, actorNum, messageFlag }) => {
   return <ElementArranger>{
     messageLog
       .concat(messageQueue.map((m, i) =>
@@ -17,10 +17,10 @@ const MessageList = ({ timeSpan, margin, messageLog, messageQueue, width, actorN
           key: msg.uid,
           text: JSON.stringify(msg.data),
           fromX: xSpan * msg.from,
-          fromY: msg.timestamp * timeSpan + margin,
+          fromY: msg.timestamp * timeInterval + margin,
           toX: xSpan * msg.to,
-          toY: msg.candidate ? (messageLog.length + 1) * timeSpan + margin
-            : (index + 1) * timeSpan + margin,
+          toY: msg.candidate ? (messageLog.length + 1) * timeInterval + margin
+            : (index + 1) * timeInterval + margin,
           className: [msg.candidate ? 'candidate' : 'log', 
                       messageFlag ? '' : 'hide-message',
                       msg.discard ? 'discard' : '' ].join(' '),
@@ -38,7 +38,7 @@ function mapStateToProps(state) {
     messageLog: state.vm.messageLog,
     messageQueue: state.vm.messageQueue,
     width: state.panels['root-panel'],
-    timeSpan: state.diagram.timeSpan,
+    timeInterval: state.diagram.timeInterval,
     messageFlag: state.diagram.showMessage,
   };
 }

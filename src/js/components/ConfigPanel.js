@@ -28,7 +28,7 @@ const ConfigPanel = ({ size, width, messageFlag, updateTimeSpan, toggleMessage }
 
 function mapStateToProps(state) {
     return {
-        size: state.diagram.timeSpan,
+        size: state.diagram.timeInterval,
         width: state.panels['root-panel'],
         messageFlag: state.diagram.showMessage,
     };

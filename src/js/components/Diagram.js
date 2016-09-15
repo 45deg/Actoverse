@@ -9,10 +9,10 @@ import DiagramScroller from './DiagramScroller';
 
 import 'css/diagram';
 
-const Diagram = ({ timeSpan, messageNum }) => {
+const Diagram = ({ timeInterval, messageNum }) => {
     var margin = 40;
     return (<DiagramScroller>
-      <svg width="100%" height={(messageNum + 1) * timeSpan + margin + 10}>
+      <svg width="100%" height={(messageNum + 1) * timeInterval + margin + 10}>
         <ActorList margin={margin} />
         <MessageList margin={margin} />
         <PointList margin={margin} />
@@ -29,7 +29,7 @@ function mapStateToProps(state) {
   return {
     messageNum: state.vm.messageLog.length,
     width: state.panels['root-panel'],
-    timeSpan: state.diagram.timeSpan,
+    timeInterval: state.diagram.timeInterval,
   };
 }
 

@@ -3,7 +3,7 @@ function initState(){
         frontElementIndex: -1,
         tooltipData: null,
         scrollValue: 0,
-        timeSpan: 50,
+        timeInterval: 50,
         showMessage: true,
     };
 }
@@ -19,7 +19,7 @@ const diagram = (state = initState(), action) => {
         case 'SCROLL_TO':
             return Object.assign({}, state, { scrollValue: action.value });
         case 'UPDATE_TIMESPAN':
-            return Object.assign({}, state, { timeSpan: action.value });
+            return Object.assign({}, state, { timeInterval: action.value });
         case 'TOGGLE_MESSAGE':
             return Object.assign({}, state, { showMessage: action.value })
         default:

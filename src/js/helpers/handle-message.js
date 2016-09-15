@@ -3,17 +3,17 @@ import { sendMessage as sendMessageAction , discardMessage as discardMessageActi
 import { scrollTo } from '../actions/diagram';
 
 export function sendMessage(message){
-  var { vm:{ actors, messageLog }, diagram: {timeSpan} } = store.getState();
+  var { vm:{ actors, messageLog }, diagram: {timeInterval} } = store.getState();
   var target = actors[message.to];
-  var scrollValue = (messageLog.length + 1) * timeSpan + 40;
+  var scrollValue = (messageLog.length + 1) * timeInterval + 40;
   store.dispatch(sendMessageAction(message.uid));
   target[target._state](...message.data);
   store.dispatch(scrollTo(scrollValue));
 }
 
 export function discardMessage(message){
-  var { vm:{ messageLog }, diagram: {timeSpan} } = store.getState();
-  var scrollValue = (messageLog.length + 1) * timeSpan + 40;
+  var { vm:{ messageLog }, diagram: {timeInterval} } = store.getState();
+  var scrollValue = (messageLog.length + 1) * timeInterval + 40;
   store.dispatch(discardMessageAction(message.uid));
   store.dispatch(scrollTo(scrollValue));
 }

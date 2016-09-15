@@ -4,33 +4,33 @@ import sendMessage from '../helpers/send-message';
 import { backActor } from '../actions/vm';
 import store from '../store';
 import { shuffle } from 'lodash';
+import { ButtonToolbar, ButtonGroup, Button, Glyphicon } from 'react-bootstrap';
 
 import 'css/debug';
 
 const StepField = ({ step, back, sendAll, sendAllRandomly, messages, actors, clock }) => {
-  return (<form id="controller">
-        <p id="stepfield">
+  return (<div id="controller">
+        <div>
+          <ButtonGroup bsSize="small">
+            <Button onClick={sendAll} disabled={messages.length <= 0}>Flush</Button>
+            <Button onClick={sendAllRandomly} disabled={messages.length <= 0}>Flush (random)</Button>
+            <Button onClick={back} disabled={ clock <= 0 }>Back</Button>
+          </ButtonGroup>
+        </div>
+        <ButtonToolbar>
         {
             messages.map((msg, index) => 
-                <input type="button" className="btn-control" key={msg.uid}
-                    value={`${msg.from}-(${JSON.stringify(msg.data)})->${msg.to}`}
-                    onClick={() => step(index)} />
+                <ButtonGroup key={msg.uid} bsSize="small">
+                  <Button onClick={() => step(index)}>{`${msg.from}-(${JSON.stringify(msg.data)})->${msg.to}`}</Button>
+                  <Button><Glyphicon glyph="remove" /></Button>
+                </ButtonGroup>
             )
         }
-        </p>
+        </ButtonToolbar>
         <p>
-            { messages.length > 0 ? 
-                <span>
-                 <input type="button" className="btn-control" value="flush" onClick={sendAll} />
-                 <input type="button" className="btn-control" value="flush (random)" onClick={sendAllRandomly} />
-                </span>
-              : null}
-            { clock > 0 ? <input type="button" className="btn-control" value="back" onClick={back} /> : null}
+          <input type="button" className="btn btn-default" value="store" />
         </p>
-        <p>
-          <input type="button" className="btn-control" value="store" />
-        </p>
-    </form>);
+    </div>);
 }
 
 function mapStateToProps(state) {

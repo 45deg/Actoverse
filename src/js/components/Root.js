@@ -14,6 +14,8 @@ import ConfigPanel from './ConfigPanel';
 import ToolTip from './ToolTip';
 import SplitPane from './SplitPane';
 
+import 'css/resizer';
+
 class Root extends React.Component {
     render(){
         return (<div id="wrapper">

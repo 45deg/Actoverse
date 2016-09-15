@@ -11,6 +11,13 @@ export function sendMessage(from, to, args){
     };
 }
 
+export function discardMessage(uid){
+    return {
+        type: 'DISCARD_MESSAGE',
+        uid
+    };
+}
+
 export function spawnActor(actor, args){
     return {
         type: 'ACTOR_SPAWN',

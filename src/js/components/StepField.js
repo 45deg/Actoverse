@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import sendMessage from '../helpers/send-message';
+import { sendMessage,discardMessage } from '../helpers/handle-message';
 import { backActor } from '../actions/vm';
 import store from '../store';
 import { shuffle } from 'lodash';
@@ -8,7 +8,7 @@ import { ButtonToolbar, ButtonGroup, Button, Glyphicon } from 'react-bootstrap';
 
 import 'css/debug';
 
-const StepField = ({ step, back, sendAll, sendAllRandomly, messages, actors, clock }) => {
+const StepField = ({ step, back, sendAll, sendAllRandomly, discard, messages, actors, clock }) => {
   return (<div id="controller">
         <div>
           <ButtonGroup bsSize="small">
@@ -22,7 +22,7 @@ const StepField = ({ step, back, sendAll, sendAllRandomly, messages, actors, clo
             messages.map((msg, index) => 
                 <ButtonGroup key={msg.uid} bsSize="small">
                   <Button onClick={() => step(index)}>{`${msg.from}-(${JSON.stringify(msg.data)})->${msg.to}`}</Button>
-                  <Button><Glyphicon glyph="remove" /></Button>
+                  <Button onClick={() => discard(index)}><Glyphicon glyph="remove" /></Button>
                 </ButtonGroup>
             )
         }
@@ -48,7 +48,8 @@ function mapDispatchToProps(dispatch) {
       if(random) messages = shuffle(messages);
       messages.forEach((msg) => sendMessage(msg));
     },
-    back: () => dispatch(backActor())
+    back: () => dispatch(backActor()),
+    discard: (msg) => discardMessage(msg)
   };
 }
 
@@ -57,7 +58,8 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
   return Object.assign({}, ownProps, dispatchProps, stateProps, {
     step: (index) => dispatchProps.step(stateProps.messages[index]),
     sendAll: () => dispatchProps.sendAll(stateProps.messages, false),
-    sendAllRandomly: () => dispatchProps.sendAll(stateProps.messages, true)
+    sendAllRandomly: () => dispatchProps.sendAll(stateProps.messages, true),
+    discard: (index) => dispatchProps.discard(stateProps.messages[index]),
   })
 }
 

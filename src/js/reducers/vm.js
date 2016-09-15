@@ -73,6 +73,23 @@ const vm = (state = initState(), action) => {
                 messageLog: messageLog.slice(0, -count),
                 clock: clock - count
             });
+        case 'DISCARD_MESSAGE': {
+            let msgIndex = messageQueue.findIndex(m => m.uid === action.uid);
+            if(msgIndex < 0) return state;
+            return Object.assign({}, state, { 
+                history: {
+                    actors: actors.map(e => e.clone()),
+                    queue: messageQueue.concat(),
+                    _prev: history
+                },
+                actors: actors.concat(),
+                messageLog: [...messageLog, 
+                    Object.assign({discard: true}, messageQueue[msgIndex])
+                ],
+                messageQueue: remove(messageQueue, msgIndex),
+                clock: clock + 1
+            });
+        }
         default:
             return state;
     }

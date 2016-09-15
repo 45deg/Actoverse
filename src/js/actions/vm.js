@@ -2,9 +2,9 @@ export function initActor(code){
     return { type: 'ACTOR_INIT' };
 }
 
-export function sendMessage(from, to, args){
+export function enqueueMessage(from, to, args){
     return {
-        type: 'ACTOR_SEND',
+        type: 'ENQUEUE_MESSAGE',
         from,
         to,
         data: args

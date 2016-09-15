@@ -29,7 +29,7 @@ const vm = (state = initState(), action) => {
     switch(action.type) {
         case 'ACTOR_INIT':
             return initState();
-        case 'ACTOR_SEND':
+        case 'ENQUEUE_MESSAGE':
             let {from, to, data} = action;
             return Object.assign({}, state, { 
                 messageQueue:  [...state.messageQueue, {

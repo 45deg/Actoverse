@@ -1,5 +1,5 @@
 import {
-    sendMessage
+    enqueueMessage
 } from './actions/vm';
 import store from './store';
 
@@ -8,7 +8,7 @@ class Actor {
     this._state = "receive";
   }
   send(targetPid, ...args) {
-    store.dispatch(sendMessage(this.pid, targetPid, args));
+    store.dispatch(enqueueMessage(this.pid, targetPid, args));
   }
   become(listening) {
     this._state = listening;

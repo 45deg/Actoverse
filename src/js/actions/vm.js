@@ -20,7 +20,7 @@ export function discardMessage(uid){
 
 export function spawnActor(actor, args){
     return {
-        type: 'ACTOR_SPAWN',
+        type: 'SPAWN_ACTOR',
         actor,
         args
     };

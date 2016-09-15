@@ -39,7 +39,7 @@ const vm = (state = initState(), action) => {
                 }],
                 uid: state.uid + 1
             });
-        case 'ACTOR_SPAWN':
+        case 'SPAWN_ACTOR':
             var newActor = new action.actor(...action.args);
             newActor.pid = lastPid + 1;
             newActor._up = clock;

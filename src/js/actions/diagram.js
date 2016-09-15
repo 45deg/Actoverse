@@ -2,10 +2,6 @@ export function moveToFront(index){
     return { type: 'MOVE_TO_FRONT', index };
 }
 
-export function showToolTip(x, y, actor){
-    return { type: 'UPDATE_TOOLTIP', data: actor };
-}
-
 export function scrollTo(value){
     return { type: 'SCROLL_TO', value };
 }

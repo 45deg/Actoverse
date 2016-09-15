@@ -1,24 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import 'css/table';
+import Table from './Table';
 
 const HistoryPanel = ({ messageLog }) => {
-  return (<table className="stripe-table">
-            <thead><tr>
-              <th>#</th><th>From</th><th>To</th><th>Message</th>
-            </tr></thead>
-            <tbody>
-              {messageLog.map((msg, i) => 
-                <tr key={i}>
-                  <td>#{i + 1}</td>
-                  <td>{msg.from}</td>
-                  <td>{msg.to}</td>
-                  <td>{JSON.stringify(msg.data)}</td>
-                </tr>
-              )}
-            </tbody>
-           </table>);
+  return <Table key={name} caption={name} headers={[
+    { text: '#', name: 'index' },
+    { text: 'From', name : 'from' },
+    { text: 'To', name: 'to' },
+    { text: 'Message', name: 'data', json: true }
+  ]} elements={
+    messageLog.map((e, index) => Object.assign({}, e, { index }))
+  } />;
 }
 
 function mapStateToProps(state) {

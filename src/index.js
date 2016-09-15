@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import store from './store';
-import Root from './components/Root';
+import store from './js/store';
+import Root from './js/components/Root';
 
-import { mountGlobalObject } from './global';
+import { mountGlobalObject } from './js/global';
 
 ReactDOM.render(
   <Provider store={store}>

@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = {
   entry: [
-    './src/app.js'
+    './src/index'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -17,5 +17,9 @@ module.exports = {
       exclude: /node_modules/,
       loaders: ["babel-loader"]
     }]
+  },
+  resolve: {
+    extensions: ['', '.js', '.less'],
+    root: [path.join(__dirname, './src')]
   }
 }

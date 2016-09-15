@@ -7,7 +7,13 @@ export function sendMessage(message){
   var target = actors[message.to];
   var scrollValue = (messageLog.length + 1) * timeInterval + 40;
   store.dispatch(sendMessageAction(message.uid));
-  target[target._state](...message.data);
+  try {
+    target[target._state](...message.data);
+  } catch(e) {
+    let err = "An error occurred while evaluating the code.";
+    err += "\n\n[Message] " + e;
+    alert(err);
+  }
   store.dispatch(scrollTo(scrollValue));
 }
 

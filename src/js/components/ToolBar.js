@@ -23,7 +23,14 @@ function mapDispatchToProps(dispatch, ownProps) {
     return {
         submitCode : (code) => {
             dispatch(initActor());
-            (0,eval)(code);
+            eval(`
+try {(function(){
+    ${code}
+})()} catch(e) {
+    let err = "An error occurred while evaluating the code.";
+    err += "\\n\\n[Message] " + e;
+    alert(err);
+}`);
         }
     }
 }

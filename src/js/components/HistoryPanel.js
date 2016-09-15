@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import DataTable from './DataTable';
 
 const HistoryPanel = ({ messageLog }) => {
-  return <DataTable key={name} caption={name} headers={[
+  return <DataTable key={name} headers={[
     { text: '#', name: 'index' },
     { text: 'From', name : 'from' },
     { text: 'To', name: 'to' },

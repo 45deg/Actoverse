@@ -1,9 +1,11 @@
 import React from 'react';
+import { Table } from 'react-bootstrap';
+
 import 'css/table';
 
-const DataTable = ({ elements, caption, headers }) => {
-  return (<table className="stripe-table">
-            { caption !== undefined ? <caption>{caption}</caption> : null  }
+const DataTable = ({ elements, caption = null, headers }) => {
+  return (<Table striped bordered condensed hover className="datatable">
+            { caption !== null ? <caption>{caption}</caption> : null  }
             <thead><tr>
               {headers.map((header, i) => <th key={i}>{header.text}</th>)}
             </tr></thead>
@@ -15,7 +17,7 @@ const DataTable = ({ elements, caption, headers }) => {
                 }</td>)}</tr>
               )}
             </tbody>
-           </table>);
+           </Table>);
 }
 
 export default DataTable;

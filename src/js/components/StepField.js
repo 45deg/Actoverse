@@ -5,7 +5,7 @@ import { backActor } from '../actions/vm';
 import store from '../store';
 import { shuffle } from 'lodash';
 
-// maybe this is called container
+import 'css/debug';
 
 const StepField = ({ step, back, sendAll, sendAllRandomly, messages, actors, clock }) => {
   return (<form id="controller">

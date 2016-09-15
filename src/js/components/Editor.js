@@ -8,6 +8,8 @@ import {setCode, setEditor} from '../actions/editor';
 import 'brace/mode/javascript';
 import 'brace/theme/github';
 
+import 'css/editor';
+
 class Editor extends React.Component {
     render() {
         var { code, setEditor, setCode, editor} = this.props;

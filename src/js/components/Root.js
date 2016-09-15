@@ -14,6 +14,7 @@ import ConfigPanel from './ConfigPanel';
 import ToolTip from './ToolTip';
 import SplitPane from './SplitPane';
 
+import 'css/root';
 import 'css/resizer';
 
 class Root extends React.Component {

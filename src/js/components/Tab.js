@@ -1,6 +1,6 @@
 import React from 'react';
 
-// not redux
+import 'css/tabs';
 
 class Tab extends React.Component {
     constructor(props) {

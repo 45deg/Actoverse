@@ -7,6 +7,8 @@ import PointList from './diagram/PointList';
 import MessageList from './diagram/MessageList';
 import DiagramScroller from './DiagramScroller';
 
+import 'css/diagram';
+
 const Diagram = ({ timeSpan, messageNum }) => {
     var margin = 40;
     return (<DiagramScroller>

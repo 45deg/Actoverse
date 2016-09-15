@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { groupBy, toPairs, keys } from 'lodash';
 
+import 'css/table';
+
 const StatusPanel = ({actors}) => {
   if(actors.length <= 1) return <div />;
   var groups = toPairs(groupBy(actors.slice(1), 'constructor.name'));

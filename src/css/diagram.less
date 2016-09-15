@@ -1,0 +1,48 @@
+#canvas {
+  overflow-y: scroll;
+  background-color: #FFF;
+  text {
+    cursor: default;
+  }
+  .point  {
+    fill:black;
+    &:hover { fill: red; }
+  }
+
+  .log {
+    text { fill: black; }
+    path { stroke: black; marker-end: url(#arrowhead-normal); }
+  }
+
+  .candidate {
+    text { fill: #777;  }
+    path { stroke: #777; marker-end: url(#arrowhead-candidate); }
+    &:hover {
+      text { fill: red; }
+      path { stroke: red; marker-end: url(#arrowhead-hover); }
+    }
+  }
+
+  .hide-message text { 
+    visibility: hidden;
+    &:hover { visibility: visible; }
+  }
+}
+
+#tooltip {
+  position:absolute;
+  cursor:default;
+  font-size:12px;
+  background-color: rgba(0, 0, 0, .8);
+  color:white;
+  padding:3px;
+  width:150px;
+  margin-left:-70px;
+  margin-top:10px;
+  z-index: 1000;
+  div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

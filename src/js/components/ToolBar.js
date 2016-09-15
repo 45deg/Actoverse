@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 
 import {initActor} from '../actions/vm';
 
+import 'css/toolbar';
+
 const ToolBar = ({ code, submitCode }) => {
     var options = {
         mode: 'javascript',

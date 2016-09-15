@@ -19,7 +19,7 @@ module.exports = {
       loaders: ["babel-loader"]
     }, {
       test: /\.less$/,
-      loader: ExtractTextPlugin.extract("style", "css", "less")
+      loader: ExtractTextPlugin.extract('style-loader', 'css!less')
     }]
   },
   plugins: [

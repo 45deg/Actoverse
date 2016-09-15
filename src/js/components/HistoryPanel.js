@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import 'css/table';
+
 const HistoryPanel = ({ messageLog }) => {
   return (<table className="stripe-table">
             <thead><tr>

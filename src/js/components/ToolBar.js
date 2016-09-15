@@ -1,20 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import { Button, Glyphicon } from 'react-bootstrap';
 
 import {initActor} from '../actions/vm';
 
 import 'css/toolbar';
 
-const ToolBar = ({ code, submitCode }) => {
-    var options = {
-        mode: 'javascript',
-        lineNumbers: true
-    };
+const ToolBar = ({ submitCode }) => {
     return (<div className="toolbar-panel">
-            <form id="execute" onSubmit={e => {e.preventDefault(); submitCode(code)}}>
-                <input type="submit" value="Run" className="btn-submit" />
-            </form>
-        </div>);
+              <Button onClick={submitCode} bsStyle="primary" bsSize="large"><Glyphicon glyph="play" /> Run</Button>
+            </div>);
 };
 
 // separate this file 
@@ -32,5 +27,9 @@ function mapDispatchToProps(dispatch, ownProps) {
         }
     }
 }
+function mergeProps(stateProps, dispatchProps) {
+  return { submitCode : () => dispatchProps.submitCode(stateProps.code) };
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(ToolBar);
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(ToolBar);

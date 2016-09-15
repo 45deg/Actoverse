@@ -1,25 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Popover } from 'react-bootstrap';
 
-const ToolTip = ({ view, x, y, actor }) => {
-  if(!view) return null;
-  return (<div id="tooltip" style={{left: x + 'px', top: y + 'px'}}>
-    <div><strong>{actor.constructor.name}#{actor.pid}</strong> ({actor._state})</div>
+const getToolTip = (actor) => {
+  if(actor === null) return null;
+  return <Popover id="popover-trigger-focus" title={actor.constructor.name}>
     {Object.keys(actor).filter(k => !k.startsWith('_') && k !== 'pid').map(name =>
         <div key={name}>{name}: {JSON.stringify(actor[name])}</div>
     )}
-  </div>);
+  </Popover>;
 };
-
-
+/*
 function mapStateToProps(state) {
-    var data = state.diagram.tooltipData || {};
     return {
-        view: state.diagram.tooltip,
-        x: data.x,
-        y: data.y,
-        actor: data.actor,
+        actor: state.diagram.tooltipData,
     };
 }
-
-export default connect(mapStateToProps)(ToolTip);
+*/
+export default getToolTip;
+//export default connect(mapStateToProps)(ToolTip);

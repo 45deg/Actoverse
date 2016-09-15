@@ -3,11 +3,7 @@ export function moveToFront(index){
 }
 
 export function showToolTip(x, y, actor){
-    return { type: 'SHOW_TOOLTIP', data: {x, y, actor} };
-}
-
-export function hideToolTip(){
-    return { type: 'HIDE_TOOLTIP' };
+    return { type: 'UPDATE_TOOLTIP', data: actor };
 }
 
 export function scrollTo(value){

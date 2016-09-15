@@ -11,7 +11,6 @@ import StatusPanel from './StatusPanel';
 import HistoryPanel from './HistoryPanel';
 import ConfigPanel from './ConfigPanel';
 
-import ToolTip from './ToolTip';
 import SplitPane from './SplitPane';
 
 import 'css/root';
@@ -40,7 +39,6 @@ class Root extends React.Component {
                 </SplitPane>
             </SplitPane>
             </section>
-            <ToolTip />
         </div>);
     }
 }

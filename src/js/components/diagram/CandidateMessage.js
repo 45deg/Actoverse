@@ -18,11 +18,12 @@ function mapDispatchToProps(dispatch, ownProps) {
 }
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
-  return Object.assign({}, ownProps, {
+  return {
+    ...ownProps,
     onClick: () => dispatchProps.onClick(
       stateProps.messageQueue.find(msg => msg.uid === ownProps.id),
     )
-  })
+  };
 }
 
 const CandidateMessage = connect(mapStateToProps, mapDispatchToProps, mergeProps)(Message);

@@ -31,26 +31,26 @@ const vm = (state = initState(), action) => {
             return initState();
         case 'ENQUEUE_MESSAGE':
             let {from, to, data} = action;
-            return Object.assign({}, state, { 
+            return   { ...state,
                 messageQueue:  [...state.messageQueue, {
                     from, to, data,
                     timestamp: state.clock,
                     uid: state.uid
                 }],
                 uid: state.uid + 1
-            });
+            };
         case 'SPAWN_ACTOR':
             var newActor = new action.actor(...action.args);
             newActor.pid = lastPid + 1;
             newActor._up = clock;
-            return Object.assign({}, state, { 
+            return   { ...state,
                 actors : replace(state.actors, lastPid + 1, newActor),
                 lastPid: lastPid + 1
-            });
+            };
         case 'SEND_MESSAGE':
             let msgIndex = messageQueue.findIndex(m => m.uid === action.uid);
             if(msgIndex < 0) return state;
-            return Object.assign({}, state, { 
+            return   { ...state,
                 history: {
                     actors: actors.map(e => e.clone()),
                     queue: messageQueue.concat(),
@@ -60,23 +60,23 @@ const vm = (state = initState(), action) => {
                 messageLog: [...messageLog, messageQueue[msgIndex]],
                 messageQueue: remove(messageQueue, msgIndex),
                 clock: clock + 1
-            });
+            };
         case 'ACTOR_BACK':
             if(action.count === 0) return state;
             let count = defaultTo(action.count, 1);
             // point = history._prev._prev [... count times ...] ._prev
             let point = get(history, times(count - 1, constant('_prev')), history);
-            return Object.assign({}, state, { 
+            return   { ...state,
                 history: point._prev,
                 actors: point.actors,
                 messageQueue: point.queue,
                 messageLog: messageLog.slice(0, -count),
                 clock: clock - count
-            });
+            };
         case 'DISCARD_MESSAGE': {
             let msgIndex = messageQueue.findIndex(m => m.uid === action.uid);
             if(msgIndex < 0) return state;
-            return Object.assign({}, state, { 
+            return   { ...state,
                 history: {
                     actors: actors.map(e => e.clone()),
                     queue: messageQueue.concat(),
@@ -84,11 +84,11 @@ const vm = (state = initState(), action) => {
                 },
                 actors: actors.concat(),
                 messageLog: [...messageLog, 
-                    Object.assign({discard: true}, messageQueue[msgIndex])
+                    { ...messageQueue[msgIndex] , discard: true }
                 ],
                 messageQueue: remove(messageQueue, msgIndex),
                 clock: clock + 1
-            });
+            };
         }
         default:
             return state;

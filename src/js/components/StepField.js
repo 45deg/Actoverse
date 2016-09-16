@@ -55,12 +55,13 @@ function mapDispatchToProps(dispatch) {
 
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
-  return Object.assign({}, ownProps, dispatchProps, stateProps, {
+  return { ...ownProps, ...stateProps, 
     step: (index) => dispatchProps.step(stateProps.messages[index]),
     sendAll: () => dispatchProps.sendAll(stateProps.messages, false),
     sendAllRandomly: () => dispatchProps.sendAll(stateProps.messages, true),
+    back: dispatchProps.back,
     discard: (index) => dispatchProps.discard(stateProps.messages[index]),
-  })
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(StepField);

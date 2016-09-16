@@ -7,9 +7,7 @@ import ElementArranger from './ElementArranger';
 const MessageList = ({ timeInterval, margin, messageLog, messageQueue, width, actorNum, messageFlag }) => {
   return <ElementArranger>{
     messageLog
-      .concat(messageQueue.map((m, i) =>
-        Object.assign({}, m, { candidate: true }))
-      )
+      .concat(messageQueue.map((m, i) => ({ ...m, candidate: true })))
       .map((msg, index) => {
         var xSpan = width / actorNum;
         var props = {

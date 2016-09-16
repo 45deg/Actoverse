@@ -30,7 +30,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --inline",
-    "build": "webpack --progress --profile --colors --optimize-minimize"
+    "build": "webpack --progress --profile --colors --define process.env.NODE_ENV='\"production\"' --optimize-minimize"
   },
   "author": "",
   "license": "ISC"

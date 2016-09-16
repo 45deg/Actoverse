@@ -6,6 +6,7 @@
     "babel-standalone": "^6.15.0",
     "bootstrap": "^3.3.7",
     "lodash": "^4.15.0",
+    "randomcolor": "^0.4.4",
     "react": "^15.3.1",
     "react-ace": "^3.5.0",
     "react-bootstrap": "^0.30.3",

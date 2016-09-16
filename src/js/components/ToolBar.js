@@ -26,14 +26,13 @@ function mapDispatchToProps(dispatch, ownProps) {
         submitCode : (code) => {
             dispatch(initActor());
             var babelifiedCode = transform(code, { presets: ['es2015'] }).code;
-            eval(`
-try {(function(){
-    ${babelifiedCode}
-})()} catch(e) {
-    let err = "An error occurred while evaluating the code.";
-    err += "\\n\\n[Message] " + e;
-    alert(err);
-}`);
+            try {
+                eval(babelifiedCode);
+            } catch(e) {
+                let err = "An error occurred while evaluating the code.";
+                err += "\\n\\n[Message] " + e;
+                alert(err);
+            }
         }
     }
 }

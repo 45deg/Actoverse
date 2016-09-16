@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Button, Glyphicon } from 'react-bootstrap';
 
+import { transform } from 'babel-standalone';
+
 import {initActor} from '../actions/vm';
 
 import 'css/toolbar';
@@ -23,9 +25,10 @@ function mapDispatchToProps(dispatch, ownProps) {
     return {
         submitCode : (code) => {
             dispatch(initActor());
+            var babelifiedCode = transform(code, { presets: ['es2015'] }).code;
             eval(`
 try {(function(){
-    ${code}
+    ${babelifiedCode}
 })()} catch(e) {
     let err = "An error occurred while evaluating the code.";
     err += "\\n\\n[Message] " + e;

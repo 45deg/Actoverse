@@ -28,6 +28,12 @@ class Editor extends React.Component {
                     mode="javascript"
                     theme="github" />);
     }
+
+    componentDidMount(){
+        fetch(new Request('examples/two-phase-commit.js'))
+            .then(resp => resp.text())
+            .then(text => this.props.setCode(text));
+    }
 };
 
 // separate this file 

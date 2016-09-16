@@ -9,7 +9,8 @@ const ActorList = ({ actors, timeInterval, margin, width, messageNum }) => {
         textY={18}
         lineStartY={actor._up * timeInterval + margin}
         lineEndY={actor._down ? actor._down * timeInterval + margin : (messageNum + 1) * timeInterval + margin}
-        text={actor.constructor.name + "\n#" + actor.pid}
+        name={actor.constructor.name}
+        pid={actor.pid}
         key={i} />
     ) }</g>;
 }

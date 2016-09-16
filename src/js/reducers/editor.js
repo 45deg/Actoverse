@@ -11,6 +11,7 @@ const editor = (state, action) => {
             localStorage.setItem('editor_code', action.code);
             return   { ...state, code: action.code };
         case 'SET_EDITOR':
+            action.editor.$blockScrolling = Infinity;
             return   { ...state, editor: action.editor };
         default:
             return state;

@@ -1,5 +1,15 @@
+
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Optional npm cache directory
+.npm
+
 # Compiled binary addons (http://nodejs.org/api/addons.html)
-dist/*.js
+dist/*
 
 # Dependency directory
 # Commenting this out is preferred by some people, see

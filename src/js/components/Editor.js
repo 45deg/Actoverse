@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import brace from 'brace';
 import AceEditor from 'react-ace';
 
+import 'whatwg-fetch';
+
 import {setCode, setEditor} from '../actions/editor';
 import 'brace/mode/javascript';
 import 'brace/theme/github';

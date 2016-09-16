@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateTimeSpan, toggleMessage } from '../actions/diagram';
+import { bindActionCreators } from 'redux';
+import * as diagramActionCreator from '../actions/diagram';
 
 import { FormGroup, Checkbox, Col } from 'react-bootstrap';
 
@@ -36,10 +37,7 @@ function mapStateToProps(state) {
 
 
 function mapDispatchToProps(dispatch) {
-  return {
-    updateTimeSpan: (value) => dispatch(updateTimeSpan(value)),
-    toggleMessage: (value) => dispatch(toggleMessage(value))
-  };
+  return bindActionCreators(diagramActionCreator, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConfigPanel);

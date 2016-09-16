@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { moveToFront } from '../../actions/diagram';
+import { bindActionCreators } from 'redux';
+import * as diagramActionCreator from '../../actions/diagram';
 
 const ElementArranger = ({ frontKey, moveToFront, children }) => {
   var newChildren = children.concat();
@@ -24,9 +25,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    moveToFront: id => dispatch(moveToFront(id))
-  };
+  return bindActionCreators(diagramActionCreator, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ElementArranger);

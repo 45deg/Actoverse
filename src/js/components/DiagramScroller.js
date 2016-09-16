@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { scrollTo } from '../actions/diagram';
+import { bindActionCreators } from 'redux';
+import * as diagramActionCreator from '../actions/diagram';
 
 class DiagramScroller extends Component {
     render() {
@@ -25,9 +26,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    scrollTo: value => dispatch(scrollTo(value))
-  };
+  return bindActionCreators(diagramActionCreator, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DiagramScroller);

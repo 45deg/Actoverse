@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
+
 import { Button, Glyphicon } from 'react-bootstrap';
+import ExampleSelector from './ExampleSelector';
 
 import { transform } from 'babel-standalone';
 
@@ -11,6 +13,7 @@ import 'css/toolbar';
 const ToolBar = ({ submitCode }) => {
     return (<div className="toolbar-panel">
               <Button onClick={submitCode} bsStyle="primary" bsSize="large"><Glyphicon glyph="play" /> Run</Button>
+              <ExampleSelector />
             </div>);
 };
 

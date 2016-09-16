@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import brace from 'brace';
 import AceEditor from 'react-ace';
 
-import 'whatwg-fetch';
 
 import {setCode, setEditor} from '../actions/editor';
 import 'brace/mode/javascript';
@@ -29,12 +28,6 @@ class Editor extends React.Component {
                     onLoad={setEditor}
                     mode="javascript"
                     theme="github" />);
-    }
-
-    componentDidMount(){
-        fetch(new Request('examples/two-phase-commit.js'))
-            .then(resp => resp.text())
-            .then(text => this.props.setCode(text));
     }
 };
 

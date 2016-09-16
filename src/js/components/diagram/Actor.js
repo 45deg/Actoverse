@@ -4,7 +4,6 @@ import randomColor from 'randomcolor';
 
 const Actor = ({ x, textY, lineStartY, lineEndY, fontSize = 12, name, pid}) => {
   var color = randomColor({ luminosity: 'dark', seed:name });
-  console.log(color);
   return (<g className="actor">
     {/* Label for actor */}
     <text x={x} y={textY} textAnchor="middle" fill="black" fontSize={fontSize} fill={color}>
@@ -14,7 +13,7 @@ const Actor = ({ x, textY, lineStartY, lineEndY, fontSize = 12, name, pid}) => {
     { /* timeline */}
     <line x1={x} x2={x}
           y1={lineStartY} y2={lineEndY}
-          stroke={color} strokeWidth="3" />
+          stroke={color} strokeWidth="2" />
     <circle r="5"
             cx={x} cy={lineStartY} 
             stroke={color} fill="white" />

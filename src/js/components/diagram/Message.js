@@ -4,7 +4,7 @@ const Message = ({ fromX, fromY, toX, toY, className, text, id,
   return (<g className={className} onClick={onClick} onMouseOver={onMouseOver}>
     <path id={'path-' + id} d={`M ${fromX}, ${fromY} L ${toX}, ${toY}`} strokeWidth="2" />
     <text
-      stroke="#FFFFFF" strokeWidth="2px"
+      stroke="#FFFFFF" strokeWidth="3"
       fontSize="12"
       dy="-3"
       paintOrder="stroke"

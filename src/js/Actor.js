@@ -4,8 +4,9 @@ import {
 import store from './store';
 
 class Actor {
-  constructor() {
+  constructor(...args) {
     this._state = "receive";
+    this._args = args;
   }
   send(targetPid, ...args) {
     store.dispatch(enqueueMessage(this.pid, targetPid, args));
@@ -22,7 +23,7 @@ class Actor {
   }
 
   clone() {
-    var that = new this.constructor();
+    var that = new this.constructor(...this.args);
     for (let key of Object.keys(this)) {
       that[key] = JSON.parse(JSON.stringify(this[key]));
     }

@@ -1,5 +1,6 @@
 import store from './store';
 import Actor from './actor';
+import lodash from 'lodash';
 
 import { enqueueMessage, spawnActor } from './actions/vm';
 
@@ -16,4 +17,5 @@ export function mountGlobalObject(){
         store.dispatch(spawnActor(actor, args));
         return store.getState().vm.lastPid;
     };
+    global._ = lodash;
 }

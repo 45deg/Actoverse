@@ -8,7 +8,9 @@ export function sendMessage(message){
   var scrollValue = (messageLog.length + 1) * timeInterval + 40;
   store.dispatch(sendMessageAction(message.uid));
   try {
+    target.sender = message.from;
     target[target._state](...message.data);
+    delete target.sender;
   } catch(e) {
     let err = "An error occurred while evaluating the code.";
     err += "\n\n[Message] " + e;

@@ -2,6 +2,7 @@ import {
     enqueueMessage
 } from './actions/vm';
 import store from './store';
+import {cloneDeep} from 'lodash';
 
 class Actor {
   constructor(...args) {
@@ -23,9 +24,9 @@ class Actor {
   }
 
   clone() {
-    var that = new this.constructor(...this.args);
+    var that = new this.constructor(...cloneDeep(this._args));
     for (let key of Object.keys(this)) {
-      that[key] = JSON.parse(JSON.stringify(this[key]));
+      that[key] = cloneDeep(this[key]);
     }
     return that;
   }

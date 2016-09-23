@@ -5,9 +5,21 @@
     cursor: default;
   }
 
-  .point  {
-    &:hover { fill: red; }
+
+  .moment {
+    line {
+      stroke: #999;
+      shape-rendering:crispEdges;
+      stroke-dasharray: 3, 3;
+    }
+    text {
+      font-size:10px;
+      fill: #999;
+    }
   }
+
+  circle.point:hover { fill: red; }
+  path.point:hover { stroke: red; }
 
   .log {
     text { fill: black; }
@@ -27,7 +39,7 @@
     stroke-dasharray: 5, 5;
   }
 
-  .hide-message  { 
+  .hide-message  {
             text { visibility: hidden; }
     &:hover text { visibility: visible; }
   }

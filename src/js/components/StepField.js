@@ -4,18 +4,22 @@ import { sendMessage,discardMessage } from '../helpers/handle-message';
 import { backActor } from '../actions/vm';
 import store from '../store';
 import { shuffle } from 'lodash';
-import { ButtonToolbar, ButtonGroup, Button, Glyphicon } from 'react-bootstrap';
+import { Form, ButtonToolbar, ButtonGroup, Button, Glyphicon } from 'react-bootstrap';
+import MessageGenerator from './MessageGenerator';
 
 import 'css/debug';
 
 const StepField = ({ step, back, sendAll, sendAllRandomly, discard, messages, actors, clock }) => {
   return (<div id="controller">
         <div>
-          <ButtonGroup bsSize="small">
-            <Button onClick={sendAll} disabled={messages.length <= 0}>Flush</Button>
-            <Button onClick={sendAllRandomly} disabled={messages.length <= 0}>Flush (random)</Button>
-            <Button onClick={back} disabled={ clock <= 0 }>Back</Button>
-          </ButtonGroup>
+          <Form inline>
+            <ButtonGroup bsSize="small">
+              <Button onClick={sendAll} disabled={messages.length <= 0}>Flush</Button>
+              <Button onClick={sendAllRandomly} disabled={messages.length <= 0}>Flush (random) </Button>
+              <Button onClick={back} disabled={ clock <= 0 }>Back</Button>
+            </ButtonGroup>
+            <MessageGenerator />
+          </Form>
         </div>
         <ButtonToolbar>
         {
@@ -28,7 +32,6 @@ const StepField = ({ step, back, sendAll, sendAllRandomly, discard, messages, ac
         }
         </ButtonToolbar>
         <p>
-          <input type="button" className="btn btn-default" value="store" />
         </p>
     </div>);
 }

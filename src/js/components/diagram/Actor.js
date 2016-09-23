@@ -13,7 +13,7 @@ const Actor = ({ x, textY, lineStartY, lineEndY, fontSize = 12, name, pid}) => {
     { /* timeline */}
     <line x1={x} x2={x}
           y1={lineStartY} y2={lineEndY}
-          stroke={color} strokeWidth="2" />
+          stroke={color} strokeWidth="1" />
     <circle r="5"
             cx={x} cy={lineStartY} 
             stroke={color} fill="white" />

@@ -8,7 +8,7 @@ function initState(){
         clock : 0,
         messageQueue: [],
         messageLog : [],
-        uid : 0  
+        uid : 0
     };
 }
 
@@ -41,7 +41,7 @@ const vm = (state = initState(), action) => {
             };
         case 'SPAWN_ACTOR':
             var newActor = new action.actor(...action.args);
-            newActor.pid = lastPid + 1;
+            newActor._setPid(lastPid + 1);
             newActor._up = clock;
             return   { ...state,
                 actors : replace(state.actors, lastPid + 1, newActor),
@@ -52,7 +52,7 @@ const vm = (state = initState(), action) => {
             if(msgIndex < 0) return state;
             return   { ...state,
                 history: {
-                    actors: actors.map(e => e.clone()),
+                    actors: actors.map(e => e._clone()),
                     queue: messageQueue.concat(),
                     _prev: history
                 },
@@ -78,12 +78,12 @@ const vm = (state = initState(), action) => {
             if(msgIndex < 0) return state;
             return   { ...state,
                 history: {
-                    actors: actors.map(e => e.clone()),
+                    actors: actors.map(e => e._clone()),
                     queue: messageQueue.concat(),
                     _prev: history
                 },
                 actors: actors.concat(),
-                messageLog: [...messageLog, 
+                messageLog: [...messageLog,
                     { ...messageQueue[msgIndex] , discard: true }
                 ],
                 messageQueue: remove(messageQueue, msgIndex),

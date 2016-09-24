@@ -15,25 +15,23 @@ class Actor {
   become(listening) {
     this._state = listening;
   }
-  toString() {
-    var that = {}
-    for (let key of Object.keys(this)) {
-      that[key] = this[key];
-    }
-    return this.constructor.name + ' ' + JSON.stringify(that);
+  get pid(){
+    return this._pid;
+  }
+  exit() {
+    this._state = "exit";
+    this._down = store.getState().vm.clock;
   }
 
-  clone() {
+  _setPid(pid){
+    this._pid = pid;
+  }
+  _clone() {
     var that = new this.constructor(...cloneDeep(this._args));
     for (let key of Object.keys(this)) {
       that[key] = cloneDeep(this[key]);
     }
     return that;
-  }
-
-  exit() {
-    this._state = "exit";
-    this._down = store.getState().vm.clock;
   }
 }
 

@@ -14,10 +14,6 @@ import 'css/editor';
 class Editor extends React.Component {
     render() {
         var { code, setEditor, setCode, editor} = this.props;
-        var options = {
-            mode: 'javascript',
-            lineNumbers: true
-        };
         if(editor !== null) {
             editor.resize();
         }
@@ -26,12 +22,13 @@ class Editor extends React.Component {
                     value={code}
                     onChange={setCode}
                     onLoad={setEditor}
+                    tabSize={2}
                     mode="javascript"
                     theme="github" />);
     }
 };
 
-// separate this file 
+// separate this file
 
 function mapStateToProps(state) {
     return {

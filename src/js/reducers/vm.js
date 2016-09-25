@@ -1,4 +1,4 @@
-import { times, constant, get, defaultTo } from 'lodash';
+import { times, constant, get, defaultTo, cloneDeep } from 'lodash';
 
 function initState(){
     return {
@@ -53,7 +53,7 @@ const vm = (state = initState(), action) => {
             return   { ...state,
                 history: {
                     actors: actors.map(e => e._clone()),
-                    queue: messageQueue.concat(),
+                    queue: cloneDeep(messageQueue),
                     _prev: history
                 },
                 actors: actors.concat(),
@@ -79,7 +79,7 @@ const vm = (state = initState(), action) => {
             return   { ...state,
                 history: {
                     actors: actors.map(e => e._clone()),
-                    queue: messageQueue.concat(),
+                    queue: cloneDeep(messageQueue),
                     _prev: history
                 },
                 actors: actors.concat(),

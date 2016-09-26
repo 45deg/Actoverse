@@ -23,9 +23,11 @@ const StepField = ({ step, back, sendAll, sendAllRandomly, discard, messages, ac
         </div>
         <ButtonToolbar>
         {
-            messages.map((msg, index) => 
+            messages.map((msg, index) =>
                 <ButtonGroup key={msg.uid} bsSize="small">
-                  <Button onClick={() => step(index)}>{`${msg.from}-(${JSON.stringify(msg.data)})->${msg.to}`}</Button>
+                  <Button onClick={() => step(index)}>{
+                      `${msg.from} - ${msg.data[0]}(${msg.data.slice(1).map(JSON.stringify).join(',')}) -> ${msg.to}`
+                  }</Button>
                   <Button onClick={() => discard(index)}><Glyphicon glyph="remove" /></Button>
                 </ButtonGroup>
             )
@@ -58,7 +60,7 @@ function mapDispatchToProps(dispatch) {
 
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
-  return { ...ownProps, ...stateProps, 
+  return { ...ownProps, ...stateProps,
     step: (index) => dispatchProps.step(stateProps.messages[index]),
     sendAll: () => dispatchProps.sendAll(stateProps.messages, false),
     sendAllRandomly: () => dispatchProps.sendAll(stateProps.messages, true),

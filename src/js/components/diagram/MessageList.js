@@ -13,13 +13,13 @@ const MessageList = ({ timeInterval, margin, messageLog, messageQueue, width, ac
         var props = {
           id: msg.uid,
           key: msg.uid,
-          text: JSON.stringify(msg.data),
+          text: `${msg.data[0]}(${msg.data.slice(1).map(JSON.stringify).join(',')})`,
           fromX: xSpan * msg.from,
           fromY: msg.timestamp * timeInterval + margin,
           toX: xSpan * msg.to,
           toY: msg.candidate ? (messageLog.length + 1) * timeInterval + margin
             : (index + 1) * timeInterval + margin,
-          className: [msg.candidate ? 'candidate' : 'log', 
+          className: [msg.candidate ? 'candidate' : 'log',
                       messageFlag ? '' : 'hide-message',
                       msg.discard ? 'discard' : '' ].join(' '),
         };

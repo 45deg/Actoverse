@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import { backActor } from '../../actions/vm';
-import randomColor from 'randomcolor';
 
 const toolTip = (actor) => {
   if(actor === null) return null;
@@ -15,7 +14,6 @@ const toolTip = (actor) => {
 };
 
 const Point = ({ cx, cy, moveBack, actor }) => {
-  var color = randomColor({ luminosity: 'dark', seed: actor.constructor.name });
   return <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={toolTip(actor)}>
     <circle className="point" cx={cx} cy={cy} r="5" onClick={moveBack} fill={color} />
   </OverlayTrigger>

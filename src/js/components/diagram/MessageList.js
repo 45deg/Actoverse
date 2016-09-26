@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Message from './Message';
 import CandidateMessage from './CandidateMessage';
 import ElementArranger from './ElementArranger';
+import generateColor from '../../helpers/generateColor';
 
 const MessageList = ({ timeInterval, margin, messageLog, messageQueue, width, actorNum, messageFlag }) => {
   return <ElementArranger>{
@@ -19,9 +20,11 @@ const MessageList = ({ timeInterval, margin, messageLog, messageQueue, width, ac
           toX: xSpan * msg.to,
           toY: msg.candidate ? (messageLog.length + 1) * timeInterval + margin
             : (index + 1) * timeInterval + margin,
-          className: [msg.candidate ? 'candidate' : 'log',
+          className: ['log',
+                      msg.candidate ? 'candidate' : '',
                       messageFlag ? '' : 'hide-message',
                       msg.discard ? 'discard' : '' ].join(' '),
+          color: generateColor(msg.data[0])
         };
         if (msg.candidate)
           return <CandidateMessage {...props} />;

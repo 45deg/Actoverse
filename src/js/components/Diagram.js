@@ -21,7 +21,6 @@ const Diagram = ({ timeInterval, messageNum }) => {
         <defs>
           <MarkerDef color="#000" id="arrowhead-normal" />
           <MarkerDef color="#F00" id="arrowhead-hover" />
-          <MarkerDef color="#777" id="arrowhead-candidate" />
         </defs>
       </svg>
     </DiagramScroller>);

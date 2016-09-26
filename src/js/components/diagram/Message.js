@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-const Message = ({ fromX, fromY, toX, toY, className, text, id,
+const Message = ({ fromX, fromY, toX, toY, className, text, id, color,
     onClick, onMouseOver }) => {
   return (<g className={className} onClick={onClick} onMouseOver={onMouseOver}>
-    <path id={'path-' + id} d={`M ${fromX}, ${fromY} L ${toX}, ${toY}`} strokeWidth="2" />
+    <path id={'path-' + id} d={`M ${fromX}, ${fromY} L ${toX}, ${toY}`} strokeWidth="2" stroke={color} />
     <text
       stroke="#FFFFFF" strokeWidth="3"
+      fill={color}
       fontSize="12"
       dy="-3"
       paintOrder="stroke"

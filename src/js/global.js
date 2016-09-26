@@ -10,8 +10,8 @@ export function mountGlobalObject(){
     global.Actor = Actor;
 
     global._store = store;
-    global.send = function(sourcePid, targetPid, ...data){
-        store.dispatch(enqueueMessage(sourcePid, targetPid, data));
+    global.send = function(targetPid, ...data){
+        store.dispatch(enqueueMessage(0, targetPid, data));
     };
     global.spawn = function(actor, ...args){
         store.dispatch(spawnActor(actor, args));

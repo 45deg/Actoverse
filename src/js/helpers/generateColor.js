@@ -38,6 +38,9 @@ export default function generateColor(seed, option = {}){
     hue = colorPool[seed] = lastHue;
     lastHue += 13;
   }
-  //
-  return 'rgb(' + HSLtoRGB((hue % 100) / 100, saturation, light).join() + ')';
+  if(!option.alpha) {
+    return 'rgb(' + HSLtoRGB((hue % 100) / 100, saturation, light).join() + ')';
+  } else {
+    return 'rgba(' + HSLtoRGB((hue % 100) / 100, saturation, light).concat([ option.alpha ]).join() + ')';
+  }
 }

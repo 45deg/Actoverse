@@ -6,6 +6,7 @@ import store from '../store';
 import { shuffle } from 'lodash';
 import { Form, ButtonToolbar, ButtonGroup, Button, Glyphicon } from 'react-bootstrap';
 import MessageGenerator from './MessageGenerator';
+import generateColor from '../helpers/generateColor';
 
 import 'css/debug';
 
@@ -25,7 +26,7 @@ const StepField = ({ step, back, sendAll, sendAllRandomly, discard, messages, ac
         {
             messages.map((msg, index) =>
                 <ButtonGroup key={msg.uid} bsSize="small">
-                  <Button onClick={() => step(index)}>{
+                  <Button onClick={() => step(index)} style={{backgroundColor: generateColor(msg.data[0], { alpha: 0.3 })}}>{
                       `${msg.from} - ${msg.data[0]}(${msg.data.slice(1).map(JSON.stringify).join(',')}) -> ${msg.to}`
                   }</Button>
                   <Button onClick={() => discard(index)}><Glyphicon glyph="remove" /></Button>

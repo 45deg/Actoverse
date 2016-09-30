@@ -1,3 +1,5 @@
+import { defaultTo } from 'lodash';
+
 function HSVtoRGB(h, s, v) {
   var r, g, b, i, f, p, q, t;
   i = Math.floor(h * 6);
@@ -17,17 +19,20 @@ function HSVtoRGB(h, s, v) {
 }
 
 const colorPool = {};
-let lastValue = 1;
+let lastHue = 1;
 
-export default function generateColor(seed){
-  var value;
-  console.log(value, colorPool);
+export default function generateColor(seed, option = {}){
+  var hue; // percentile
+  var saturation = defaultTo(option.saturation, 1);
+  var value = defaultTo(option.value, 0.55);
+
+  console.log(hue, colorPool);
   if(seed in colorPool) {
-    value = colorPool[seed];
+    hue = colorPool[seed];
   } else {
-    value = colorPool[seed] = lastValue;
-    lastValue += 13;
+    hue = colorPool[seed] = lastHue;
+    lastHue += 13;
   }
   //
-  return 'rgb(' + HSVtoRGB((value % 100) / 100, 1, 0.55).join() + ')';
+  return 'rgb(' + HSVtoRGB((hue % 100) / 100, saturation, value).join() + ')';
 }

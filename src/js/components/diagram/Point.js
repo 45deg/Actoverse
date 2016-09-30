@@ -15,7 +15,7 @@ const toolTip = (actor) => {
 
 const Point = ({ cx, cy, moveBack, actor }) => {
   return <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={toolTip(actor)}>
-    <circle className="point" cx={cx} cy={cy} r="5" onClick={moveBack} fill={color} />
+    <circle className="point" cx={cx} cy={cy} r="5" onClick={moveBack} />
   </OverlayTrigger>
 };
 

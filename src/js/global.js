@@ -2,7 +2,7 @@ import store from './store';
 import Actor from './actor';
 import lodash from 'lodash';
 
-import { enqueueMessage, spawnActor } from './actions/vm';
+import { enqueueMessage, spawnActor } from './actions/shadow';
 
 export function mountGlobalObject(){
     var global = window;
@@ -15,7 +15,7 @@ export function mountGlobalObject(){
     };
     global.spawn = function(actor, ...args){
         store.dispatch(spawnActor(actor, args));
-        return store.getState().vm.lastPid;
+        return store.getState().shadow.lastPid;
     };
     global._ = lodash;
 }

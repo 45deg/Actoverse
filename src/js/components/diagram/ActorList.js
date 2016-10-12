@@ -17,8 +17,8 @@ const ActorList = ({ actors, timeInterval, margin, width, messageNum }) => {
 
 function mapStateToProps(state) {
   return {
-    actors: state.vm.actors,
-    messageNum: state.vm.messageLog.length,
+    actors: state.shadow.actors,
+    messageNum: state.shadow.messageLog.length,
     width: state.panels['root-panel'],
     timeInterval: state.diagram.timeInterval,
   };

@@ -33,6 +33,7 @@ export function sendMessage(uid){
     }
 }
 
+// DEPRECATED
 export function backActor(count = 1){
     return {
         type: 'ACTOR_BACK',

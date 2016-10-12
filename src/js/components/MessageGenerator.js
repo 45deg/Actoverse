@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { FormGroup, MenuItem, InputGroup, FormControl, DropdownButton, Form, Button } from 'react-bootstrap';
-import { enqueueMessage } from '../actions/vm';
+import { enqueueMessage } from '../actions/shadow';
 
 class MessageGenerator extends React.Component {
   constructor(props){
@@ -64,7 +64,7 @@ class MessageGenerator extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        actors: state.vm.actors
+        actors: state.shadow.actors
     };
 }
 

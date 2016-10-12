@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import editor from './editor';
-import vm from './vm';
+import shadow from './shadow';
 import diagram from './diagram';
 import panels from './panels';
 
 var reducers = combineReducers({
-    vm,
+    shadow,
     editor,
     diagram,
     panels

@@ -35,9 +35,9 @@ const MessageList = ({ timeInterval, margin, messageLog, messageQueue, width, ac
 }
 function mapStateToProps(state) {
   return {
-    actorNum: state.vm.actors.length,
-    messageLog: state.vm.messageLog,
-    messageQueue: state.vm.messageQueue,
+    actorNum: state.shadow.actors.length,
+    messageLog: state.shadow.messageLog,
+    messageQueue: state.shadow.messageQueue,
     width: state.panels['root-panel'],
     timeInterval: state.diagram.timeInterval,
     messageFlag: state.diagram.showMessage,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { sendMessage,discardMessage } from '../helpers/handle-message';
-import { backActor } from '../actions/vm';
+import { backActor } from '../actions/shadow';
 import store from '../store';
 import { shuffle } from 'lodash';
 import { Form, ButtonToolbar, ButtonGroup, Button, Glyphicon } from 'react-bootstrap';
@@ -41,9 +41,9 @@ const StepField = ({ step, back, sendAll, sendAllRandomly, discard, messages, ac
 
 function mapStateToProps(state) {
     return {
-        messages: state.vm.messageQueue,
-        actors: state.vm.actors,
-        clock: state.vm.clock
+        messages: state.shadow.messageQueue,
+        actors: state.shadow.actors,
+        clock: state.shadow.clock
     };
 }
 

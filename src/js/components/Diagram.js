@@ -28,7 +28,7 @@ const Diagram = ({ timeInterval, messageNum }) => {
 
 function mapStateToProps(state) {
   return {
-    messageNum: state.vm.messageLog.length,
+    messageNum: state.shadow.messageLog.length,
     width: state.panels['root-panel'],
     timeInterval: state.diagram.timeInterval,
   };

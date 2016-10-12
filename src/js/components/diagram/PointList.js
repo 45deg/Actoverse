@@ -23,9 +23,9 @@ const PointList = ({ timeInterval, margin, messageLog, width, actors, history })
 }
 function mapStateToProps(state) {
   return {
-    actors: state.vm.actors,
-    history: state.vm.history,
-    messageLog: state.vm.messageLog,
+    actors: state.shadow.actors,
+    history: state.shadow.history,
+    messageLog: state.shadow.messageLog,
     width: state.panels['root-panel'],
     timeInterval: state.diagram.timeInterval,
   };

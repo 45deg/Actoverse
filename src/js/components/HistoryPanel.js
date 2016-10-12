@@ -15,7 +15,7 @@ const HistoryPanel = ({ messageLog }) => {
 
 function mapStateToProps(state) {
     return {
-        messageLog: state.vm.messageLog
+        messageLog: state.shadow.messageLog
     };
 }
 

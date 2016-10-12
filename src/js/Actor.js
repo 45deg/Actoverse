@@ -1,6 +1,6 @@
 import {
     enqueueMessage
-} from './actions/vm';
+} from './actions/shadow';
 import store from './store';
 import {cloneDeep} from 'lodash';
 
@@ -20,7 +20,7 @@ class Actor {
   }
   exit() {
     this._state = "exit";
-    this._down = store.getState().vm.clock;
+    this._down = store.getState().shadow.clock;
   }
 
   _setPid(pid){

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Popover, OverlayTrigger } from 'react-bootstrap';
-import { backActor } from '../../actions/vm';
+import { backActor } from '../../actions/shadow';
 
 const toolTip = (actor) => {
   if(actor === null) return null;

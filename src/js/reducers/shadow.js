@@ -23,7 +23,7 @@ function remove(array, index){
     return arr;
 }
 
-const vm = (state = initState(), action) => {
+const shadow = (state = initState(), action) => {
     let {messageQueue, lastPid, messageLog, actors, clock, history} = state;
 
     switch(action.type) {
@@ -95,4 +95,4 @@ const vm = (state = initState(), action) => {
     }
 };
 
-export default vm;
+export default shadow;

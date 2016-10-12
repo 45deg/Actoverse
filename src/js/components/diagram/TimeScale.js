@@ -16,7 +16,7 @@ const TimeScale = ({ margin, clock, width, timeInterval }) => {
 
 function mapStateToProps(state) {
   return {
-    clock: state.vm.clock,
+    clock: state.shadow.clock,
     width: state.panels['root-panel'],
     timeInterval: state.diagram.timeInterval,
   };

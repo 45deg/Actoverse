@@ -19,7 +19,7 @@ const StatusPanel = ({actors}) => {
 
 function mapStateToProps(state) {
     return {
-        actors: state.vm.actors
+        actors: state.shadow.actors
     };
 }
 

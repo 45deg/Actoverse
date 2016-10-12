@@ -7,7 +7,7 @@ import {sendMessage} from '../../helpers/handle-message';
 
 function mapStateToProps(state) {
   return {
-    messageQueue: state.vm.messageQueue,
+    messageQueue: state.shadow.messageQueue,
   };
 }
 

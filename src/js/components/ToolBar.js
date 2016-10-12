@@ -6,7 +6,7 @@ import ExampleSelector from './ExampleSelector';
 
 import { transform } from 'babel-standalone';
 
-import {initActor} from '../actions/vm';
+import {initActor} from '../actions/shadow';
 
 import 'css/toolbar';
 

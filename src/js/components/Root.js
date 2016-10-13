@@ -1,7 +1,6 @@
 import React from 'react'
 
 import ToolBar from './ToolBar';
-import Editor from './Editor';
 import Page from './Page';
 import Tab from './Tab';
 import StepField from './StepField';
@@ -22,13 +21,10 @@ class Root extends React.Component {
             <header><ToolBar /></header>
             <section id="panel-wrapper">
             <SplitPane split="vertical" className="root-panel" primary="second" defaultSize={400}>
-                <SplitPane split="horizontal" className="editor-panel" defaultSize="70%">
-                    <Editor />
-                    <Tab id="debug-panel">
-                        <Page label="Step"><StepField /></Page>
-                        <Page label="Auto">not implemented</Page>
-                    </Tab>
-                </SplitPane>
+                <Tab id="debug-panel">
+                    <Page label="Step"><StepField /></Page>
+                    <Page label="Auto">not implemented</Page>
+                </Tab>
                 <SplitPane split="horizontal" className="vis-panel" defaultSize={500}>
                     <Diagram />
                     <Tab id="inspector">

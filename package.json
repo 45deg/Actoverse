@@ -15,7 +15,7 @@
     "react-redux": "^4.4.5",
     "react-split-pane": "^0.1.44",
     "redux": "^3.6.0",
-    "socket.io-client": "^1.5.0",
+    "redux-logger": "^2.7.0",
     "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {

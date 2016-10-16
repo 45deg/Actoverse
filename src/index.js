@@ -4,8 +4,6 @@ import { Provider } from 'react-redux';
 import store from './js/store';
 import Root from './js/components/Root';
 
-import { mountGlobalObject } from './js/global';
-
 import 'css/base';
 import 'bootstrap/dist/css/bootstrap';
 
@@ -16,4 +14,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-mountGlobalObject();
+window._store = store;

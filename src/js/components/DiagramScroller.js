@@ -6,8 +6,8 @@ import * as diagramActionCreator from '../actions/diagram';
 
 class DiagramScroller extends Component {
     render() {
-        var {width, height, scrollTo} = this.props;
-        return (<div id="canvas" style={{height, width}} onScroll={() => scrollTo(ReactDOM.findDOMNode(this).scrollTop)}>
+        var {width, scrollTo} = this.props;
+        return (<div id="canvas" style={{width}} onScroll={() => scrollTo(ReactDOM.findDOMNode(this).scrollTop)}>
             {this.props.children}
         </div>);
     }
@@ -20,8 +20,7 @@ class DiagramScroller extends Component {
 function mapStateToProps(state) {
     return {
         scrollValue: state.diagram.scrollValue,
-        width: state.panels['root-panel'],
-        height: state.panels['vis-panel']
+        width: state.panels['root-panel']
     };
 }
 

@@ -1,98 +1,58 @@
-import { times, constant, get, defaultTo, cloneDeep } from 'lodash';
+import Immutable from 'immutable';
 
-function initState(){
-    return {
-        actors : [],
-        history : {},
-        lastPid : 0,
-        clock : 0,
-        messageQueue: [],
-        messageLog : [],
-        uid : 0
-    };
+function initState(actors){
+  return {
+    actors : Immutable.fromJS(actors),
+    actorSnapshots : [],
+    messageLog : [],
+    clock: 0,
+  };
 }
 
-function replace(array, index, element){
-    var arr = array.concat();
-    arr[index] = element;
-    return arr;
-}
-function remove(array, index){
-    var arr = array.concat();
-    arr.splice(index, 1);
-    return arr;
-}
-
-const shadow = (state = initState(), action) => {
-    let {messageQueue, lastPid, messageLog, actors, clock, history} = state;
-
-    switch(action.type) {
-        case 'ACTOR_INIT':
-            return initState();
-        case 'ENQUEUE_MESSAGE':
-            let {from, to, data} = action;
-            return   { ...state,
-                messageQueue:  [...state.messageQueue, {
-                    from, to, data,
-                    timestamp: state.clock,
-                    uid: state.uid
-                }],
-                uid: state.uid + 1
-            };
-        case 'SPAWN_ACTOR':
-            var newActor = new action.actor(...action.args);
-            newActor._setPid(lastPid + 1);
-            newActor._up = clock;
-            return   { ...state,
-                actors : replace(state.actors, lastPid + 1, newActor),
-                lastPid: lastPid + 1
-            };
-        case 'SEND_MESSAGE':
-            let msgIndex = messageQueue.findIndex(m => m.uid === action.uid);
-            if(msgIndex < 0) return state;
-            return   { ...state,
-                history: {
-                    actors: actors.map(e => e._clone()),
-                    queue: cloneDeep(messageQueue),
-                    _prev: history
-                },
-                actors: actors.concat(),
-                messageLog: [...messageLog, messageQueue[msgIndex]],
-                messageQueue: remove(messageQueue, msgIndex),
-                clock: clock + 1
-            };
-        case 'ACTOR_BACK':
-            if(action.count === 0) return state;
-            let count = defaultTo(action.count, 1);
-            // point = history._prev._prev [... count times ...] ._prev
-            let point = get(history, times(count - 1, constant('_prev')), history);
-            return   { ...state,
-                history: point._prev,
-                actors: point.actors,
-                messageQueue: point.queue,
-                messageLog: messageLog.slice(0, -count),
-                clock: clock - count
-            };
-        case 'DISCARD_MESSAGE': {
-            let msgIndex = messageQueue.findIndex(m => m.uid === action.uid);
-            if(msgIndex < 0) return state;
-            return   { ...state,
-                history: {
-                    actors: actors.map(e => e._clone()),
-                    queue: cloneDeep(messageQueue),
-                    _prev: history
-                },
-                actors: actors.concat(),
-                messageLog: [...messageLog,
-                    { ...messageQueue[msgIndex] , discard: true }
-                ],
-                messageQueue: remove(messageQueue, msgIndex),
-                clock: clock + 1
-            };
-        }
-        default:
-            return state;
+const shadow = (state = initState({}), action) => {
+  let { actors, actorSnapshots, messageLog, clock } = state;
+  let imBody = Immutable.fromJS(action.body);
+  let targetIndex = actors.findKey(entry => entry.get('pid') === action.pid);
+  // shadowing from API responses
+  switch(action.type) {
+    case 'INIT_STATE':
+    return initState(action.body);
+    case 'QUEUE_RECEIVED': {
+      return {
+        ...state,
+        messageLog: [...messageLog,
+          { type: 'receive', time: clock, body: imBody }],
+        actors: actors.updateIn([targetIndex, 'mailbox'],
+                                mbox => mbox.push(imBody))
+      };
     }
+    case 'SEND_MESSAGE': {
+      return {
+        ...state,
+        messageLog: [...messageLog,
+          { type: 'send', time: clock, body: imBody }],
+      }
+    }
+    case 'QUEUE_CONSUMED': {
+      return {
+        ...state,
+        actorSnapshots: [...actorSnapshots, actors],
+        messageLog: [...messageLog,
+          { type: 'consume', time: clock + 1, body: imBody }],
+        actors: actors.updateIn([targetIndex, 'mailbox'],
+                                mbox => mbox.delete(mbox.keyOf(imBody))),
+        clock: clock + 1
+      };
+    }
+    case 'ACTOR_UPDATED': {
+      return {
+        ...state,
+        actors: actors.setIn([targetIndex, 'state'], imBody)
+      };
+    }
+    default:
+    return state;
+  }
 };
 
 export default shadow;

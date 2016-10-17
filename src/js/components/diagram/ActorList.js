@@ -5,12 +5,12 @@ import Actor from './Actor';
 const ActorList = ({ actors, timeInterval, margin, width, messageNum }) => {
   return <g id="actor-container">{
     actors.map((actor, i) =>
-      <Actor x={width / actors.length * actor.pid}
+      <Actor x={ width / (actors.size + 1) * (i + 1) }
         textY={18}
-        lineStartY={actor._up * timeInterval + margin}
-        lineEndY={actor._down ? actor._down * timeInterval + margin : (messageNum + 1) * timeInterval + margin}
-        name={actor.constructor.name}
-        pid={actor.pid}
+        lineStartY={margin /* TODO: implement uptime */}
+        lineEndY={(messageNum + 1) * timeInterval + margin}
+        name={actor.get('name')}
+        pid={actor.get('pid')}
         key={i} />
     ) }</g>;
 }

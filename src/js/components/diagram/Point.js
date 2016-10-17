@@ -6,23 +6,27 @@ import { backActor } from '../../actions/shadow';
 
 const toolTip = (actor) => {
   if(actor === null) return null;
-  return <Popover id="popover-trigger-focus" title={actor.constructor.name}>
-    {Object.keys(actor).filter(k => !k.startsWith('_') && k !== 'pid').map(name =>
-        <div key={name}>{name}: {JSON.stringify(actor[name])}</div>
-    )}
+  return <Popover id="popover-trigger-focus" title={actor.get('name')}>
+    {
+      actor.get('state').map((value, key) =>
+        <div key={key}>{key}: {JSON.stringify(value)}</div>
+      )
+    }
   </Popover>;
 };
 
-const Point = ({ cx, cy, moveBack, actor }) => {
-  return <OverlayTrigger trigger={['hover', 'focus']} placement="left" overlay={toolTip(actor)}>
-    <circle className="point" cx={cx} cy={cy} r="5" onClick={moveBack} />
-  </OverlayTrigger>
+const Point = ({ cx, cy, rollback, actor, time }) => {
+  return <OverlayTrigger trigger={['hover', 'focus']} placement="right" overlay={toolTip(actor)}>
+     <circle time={time} className="point" cx={cx} cy={cy} r="5" onClick={rollback} />
+  </OverlayTrigger>;
 };
-
 
 function mapDispatchToProps(dispatch, ownProps) {
     return {
-      moveBack: () => dispatch(backActor(ownProps.backCount))
+      rollback: () => dispatch({
+        type: 'ROLLBACK_TIME',
+        value: ownProps.time
+      })
     }
 }
 

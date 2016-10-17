@@ -3,7 +3,7 @@
 import Message from './Message';
 import { connect } from 'react-redux';
 
-import {sendMessage} from '../../helpers/handle-message';
+//import {sendMessage} from '../../helpers/handle-message';
 
 function mapStateToProps(state) {
   return {

@@ -2,29 +2,32 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Point from './Point';
 
-const PointList = ({ timeInterval, margin, messageLog, width, actors, history }) => {
-  var currentTime = history;
+const PointList = ({ timeInterval, margin, messageLog, width, actors, actorSnapshots }) => {
+  var currentTime = actorSnapshots.length - 1;
+  var consumes = messageLog.filter(msg => msg.type === 'consume')
   return <g>{
-    messageLog.concat().reverse().map((msg, index) => {
-      var actor;
+    consumes.reverse().map((msg, msgIndex) => {
+      var actor, index;
+      var targetPid = msg.body.get('target');
       if( index === 0 ) {
-        actor = actors[msg.to];
+        index = actors.findKey(entry => entry.get('pid') === targetPid);
+        actor = actors.get(index);
       } else {
-        actor = currentTime.actors[msg.to];
-        currentTime = currentTime._prev;
+        index = actorSnapshots[currentTime].findKey(entry => entry.get('pid') === targetPid);
+        actor = actorSnapshots[currentTime].get(index);
+        currentTime = currentTime - 1;
       }
-
-      return <Point cx={ width / actors.length * msg.to }
-        cy={ (messageLog.length - index) * timeInterval + margin }
-        backCount={index}
-        actor={actor} key={msg.uid} />;
+      return <Point cx={ width / (actors.size + 1) * (index + 1) }
+        cy={ (consumes.length - msgIndex) * timeInterval + margin }
+        time={msg.time}
+        actor={actor} key={msgIndex} />;
     })
   }</g>;
 }
 function mapStateToProps(state) {
   return {
     actors: state.shadow.actors,
-    history: state.shadow.history,
+    actorSnapshots: state.shadow.actorSnapshots,
     messageLog: state.shadow.messageLog,
     width: state.panels['root-panel'],
     timeInterval: state.diagram.timeInterval,

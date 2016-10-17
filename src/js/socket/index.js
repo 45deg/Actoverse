@@ -5,14 +5,23 @@ class SocketManager {
     this.socket = null;
   }
   connect(url){
-    this.socket = new WebSocket(url);
-    this.socket.onopen = this._onOpen.bind(this);
-    this.socket.onclose = this._onClose.bind(this);
-    this.socket.onmessage = this._onMessage.bind(this);
+    return new Promise((resolve, reject) => {
+      this.socket = new WebSocket('ws://' + url);
+      this.socket.onopen = () => {
+        resolve();
+        this._onOpen();
+      };
+      this.socket.onclose = this._onClose.bind(this);
+      this.socket.onerror = (err) => {
+        reject(err);
+        this._onClose();
+      };
+      this.socket.onmessage = this._onMessage.bind(this);
+    });
   }
   _onOpen(){
     console.log('connected');
-    send({ type: 'report' });
+    this.send({ type: 'report' });
   }
   _onClose(){
     // reconnect
@@ -29,9 +38,8 @@ class SocketManager {
         body: data.body,
         pid: data.pid
       });
-      return;
     }
-    /*
+
     if(data.event === 'REPORT_STATE') {
       for(let pid in data.body) {
         if(data.body[pid].mailbox.length > 0)
@@ -39,10 +47,9 @@ class SocketManager {
       }
       return;
     } else if(data.event === 'QUEUE_RECEIVED') {
-      setTimeout(() => send(Object.assign({type: 'select'}, data.body)), 1000);
+      setTimeout(() => this.send(Object.assign({type: 'select'}, data.body)), 1000);
       console.log('>OUT> [SELECT]', data.body);
     }
-    */
     store.dispatch({
       type: data.event,
       body: data.body,

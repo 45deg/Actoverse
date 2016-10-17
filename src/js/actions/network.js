@@ -1,7 +1,13 @@
+import socket from '../socket';
+
 export function connectNetwork(target){
-    return { type: 'CONNECT_NETWORK', target };
+  return dispatch => {
+    socket.connect(target).then(e => {
+      dispatch({ type: 'CONNECT_NETWORK', target });
+    });
+  };
 }
 
 export function disconnectNetwork(){
-    return { type: 'DISCONNECT_NETWORK' };
+  return { type: 'DISCONNECT_NETWORK' };
 }

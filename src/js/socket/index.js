@@ -6,6 +6,7 @@ class SocketManager {
   }
   connect(url){
     return new Promise((resolve, reject) => {
+      if(this.socket !== null) this.socket.close();
       this.socket = new WebSocket('ws://' + url);
       this.socket.onopen = () => {
         resolve();

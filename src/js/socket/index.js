@@ -40,7 +40,7 @@ class SocketManager {
         pid: data.pid
       });
     }
-
+/*
     if(data.event === 'REPORT_STATE') {
       for(let pid in data.body) {
         if(data.body[pid].mailbox.length > 0)
@@ -50,7 +50,7 @@ class SocketManager {
     } else if(data.event === 'QUEUE_RECEIVED') {
       setTimeout(() => this.send(Object.assign({type: 'select'}, data.body)), 1000);
       console.log('>OUT> [SELECT]', data.body);
-    }
+    } */
     store.dispatch({
       type: data.event,
       body: data.body,

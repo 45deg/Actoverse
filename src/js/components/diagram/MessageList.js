@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Message from './Message';
-import CandidateMessage from './CandidateMessage';
+//import CandidateMessage from './CandidateMessage';
 import ElementArranger from './ElementArranger';
 import generateColor from '../../helpers/generateColor';
+import socket from '../../socket';
 
 function processMessages(log){
   var sends = log.filter(m => m.type === 'send');
@@ -19,10 +20,25 @@ function processMessages(log){
     });
 }
 
-const MessageList = ({ timeInterval, margin, messageLog, width, actors, messageFlag }) => {
+function getCandidates(actors, log, clock){
+  var sends = log.filter(m => m.type === 'send');
+  return actors.flatMap(actor => actor.get('mailbox'))
+               .map(msg => {
+                 let sendMsg = sends.find(m => m.body.equals(msg));
+                 return {
+                   sendAt: sendMsg ? sendMsg.time : 0,
+                   recvAt: clock + 1,
+                   body: msg,
+                   candidate: true,
+                 }
+               }).toArray();
+}
+
+const MessageList = ({ timeInterval, margin, messageLog,
+                        width, actors, messageFlag, clock }) => {
   return <ElementArranger>{
     processMessages(messageLog)
-      //.concat([]) //messageQueue.map((m, i) => ({ ...m, candidate: true })))
+      .concat(getCandidates(actors, messageLog, clock))
       .map((msg, index) => {
         var xSpan = width / (actors.size + 1);
         var targetPid = msg.body.get('target');
@@ -44,10 +60,17 @@ const MessageList = ({ timeInterval, margin, messageLog, width, actors, messageF
                       msg.discard ? 'discard' : '' ].join(' '),
           color: generateColor(msgData[0])
         };
-        if (msg.candidate)
-          return <CandidateMessage {...props} />;
-        else
+        if (msg.candidate) {
+          props.onClick = (body => () => {
+            socket.send({
+              type: 'select',
+              ...body
+            })
+          })(msg.body.toJS());
           return <Message {...props} />;
+        } else {
+          return <Message {...props} />;
+        }
       })
   }</ElementArranger>;
 }
@@ -55,6 +78,7 @@ function mapStateToProps(state) {
   return {
     actors: state.shadow.actors,
     messageLog: state.shadow.messageLog,
+    clock: state.shadow.clock,
     width: state.panels['root-panel'],
     timeInterval: state.diagram.timeInterval,
     messageFlag: state.diagram.showMessage,

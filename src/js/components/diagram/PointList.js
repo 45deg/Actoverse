@@ -18,7 +18,7 @@ const PointList = ({ timeInterval, margin, messageLog, width, actors, actorSnaps
         currentTime = currentTime - 1;
       }
       return <Point cx={ width / (actors.size + 1) * (index + 1) }
-        cy={ (consumes.length - msgIndex) * timeInterval + margin }
+        cy={ msg.time * timeInterval + margin }
         time={msg.time}
         actor={actor} key={msgIndex} />;
     })

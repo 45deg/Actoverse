@@ -37,7 +37,7 @@ const MessageList = ({ timeInterval, margin, messageLog, width, actors, messageF
           fromX: xSpan * senderIndex,
           fromY: msg.sendAt * timeInterval + margin,
           toX: xSpan * targetIndex,
-          toY: (msg.recvAt + 1) * timeInterval + margin,
+          toY: msg.recvAt * timeInterval + margin,
           className: ['log',
                       msg.candidate ? 'candidate' : '',
                       messageFlag ? '' : 'hide-message',

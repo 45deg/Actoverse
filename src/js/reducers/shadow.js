@@ -50,6 +50,21 @@ const shadow = (state = initState({}), action) => {
         actors: actors.setIn([targetIndex, 'state'], imBody)
       };
     }
+    case 'ACTOR_REPLACED': {
+      return {
+        ...state,
+        actors: actors.setIn([targetIndex, 'state'], imBody.get('state'))
+                      .setIn([targetIndex, 'mailbox'], imBody.get('mailbox'))
+      };
+    }
+    case 'ROLLBACK_TIME': {
+      return {
+        ...state,
+        actorSnapshots: actorSnapshots.slice(0, action.time - 1),
+        messageLog: messageLog.filter(msg => msg.time < action.time),
+        clock: action.time - 1,
+      };
+    }
     default:
     return state;
   }

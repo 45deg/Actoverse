@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Popover, OverlayTrigger } from 'react-bootstrap';
-import { backActor } from '../../actions/shadow';
+import { rollbackTime } from '../../actions/shadow';
 
 const toolTip = (actor) => {
   if(actor === null) return null;
@@ -22,12 +22,9 @@ const Point = ({ cx, cy, rollback, actor, time }) => {
 };
 
 function mapDispatchToProps(dispatch, ownProps) {
-    return {
-      rollback: () => dispatch({
-        type: 'ROLLBACK_TIME',
-        value: ownProps.time
-      })
-    }
+  return {
+    rollback: () => dispatch(rollbackTime(ownProps.time))
+  }
 }
 
 export default connect(null, mapDispatchToProps)(Point);

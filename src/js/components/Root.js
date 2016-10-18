@@ -1,15 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import { Tabs, Tab } from 'react-bootstrap';
 
 import ToolBar from './ToolBar';
-//import StepField from './StepField';
 import Diagram from './Diagram';
-
-//import StatusPanel from './StatusPanel';
-//import HistoryPanel from './HistoryPanel';
-//import ConfigPanel from './ConfigPanel';
-
 import SplitPane from './SplitPane';
+
+import StatePanel from './panels/StatePanel';
 
 import 'css/root';
 import 'css/resizer';
@@ -21,7 +18,10 @@ const Root = ({ connected }) => {
       <section id="panel-wrapper">
         <SplitPane split="vertical" className="root-panel" defaultSize={400}>
           <Diagram />
-          <div>B</div>
+          <Tabs defaultActiveKey={1} id="panel-tab">
+            <Tab eventKey={1} title="State"><StatePanel /></Tab>
+            <Tab eventKey={2} title="Filter">Not implemented</Tab>
+          </Tabs>
         </SplitPane>
       </section>
     }

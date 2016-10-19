@@ -1,12 +1,15 @@
 import store from '../store';
+import { showAlertModal } from '../actions/modal';
+import { disconnectNetwork } from '../actions/network';
 
 class SocketManager {
   constructor(){
     this.socket = null;
+    this.preparedToClose = false;
   }
   connect(url){
     return new Promise((resolve, reject) => {
-      if(this.socket !== null) this.socket.close();
+      if(this.socket !== null) this.close();
       this.socket = new WebSocket('ws://' + url);
       this.socket.onopen = () => {
         resolve();
@@ -15,7 +18,7 @@ class SocketManager {
       this.socket.onclose = this._onClose.bind(this);
       this.socket.onerror = (err) => {
         reject(err);
-        this._onClose();
+        this._onError();
       };
       this.socket.onmessage = this._onMessage.bind(this);
     });
@@ -26,9 +29,14 @@ class SocketManager {
   }
   _onClose(){
     // reconnect
+    if(!this.preparedToClose) {
+      store.dispatch(showAlertModal("Connection lost."));
+      store.dispatch(disconnectNetwork());
+    }
+    this.preparedToClose = false;
   }
   _onError(){
-    // send error
+    store.dispatch(showAlertModal("Error while connection."));
   }
   _onMessage(dataMsg) {
     var data = JSON.parse(dataMsg.data);
@@ -60,6 +68,10 @@ class SocketManager {
 
   send(data){
     this.socket.send(JSON.stringify(data));
+  }
+  close(){
+    this.preparedToClose = true;
+    this.socket.close();
   }
 }
 

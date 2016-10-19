@@ -7,3 +7,9 @@ export function connectNetwork(target){
     });
   };
 }
+
+export function disconnectNetwork(){
+  return {
+    type: 'DISCONNECT_NETWORK'
+  }
+}

@@ -8,6 +8,8 @@ import SplitPane from './SplitPane';
 
 import StatePanel from './panels/StatePanel';
 
+import AlertModal from './AlertModal';
+
 import 'css/root';
 import 'css/resizer';
 
@@ -25,6 +27,7 @@ const Root = ({ connected }) => {
         </SplitPane>
       </section>
     }
+    <AlertModal />
   </div>);
 }
 

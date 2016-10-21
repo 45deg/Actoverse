@@ -3,14 +3,14 @@ import shadow from './shadow';
 import ui from './ui';
 import network from './network';
 import modal from './modal';
-import filters from './filters';
+import censorship from './censorship';
 
 var reducers = combineReducers({
     shadow,
     ui,
     network,
     modal,
-    filters,
+    censorship,
 });
 
 export default reducers;

@@ -12,6 +12,7 @@ module.exports = {
     publicPath: '/dist/', // Required for webpack-dev-server
     filename: 'bundle.js'
   },
+  devtool: 'source-map',
   module: {
     loaders: [{
       test: /\.js$/,

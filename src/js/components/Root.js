@@ -7,6 +7,7 @@ import Diagram from './Diagram';
 import SplitPane from './SplitPane';
 
 import StatePanel from './panels/StatePanel';
+import FilterPanel from './panels/FilterPanel';
 
 import AlertModal from './AlertModal';
 
@@ -22,7 +23,7 @@ const Root = ({ connected }) => {
           <Diagram />
           <Tabs defaultActiveKey={1} id="panel-tab">
             <Tab eventKey={1} title="State"><StatePanel /></Tab>
-            <Tab eventKey={2} title="Filter">Not implemented</Tab>
+            <Tab eventKey={2} title="Filter"><FilterPanel /></Tab>
           </Tabs>
         </SplitPane>
       </section>

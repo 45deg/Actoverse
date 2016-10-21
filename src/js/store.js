@@ -4,7 +4,7 @@ import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 
 const ignoreEvents = [
-  'CHANGE_SIZE',
+  'CHANGE_PANEL_SIZE',
   'MOVE_TO_FRONT'
 ]
 const loggerMiddleware = createLogger({

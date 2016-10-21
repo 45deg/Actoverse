@@ -21,7 +21,7 @@ const ui = (state = initState(), action) => {
             return   { ...state, timeInterval: action.value };
         case 'TOGGLE_MESSAGE':
             return   { ...state, showMessage: action.value };
-        case 'CHANGE_SIZE':
+        case 'CHANGE_PANEL_SIZE':
             return   { ...state,
               panelSize: {
                 ...panelSize,

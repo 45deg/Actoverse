@@ -17,13 +17,13 @@ const toolTip = (actor) => {
 
 const Point = ({ cx, cy, rollback, actor, time }) => {
   return <OverlayTrigger trigger={['hover', 'focus']} placement="right" overlay={toolTip(actor)}>
-     <circle time={time} className="point" cx={cx} cy={cy} r="5" onClick={rollback} />
+     <circle className="point" cx={cx} cy={cy} r="5" onClick={() => rollback(time)} />
   </OverlayTrigger>;
 };
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    rollback: () => dispatch(rollbackTime(ownProps.time))
+    rollback: (time) => dispatch(rollbackTime(time))
   }
 }
 

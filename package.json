@@ -25,7 +25,12 @@
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
+    "clean-webpack-plugin": "^0.1.13",
+    "copy-webpack-plugin": "^3.0.1",
     "css-loader": "^0.25.0",
+    "electron-connect": "^0.6.0",
+    "electron-packager": "^8.1.0",
+    "electron-prebuilt": "^1.3.8",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "json-loader": "^0.5.4",
@@ -34,12 +39,10 @@
     "react-hot-loader": "^3.0.0-beta.3",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.15.1"
+    "webpack": "^1.13.2"
   },
   "scripts": {
-    "start": "webpack-dev-server --inline",
-    "build": "webpack --progress --profile --colors --define process.env.NODE_ENV='\"production\"' --optimize-minimize"
+    "start": "node watch.js"
   },
   "author": "",
   "license": "ISC"

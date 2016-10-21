@@ -48,17 +48,11 @@ class SocketManager {
         pid: data.pid
       });
     }
-/*
-    if(data.event === 'REPORT_STATE') {
-      for(let pid in data.body) {
-        if(data.body[pid].mailbox.length > 0)
-          this.send(Object.assign({type: 'select'}, data.body[pid].mailbox[0]));
-      }
-      return;
-    } else if(data.event === 'QUEUE_RECEIVED') {
-      setTimeout(() => this.send(Object.assign({type: 'select'}, data.body)), 1000);
-      console.log('>OUT> [SELECT]', data.body);
-    } */
+    /*
+    if(data.event === 'QUEUE_RECEIVED') {
+       this.send(Object.assign({type: 'select'}, data.body));
+    }
+    */
     store.dispatch({
       type: data.event,
       body: data.body,

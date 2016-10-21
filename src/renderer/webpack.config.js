@@ -2,14 +2,15 @@
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   entry: [
-    './src/index'
+    './src/renderer/index'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
-    publicPath: '/dist/', // Required for webpack-dev-server
+    publicPath: '/dist/renderer/', // Required for webpack-dev-server
     filename: 'bundle.js'
   },
   devtool: 'source-map',
@@ -35,10 +36,21 @@ module.exports = {
   },
   plugins: [
     // extract inline css into separate 'style.css'
-    new ExtractTextPlugin('style.css')
+    new ExtractTextPlugin('style.css'),
+    new CopyWebpackPlugin([{
+      from: 'src/renderer/index.html'
+    }, {
+      from: 'src/package.json',
+      to: '../'
+    }, {
+      from: 'src/browser/app.js',
+      to: '../browser/'
+    }]),
+    new CleanWebpackPlugin(['dist'])
   ],
   resolve: {
     extensions: ['', '.js', '.less', '.css'],
-    root: [path.join(__dirname, './src')]
-  }
-}
+    root: [path.join(__dirname, './src/renderer')]
+  },
+  target: 'electron'
+};

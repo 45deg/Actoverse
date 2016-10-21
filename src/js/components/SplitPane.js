@@ -3,7 +3,7 @@
 import SplitPane from 'react-split-pane';
 import { connect } from 'react-redux';
 
-import { changePanelSize } from '../actions/panels';
+import { changePanelSize } from '../actions/ui';
 
 function mapDispatchToProps(dispatch, ownProps) {
     return {

@@ -24,7 +24,7 @@ const ui = (state = initState(), action) => {
         case 'CHANGE_PANEL_SIZE':
             return   { ...state,
               panelSize: {
-                ...panelSize,
+                ...state.panelSize,
                 [action.name]: [action.size],
               }
             };

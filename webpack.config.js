@@ -10,6 +10,7 @@ module.exports = {
     './src/renderer/index'
   ],
   output: {
+    path: path.join(__dirname, './dist/renderer'),
     publicPath: '/dist/renderer/', // Required for webpack-dev-server
     filename: 'bundle.js'
   },

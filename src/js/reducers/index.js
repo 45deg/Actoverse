@@ -1,14 +1,13 @@
 import { combineReducers } from 'redux';
 import shadow from './shadow';
-import diagram from './diagram';
-import panels from './panels';
+import ui from './ui';
 import network from './network';
 import modal from './modal';
+import filters from './filters';
 
 var reducers = combineReducers({
     shadow,
-    diagram,
-    panels,
+    ui,
     network,
     modal,
     filters,

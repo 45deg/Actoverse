@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as diagramActionCreator from '../actions/diagram';
+import * as uiActionCreator from '../actions/ui';
 
 class DiagramScroller extends Component {
     render() {
@@ -19,13 +19,13 @@ class DiagramScroller extends Component {
 
 function mapStateToProps(state) {
     return {
-        scrollValue: state.diagram.scrollValue,
-        width: state.panels['root-panel']
+        scrollValue: state.ui.scrollValue,
+        width: state.ui.panelSize['root-panel']
     };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(diagramActionCreator, dispatch);
+  return bindActionCreators(uiActionCreator, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DiagramScroller);

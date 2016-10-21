@@ -4,10 +4,14 @@ function initState(){
         scrollValue: 0,
         timeInterval: 50,
         showMessage: true,
+        panelSize: {
+          'root-panel' : 400,
+          'vis-panel': 500
+        }
     };
 }
 
-const diagram = (state = initState(), action) => {
+const ui = (state = initState(), action) => {
     switch(action.type) {
         case 'MOVE_TO_FRONT':
             return   { ...state, frontElementIndex: action.index };
@@ -17,9 +21,16 @@ const diagram = (state = initState(), action) => {
             return   { ...state, timeInterval: action.value };
         case 'TOGGLE_MESSAGE':
             return   { ...state, showMessage: action.value };
+        case 'CHANGE_SIZE':
+            return   { ...state,
+              panelSize: {
+                ...panelSize,
+                [action.name]: [action.size],
+              }
+            };
         default:
             return state;
     }
 };
 
-export default diagram;
+export default ui;

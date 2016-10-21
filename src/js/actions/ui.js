@@ -13,3 +13,7 @@ export function updateTimeSpan(value){
 export function toggleMessage(value){
     return { type: 'TOGGLE_MESSAGE', value };
 }
+
+export function changeSize(panelName, size){
+    return { type: 'CHANGE_SIZE', name: panelName, size };
+}

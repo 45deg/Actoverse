@@ -29,8 +29,8 @@ function mapStateToProps(state) {
     actors: state.shadow.actors,
     actorSnapshots: state.shadow.actorSnapshots,
     messageLog: state.shadow.messageLog,
-    width: state.panels['root-panel'],
-    timeInterval: state.diagram.timeInterval,
+    width: state.ui.panelSize['root-panel'],
+    timeInterval: state.ui.timeInterval,
   };
 }
 

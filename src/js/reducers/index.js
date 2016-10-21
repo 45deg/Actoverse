@@ -11,6 +11,7 @@ var reducers = combineReducers({
     panels,
     network,
     modal,
+    filters,
 });
 
 export default reducers;

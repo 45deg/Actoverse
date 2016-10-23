@@ -11,7 +11,7 @@ function processMessages(log){
   return log
     .filter(msg => msg.type === 'consume')
     .map(msg => {
-      let sendMsg = sends.find(m => m.body.equals(msg.body));
+      let sendMsg = sends.find(m => m.uid === msg.uid);
       return {
         sendAt: sendMsg ? sendMsg.time : 0,
         recvAt: msg.time,
@@ -22,6 +22,7 @@ function processMessages(log){
 
 function getCandidates(actors, log, clock){
   var sends = log.filter(m => m.type === 'send');
+  return [];
   return actors.flatMap(actor => actor.get('mailbox'))
                .map(msg => {
                  let sendMsg = sends.find(m => m.body.equals(msg));

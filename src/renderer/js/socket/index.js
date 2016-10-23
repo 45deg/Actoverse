@@ -1,6 +1,7 @@
 import store from '../store';
 import { showAlertModal } from '../actions/modal';
 import { disconnectNetwork } from '../actions/network';
+import { initState } from '../actions/shadow';
 
 class SocketManager {
   constructor(){
@@ -25,7 +26,8 @@ class SocketManager {
   }
   _onOpen(){
     console.log('connected');
-    this.send({ type: 'report' });
+    store.dispatch(initState());
+    this.send({ type: 'dump_log' });
   }
   _onClose(){
     // reconnect
@@ -41,23 +43,21 @@ class SocketManager {
   _onMessage(dataMsg) {
     var data = JSON.parse(dataMsg.data);
     console.log('<IN<', dataMsg.data);
-    if(data.event === 'REPORT_STATE') {
+    if(data.event === 'DUMP_LOG') {
+      for(let entry of data.body) {
+        store.dispatch({
+          type: entry.event,
+          body: entry.body,
+          pid: entry.pid
+        });
+      }
+    } else {
       store.dispatch({
-        type: 'INIT_STATE',
+        type: data.event,
         body: data.body,
         pid: data.pid
       });
     }
-    /*
-    if(data.event === 'QUEUE_RECEIVED') {
-       this.send(Object.assign({type: 'select'}, data.body));
-    }
-    */
-    store.dispatch({
-      type: data.event,
-      body: data.body,
-      pid: data.pid
-    });
   };
 
   send(data){

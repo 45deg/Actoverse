@@ -15,3 +15,9 @@ export function rollbackTime(time){
     dispatch({type:'ROLLBACK_TIME', time});
   };
 }
+
+export function initState(){
+  return {
+    'type': 'INIT_STATE'
+  }
+}

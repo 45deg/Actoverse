@@ -57,7 +57,7 @@ class ActorEntry extends React.Component {
       { this.state.showDetails &&
         <div className="tables-container">
           <StateTable state={actor.get('state')} />
-          <MailboxTable mailbox={actor.get('mailbox')} />
+          {/* <MailboxTable mailbox={actor.get('mailbox')} /> */}
         </div>
       }
     </div>;

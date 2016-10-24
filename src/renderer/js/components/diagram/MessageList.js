@@ -10,19 +10,19 @@ function processMessages(log){
   var sends = log.filter(m => m.type === 'send');
   return log
     .filter(msg => msg.type === 'consume')
-    .map(msg => {
-      let sendMsg = sends.find(m => m.uid === msg.uid);
+    .map(recvMsg => {
+      let sendMsg = sends.find(m => m.uid === recvMsg.uid);
       return {
         sendAt: sendMsg ? sendMsg.time : 0,
-        recvAt: msg.time,
-        body: msg.body
+        recvAt: recvMsg.time,
+        body: recvMsg.body
       };
     });
 }
 
 function getCandidates(actors, log, clock){
+  return []; /*
   var sends = log.filter(m => m.type === 'send');
-  return [];
   return actors.flatMap(actor => actor.get('mailbox'))
                .map(msg => {
                  let sendMsg = sends.find(m => m.body.equals(msg));
@@ -32,7 +32,7 @@ function getCandidates(actors, log, clock){
                    body: msg,
                    candidate: true,
                  }
-               }).toArray();
+               }).toArray();*/
 }
 
 const MessageList = ({ timeInterval, margin, messageLog,
@@ -44,16 +44,16 @@ const MessageList = ({ timeInterval, margin, messageLog,
         var xSpan = width / (actors.size + 1);
         var targetPid = msg.body.get('target');
         var senderPid = msg.body.get('sender');
-        var targetIndex = actors.findKey(entry => entry.get('pid') === targetPid) + 1 || 0;
-        var senderIndex = actors.findKey(entry => entry.get('pid') === senderPid) + 1 || 0;
+        var targetIndex = actors.keySeq().findIndex(k => k === targetPid);
+        var senderIndex = actors.keySeq().findIndex(k => k === senderPid);
         var msgData = msg.body.get('data').toJS();
         var props = {
           id: index,
           key: index,
           text: JSON.stringify(msgData),
-          fromX: xSpan * senderIndex,
+          fromX: xSpan * (senderIndex + 1),
           fromY: msg.sendAt * timeInterval + margin,
-          toX: xSpan * targetIndex,
+          toX: xSpan * (targetIndex + 1),
           toY: msg.recvAt * timeInterval + margin,
           className: ['log',
                       msg.candidate ? 'candidate' : '',

@@ -52,6 +52,15 @@ const shadow = (state = initState(), action) => {
         actors: actors.setIn([action.pid, 'state'], imBody.get('state'))
       };
     }
+    case 'ROLLBACK_TIME': {
+      return {
+        ...state,
+        messageLog: messageLog.filter(e => e.time < action.time),
+        actorSnapshots: actorSnapshots.map(actor => actor.filter((_, t) => t < action.time)),
+        clock: action.time,
+        //actors null
+      };
+    }
     default:
     return state;
   }

@@ -3,6 +3,10 @@ import store from '../store';
 
 export function rollbackTime(time){
   return dispatch => {
+    dispatch({
+      type: 'ROLLBACK_TIME',
+      time
+    });
     socket.send({
       type: 'rollback',
       time

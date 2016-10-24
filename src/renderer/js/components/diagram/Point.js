@@ -4,19 +4,18 @@ import { connect } from 'react-redux';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import { rollbackTime } from '../../actions/shadow';
 
-const toolTip = (actor) => {
-  if(actor === null) return null;
-  return <Popover id="popover-trigger-focus" title={actor.get('name')}>
+const toolTip = (name, state) => {
+  return <Popover id="popover-trigger-focus" title={name}>
     {
-      actor.get('state').map((value, key) =>
+      state.map((value, key) =>
         <div key={key}>{key}: {JSON.stringify(value)}</div>
       )
     }
   </Popover>;
 };
 
-const Point = ({ cx, cy, rollback, actor, time }) => {
-  return <OverlayTrigger trigger={['hover', 'focus']} placement="right" overlay={toolTip(actor)}>
+const Point = ({ cx, cy, rollback, name, state, time }) => {
+  return <OverlayTrigger trigger={['hover', 'focus']} placement="right" overlay={toolTip(name, state)}>
      <circle className="point" cx={cx} cy={cy} r="5" onClick={() => rollback(time)} />
   </OverlayTrigger>;
 };

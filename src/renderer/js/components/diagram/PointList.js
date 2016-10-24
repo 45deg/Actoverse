@@ -3,25 +3,17 @@ import { connect } from 'react-redux';
 import Point from './Point';
 
 const PointList = ({ timeInterval, margin, messageLog, width, actors, actorSnapshots }) => {
-  var currentTime = actorSnapshots.length - 1;
-  var consumes = messageLog.filter(msg => msg.type === 'consume')
   return <g>{
-    consumes.reverse().map((msg, msgIndex) => {
-      var actor, index;
-      var targetPid = msg.body.get('target');
-      if( index === 0 ) {
-        index = actors.findKey(entry => entry.get('pid') === targetPid);
-        actor = actors.get(index);
-      } else {
-        index = actorSnapshots[currentTime].findKey(entry => entry.get('pid') === targetPid);
-        actor = actorSnapshots[currentTime].get(index);
-        currentTime = currentTime - 1;
-      }
-      return <Point cx={ width / (actors.size + 1) * (index + 1) }
-        cy={ msg.time * timeInterval + margin }
-        time={msg.time}
-        actor={actor} key={msgIndex} />;
-    })
+    actorSnapshots.map((snapshots, pid) => {
+      let index = actors.keySeq().findIndex(k => k === pid);
+      let actorName = actors.getIn([pid, 'name']);
+      return snapshots.map((state, time) => {
+        return <Point cx={ width / (actors.size + 1) * (index + 1) }
+          cy={time * timeInterval + margin }
+          time={time}
+          name={actorName} state={state} key={`${pid}_${time}`} />;
+      }).valueSeq();
+    }).valueSeq()
   }</g>;
 }
 function mapStateToProps(state) {

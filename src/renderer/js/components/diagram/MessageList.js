@@ -7,15 +7,15 @@ import generateColor from '../../helpers/generateColor';
 import socket from '../../socket';
 
 function processMessages(log){
-  var sends = log.filter(m => m.type === 'send');
+  var recvs = log.filter(m => m.type === 'consume');
   return log
-    .filter(msg => msg.type === 'consume')
-    .map(recvMsg => {
-      let sendMsg = sends.find(m => m.uid === recvMsg.uid);
+    .filter(msg => msg.type === 'send')
+    .map(sendMsg => {
+      let recvMsg = recvs.find(m => m.uid === sendMsg.uid);
       return {
-        sendAt: sendMsg ? sendMsg.time : 0,
-        recvAt: recvMsg.time,
-        body: recvMsg.body
+        sendAt: sendMsg.time,
+        recvAt: recvMsg ? recvMsg.time : null,
+        body: sendMsg.body
       };
     });
 }
@@ -54,11 +54,12 @@ const MessageList = ({ timeInterval, margin, messageLog,
           fromX: xSpan * (senderIndex + 1),
           fromY: msg.sendAt * timeInterval + margin,
           toX: xSpan * (targetIndex + 1),
-          toY: msg.recvAt * timeInterval + margin,
+          toY: msg.recvAt ? msg.recvAt * timeInterval + margin
+                          : clock * timeInterval + margin,
           className: ['log',
                       msg.candidate ? 'candidate' : '',
                       messageFlag ? '' : 'hide-message',
-                      msg.discard ? 'discard' : '' ].join(' '),
+                      msg.recvAt ? '' : 'dash' ].join(' '),
           color: generateColor(msgData[0])
         };
         if (msg.candidate) {

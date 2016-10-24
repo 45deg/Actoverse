@@ -26,7 +26,6 @@ class SocketManager {
   }
   _onOpen(){
     console.log('connected');
-    store.dispatch(initState());
     this.send({ type: 'dump_log' });
   }
   _onClose(){
@@ -44,18 +43,24 @@ class SocketManager {
     var data = JSON.parse(dataMsg.data);
     console.log('<IN<', dataMsg.data);
     if(data.event === 'DUMP_LOG') {
-      for(let entry of data.body) {
-        store.dispatch({
-          type: entry.event,
-          body: entry.body,
-          pid: entry.pid
-        });
+      store.dispatch(initState());
+      for(let pid in data.body) {
+        let log = data.body[pid];
+        for(let entry of log) {
+          store.dispatch({
+            type: entry.event,
+            body: entry.body,
+            pid: parseInt(pid),
+            timestamp: entry.timestamp
+          });
+        }
       }
     } else {
       store.dispatch({
         type: data.event,
         body: data.body,
-        pid: data.pid
+        pid: data.pid,
+        timestamp: data.timestamp
       });
     }
   };

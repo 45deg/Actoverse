@@ -2,17 +2,16 @@ import Immutable from 'immutable';
 
 function initState(){
   return {
-    actors : Immutable.List(),
-    actorSnapshots : [],
+    actors : Immutable.OrderedMap(),
+    actorSnapshots : Immutable.Map(),
     messageLog : [],
-    clock: 0,
+    clock : 0,
   };
 }
 
 const shadow = (state = initState(), action) => {
   let { actors, actorSnapshots, messageLog, clock } = state;
   let imBody = Immutable.fromJS(action.body);
-  let targetIndex = actors.findKey(entry => entry.get('pid') === action.pid);
   // shadowing from API responses
   switch(action.type) {
     case 'INIT_STATE' : {
@@ -21,43 +20,36 @@ const shadow = (state = initState(), action) => {
     case 'ACTOR_CREATED': {
       return {
         ...state,
-        actors: actors.push(imBody.set('pid', action.pid))
+        actorSnapshots: actorSnapshots.setIn([action.pid, action.timestamp], imBody.get('state')),
+        actors: actors.set(action.pid, imBody.set('pid', action.pid))
       };
     }
     case 'SEND_MESSAGE': {
       return {
         ...state,
         messageLog: [...messageLog,
-          { type: 'send', time: clock, body: imBody, uid: imBody.get('uid') }],
+          { type: 'send', time: action.timestamp, body: imBody, uid: imBody.get('uid') }],
       }
     }
     case 'MESSAGE_RECEIVED': {
       return {
         ...state,
-        actorSnapshots: [...actorSnapshots, actors],
         messageLog: [...messageLog,
-          { type: 'consume', time: clock + 1, body: imBody, uid: imBody.get('uid') }],
-        clock: clock + 1
+          { type: 'consume', time: action.timestamp, body: imBody, uid: imBody.get('uid') }],
       };
     }
     case 'ACTOR_UPDATED': {
       return {
         ...state,
-        actors: actors.setIn([targetIndex, 'state'], imBody)
+        actorSnapshots: actorSnapshots.setIn([action.pid, action.timestamp], imBody),
+        actors: actors.setIn([action.pid, 'state'], imBody),
+        clock: Math.max(clock, action.timestamp)
       };
     }
     case 'ACTOR_REPLACED': {
       return {
         ...state,
-        actors: actors.setIn([targetIndex, 'state'], imBody.get('state'))
-      };
-    }
-    case 'ROLLBACK_TIME': {
-      return {
-        ...state,
-        actorSnapshots: actorSnapshots.slice(0, action.time - 1),
-        messageLog: messageLog.filter(msg => msg.time < action.time),
-        clock: action.time - 1,
+        actors: actors.setIn([action.pid, 'state'], imBody.get('state'))
       };
     }
     default:

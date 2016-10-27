@@ -6,40 +6,26 @@ import ElementArranger from './ElementArranger';
 import generateColor from '../../helpers/generateColor';
 import socket from '../../socket';
 
-function processMessages(log){
+function processMessages(log, messagePool){
   var recvs = log.filter(m => m.type === 'consume');
   return log
     .filter(msg => msg.type === 'send')
     .map(sendMsg => {
       let recvMsg = recvs.find(m => m.uid === sendMsg.uid);
+      let candidate = messagePool.has(sendMsg.uid);
       return {
         sendAt: sendMsg.time,
         recvAt: recvMsg ? recvMsg.time : null,
-        body: sendMsg.body
+        body: sendMsg.body,
+        candidate
       };
     });
 }
 
-function getCandidates(actors, log, clock){
-  return []; /*
-  var sends = log.filter(m => m.type === 'send');
-  return actors.flatMap(actor => actor.get('mailbox'))
-               .map(msg => {
-                 let sendMsg = sends.find(m => m.body.equals(msg));
-                 return {
-                   sendAt: sendMsg ? sendMsg.time : 0,
-                   recvAt: clock + 1,
-                   body: msg,
-                   candidate: true,
-                 }
-               }).toArray();*/
-}
-
-const MessageList = ({ timeInterval, margin, messageLog,
+const MessageList = ({ timeInterval, margin, messageLog, messagePool,
                         width, actors, messageFlag, clock }) => {
   return <ElementArranger>{
-    processMessages(messageLog)
-      .concat(getCandidates(actors, messageLog, clock))
+    processMessages(messageLog, messagePool)
       .map((msg, index) => {
         var xSpan = width / (actors.size + 1);
         var targetPid = msg.body.get('target');
@@ -55,7 +41,7 @@ const MessageList = ({ timeInterval, margin, messageLog,
           fromY: msg.sendAt * timeInterval + margin,
           toX: xSpan * (targetIndex + 1),
           toY: msg.recvAt ? msg.recvAt * timeInterval + margin
-                          : clock * timeInterval + margin,
+                          : (clock + 1) * timeInterval + margin,
           className: ['log',
                       msg.candidate ? 'candidate' : '',
                       messageFlag ? '' : 'hide-message',
@@ -80,6 +66,7 @@ function mapStateToProps(state) {
   return {
     actors: state.shadow.actors,
     messageLog: state.shadow.messageLog,
+    messagePool: state.shadow.messagePool,
     clock: state.shadow.clock,
     width: state.ui.panelSize['root-panel'],
     timeInterval: state.ui.timeInterval,

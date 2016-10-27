@@ -4,13 +4,14 @@ function initState(){
   return {
     actors : Immutable.OrderedMap(),
     actorSnapshots : Immutable.Map(),
+    messagePool: Immutable.Map(),
     messageLog : [],
     clock : 0,
   };
 }
 
 const shadow = (state = initState(), action) => {
-  let { actors, actorSnapshots, messageLog, clock } = state;
+  let { actors, actorSnapshots, messageLog, clock, messagePool } = state;
   let imBody = Immutable.fromJS(action.body);
   // shadowing from API responses
   switch(action.type) {
@@ -27,7 +28,8 @@ const shadow = (state = initState(), action) => {
     case 'SEND_MESSAGE': {
       return {
         ...state,
-        messageLog: [...messageLog,
+
+      messageLog: [...messageLog,
           { type: 'send', time: action.timestamp, body: imBody, uid: imBody.get('uid') }],
       }
     }
@@ -57,12 +59,22 @@ const shadow = (state = initState(), action) => {
         ...state,
         messageLog: messageLog.filter(e => e.time < action.time),
         actorSnapshots: actorSnapshots.map(actor => actor.filter((_, t) => t < action.time)),
+        messagePool: messagePool.filter(time => time < action.time)
         clock: action.time,
-        //actors null
       };
     }
+    case 'POOL_ADD':
+      return {
+        ...state,
+        messagePool: messagePool.set(imBody.get('uid'), action.time)
+      };
+    case 'POOL_REMOVE':
+      return {
+        ...state,
+        messagePool: messagePool.delete(imBody.get('uid'))
+      };
     default:
-    return state;
+      return state;
   }
 };
 

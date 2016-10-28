@@ -1,7 +1,8 @@
-export function addSensorship(condition, action){
+export function addSensorship(type, condition, action){
   return {
     type: 'ADD_SENSORSHIP',
-    condition, action
+    filterType: type,
+    condition, action,
   };
 }
 

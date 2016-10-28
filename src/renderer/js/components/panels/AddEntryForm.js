@@ -6,36 +6,59 @@ import { FormGroup, MenuItem, InputGroup,
 import { bindActionCreators } from 'redux';
 import * as censorshipActionCreator from '../../actions/censorship';
 
-const actions = [
-  'stop',
-  'pass'
-];
+const CENSORSHIP_OPTIONS = {
+  types : [
+    'sender_pid',
+    'target_pid',
+    'partial_match',
+    'complete_match',
+  ],
+  actions : [
+    'stop',
+    'pass'
+  ],
+};
 
 class AddEntryForm extends React.Component {
   constructor(props){
     super(props);
-    this.state = { condition: "", action: actions[0] };
+    this.initState();
+  }
+  initState(){
+    this.state = { condition: "",
+                   type: CENSORSHIP_OPTIONS.types[0],
+                   action: CENSORSHIP_OPTIONS.actions[0] };
   }
   onSelect(kind, key){
     this.setState({ [kind]: key });
   }
   onSubmit(){
-    this.props.addSensorship(this.state.condition, this.state.action);
-    this.setState({ condition: "", action: actoins[0] });
+    this.props.addSensorship(this.state.type, this.state.condition, this.state.action);
+    this.initState();
   }
-  onSelect(key){
-    this.setState({ action: actions[key] });
+  onSelect(key, index){
+    this.setState({ [key]: CENSORSHIP_OPTIONS[key + 's'][index] });
   }
   render() {
     return <tr>
+    <td>
+    <DropdownButton title={this.state.type}
+      bsSize="small" onSelect={this.onSelect.bind(this, 'type')}>
+    {
+      CENSORSHIP_OPTIONS.types.map((cmd, i) =>
+        <MenuItem eventKey={i} id={i}>{cmd}</MenuItem>
+      )
+    }
+    </DropdownButton>
+    </td>
     <td>
       <FormControl type="text" placeholder="Condition" value={this.state.condition}
         onChange={e => this.setState({ condition: e.target.value })} />
     </td><td>
       <DropdownButton title={this.state.action}
-        bsSize="small" onSelect={this.onSelect.bind(this)}>
+        bsSize="small" onSelect={this.onSelect.bind(this, 'action')}>
       {
-        actions.map((cmd, i) =>
+        CENSORSHIP_OPTIONS.actions.map((cmd, i) =>
           <MenuItem eventKey={i} id={i}>{cmd}</MenuItem>
         )
       }

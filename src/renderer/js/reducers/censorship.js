@@ -2,10 +2,11 @@ function initState(){
   return [];
 }
 
-const network = (state = initState(), action) => {
+const censorship = (state = initState(), action) => {
     switch(action.type) {
         case 'ADD_SENSORSHIP':
             return [...state, {
+              type: action.filterType,
               condition: action.condition,
               action: action.action,
             }];
@@ -16,4 +17,4 @@ const network = (state = initState(), action) => {
     }
 };
 
-export default network;
+export default censorship;

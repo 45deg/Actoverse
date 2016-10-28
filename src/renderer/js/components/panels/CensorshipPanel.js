@@ -11,12 +11,13 @@ const CensorshipPanel = ({ censorship, removeSensorship }) => {
     <Table striped bordered condensed hover>
       <caption>Censorship condition</caption>
       <thead><tr>
-        <th>Condition</th><th>Action</th><th> </th>
+        <th>Type</th><th>Condition</th><th>Action</th><th> </th>
       </tr></thead>
       <tbody>
       {
         censorship.map((entry, index) =>
           <tr key={index}>
+            <td>{entry.type}</td>
             <td>{entry.condition}</td>
             <td>{entry.action}</td>
             <td><Button bsSize="small" bsStyle="danger"

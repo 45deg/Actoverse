@@ -4,8 +4,6 @@ import { hideAlertModal } from '../actions/modal';
 
 import { Modal, Button } from 'react-bootstrap';
 
-import 'css/debug';
-
 const AlertModal = ({ visibility, message, hideAlertModal }) => {
   return <Modal show={visibility} onHide={hideAlertModal}>
             <Modal.Header closeButton>

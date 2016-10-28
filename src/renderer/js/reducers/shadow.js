@@ -59,7 +59,7 @@ const shadow = (state = initState(), action) => {
         ...state,
         messageLog: messageLog.filter(e => e.time < action.time),
         actorSnapshots: actorSnapshots.map(actor => actor.filter((_, t) => t < action.time)),
-        messagePool: messagePool.filter(time => time < action.time)
+        messagePool: messagePool.filter(time => time < action.time),
         clock: action.time,
       };
     }

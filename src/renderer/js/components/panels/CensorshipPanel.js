@@ -11,17 +11,16 @@ const CensorshipPanel = ({ censorship, removeSensorship }) => {
     <Table striped bordered condensed hover>
       <caption>Censorship condition</caption>
       <thead><tr>
-        <th>Type</th><th>Condition</th><th>Action</th><th> </th>
+        <th>Type</th><th>Value</th><th> </th>
       </tr></thead>
       <tbody>
       {
         censorship.map((entry, index) =>
           <tr key={index}>
             <td>{entry.type}</td>
-            <td>{entry.condition}</td>
-            <td>{entry.action}</td>
+            <td>{JSON.stringify(entry.value)}</td>
             <td><Button bsSize="small" bsStyle="danger"
-                onClick={() => removeSensorship(index)} >Remove</Button></td>
+                onClick={() => removeSensorship(entry.id)} >Remove</Button></td>
           </tr>
         )
       }

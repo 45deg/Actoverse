@@ -12,11 +12,7 @@ const CENSORSHIP_OPTIONS = {
     'target_pid',
     'partial_match',
     'complete_match',
-  ],
-  actions : [
-    'stop',
-    'pass'
-  ],
+  ]
 };
 
 class AddEntryForm extends React.Component {
@@ -25,16 +21,15 @@ class AddEntryForm extends React.Component {
     this.initState();
   }
   initState(){
-    this.state = { condition: "",
-                   type: CENSORSHIP_OPTIONS.types[0],
-                   action: CENSORSHIP_OPTIONS.actions[0] };
+    this.state = { value: "",
+                   type: CENSORSHIP_OPTIONS.types[0], };
   }
   onSelect(kind, key){
     this.setState({ [kind]: key });
   }
   onSubmit(){
-    this.props.addSensorship(this.state.type, this.state.condition, this.state.action);
-    this.initState();
+    this.props.addSensorship(this.state.type, this.state.value);
+    this.setState({ value: "" });
   }
   onSelect(key, index){
     this.setState({ [key]: CENSORSHIP_OPTIONS[key + 's'][index] });
@@ -52,18 +47,10 @@ class AddEntryForm extends React.Component {
     </DropdownButton>
     </td>
     <td>
-      <FormControl type="text" placeholder="Condition" value={this.state.condition}
-        onChange={e => this.setState({ condition: e.target.value })} />
-    </td><td>
-      <DropdownButton title={this.state.action}
-        bsSize="small" onSelect={this.onSelect.bind(this, 'action')}>
-      {
-        CENSORSHIP_OPTIONS.actions.map((cmd, i) =>
-          <MenuItem eventKey={i} id={i}>{cmd}</MenuItem>
-        )
-      }
-      </DropdownButton>
-    </td><td>
+      <FormControl type="text" placeholder="Condition" value={this.state.value}
+        onChange={e => this.setState({ value: e.target.value })} />
+    </td>
+    <td>
       <Button bsSize="small"
           onClick={this.onSubmit.bind(this)} >Add</Button>
     </td></tr>;

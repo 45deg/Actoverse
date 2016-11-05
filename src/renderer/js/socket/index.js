@@ -27,6 +27,7 @@ class SocketManager {
   _onOpen(){
     console.log('connected');
     this.send({ type: 'dump_log' });
+    this.send({ type: 'export_filters' });
   }
   _onClose(){
     // reconnect
@@ -48,19 +49,16 @@ class SocketManager {
         let log = data.body[pid];
         for(let entry of log) {
           store.dispatch({
+            ...entry,
             type: entry.event,
-            body: entry.body,
             pid: parseInt(pid),
-            timestamp: entry.timestamp
           });
         }
       }
     } else {
       store.dispatch({
+        ...data,
         type: data.event,
-        body: data.body,
-        pid: data.pid,
-        timestamp: data.timestamp
       });
     }
   };

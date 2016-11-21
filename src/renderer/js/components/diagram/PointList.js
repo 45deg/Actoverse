@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Point from './Point';
 
-const PointList = ({ timeInterval, margin, messageLog, width, actors, actorSnapshots }) => {
+const PointList = ({ timeInterval, margin, width, actors, actorSnapshots }) => {
   return <g>{
     actorSnapshots.map((snapshots, pid) => {
       let index = actors.keySeq().findIndex(k => k === pid);
@@ -20,7 +20,6 @@ function mapStateToProps(state) {
   return {
     actors: state.shadow.actors,
     actorSnapshots: state.shadow.actorSnapshots,
-    messageLog: state.shadow.messageLog,
     width: state.ui.panelSize['root-panel'],
     timeInterval: state.ui.timeInterval,
   };

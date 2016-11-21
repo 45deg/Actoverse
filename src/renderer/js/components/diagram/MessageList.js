@@ -5,27 +5,31 @@ import Message from './Message';
 import ElementArranger from './ElementArranger';
 import generateColor from '../../helpers/generateColor';
 import socket from '../../socket';
+import Immutable from 'immutable';
 
-function processMessages(log, messagePool){
-  var recvs = log.filter(m => m.type === 'consume');
-  return log
-    .filter(msg => msg.type === 'send')
-    .map(sendMsg => {
-      let recvMsg = recvs.find(m => m.uid === sendMsg.uid);
-      let candidate = messagePool.has(sendMsg.uid);
+
+function processMessages(logs, messagePool){
+  return logs.valueSeq().flatMap(log => {
+    let sends = log.filter(m => m.get('type') === 'send');
+    return sends.map(sendMsg => {
+      let msgBody = sendMsg.get('body');
+      let recvMsg = logs.get(msgBody.get('target'), Immutable.List())
+                        .find(m => Immutable.is(m.get('body'), msgBody) &&
+                                   m.get('type') === 'receive');
       return {
-        sendAt: sendMsg.time,
-        recvAt: recvMsg ? recvMsg.time : null,
-        body: sendMsg.body,
-        candidate
+        sendAt: sendMsg.get('timestamp') ,
+        recvAt: recvMsg ? recvMsg.get('timestamp') : null,
+        body:   msgBody,
+        candidate: false
       };
     });
+  });
 }
 
-const MessageList = ({ timeInterval, margin, messageLog, messagePool,
+const MessageList = ({ timeInterval, margin, messageLogs, messagePool,
                         width, actors, messageFlag, clock }) => {
   return <ElementArranger>{
-    processMessages(messageLog, messagePool)
+    processMessages(messageLogs, messagePool)
       .map((msg, index) => {
         var xSpan = width / (actors.size + 1);
         var targetPid = msg.body.get('target');
@@ -60,12 +64,13 @@ const MessageList = ({ timeInterval, margin, messageLog, messagePool,
           return <Message {...props} />;
         }
       })
+      .toArray() // Immutable Object -> raw array
   }</ElementArranger>;
 }
 function mapStateToProps(state) {
   return {
     actors: state.shadow.actors,
-    messageLog: state.shadow.messageLog,
+    messageLogs: state.shadow.messageLogs,
     messagePool: state.shadow.messagePool,
     clock: state.shadow.clock,
     width: state.ui.panelSize['root-panel'],

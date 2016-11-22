@@ -9,7 +9,7 @@ import 'css/toolbar';
 class ToolBar extends React.Component {
   constructor(props){
     super(props);
-    this.state = { target: location.search.substring(1) || '' };
+    this.state = { target: localStorage.getItem('target_url') || '' };
   }
   onSubmit(){
     this.props.connect(this.state.target);

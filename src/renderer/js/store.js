@@ -13,6 +13,8 @@ const loggerMiddleware = createLogger({
 
 const store = createStore(
   reducers,
-  applyMiddleware(loggerMiddleware, thunkMiddleware)
+  applyMiddleware(
+    //loggerMiddleware, // heavy
+    thunkMiddleware)
 );
 export default store;

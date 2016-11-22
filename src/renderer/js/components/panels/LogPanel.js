@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Table } from 'react-bootstrap';
 
-import 'css/state-panel';
-
 const LogPanel = ({ messageLogs }) => {
   console.log(messageLogs.valueSeq().flatten(true).toJS())
   return <Table striped bordered condensed hover>

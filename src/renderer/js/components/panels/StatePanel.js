@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Table } from 'react-bootstrap';
 
-import 'css/state-panel';
-
 const StateTable = ({state}) => {
   return <Table striped bordered condensed hover>
     <caption>State</caption>

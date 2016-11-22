@@ -14,6 +14,7 @@ import AlertModal from './AlertModal';
 
 import 'css/root';
 import 'css/resizer';
+import 'css/panels';
 
 const Root = ({ connected }) => {
   return (<div id="wrapper">

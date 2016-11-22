@@ -13,3 +13,10 @@ export function disconnectNetwork(){
     type: 'DISCONNECT_NETWORK'
   }
 }
+
+export function changeReconnect(flag) {
+  return {
+    type: 'CHANGE_RECCONECT',
+    reconnect: !!flag
+  };
+}

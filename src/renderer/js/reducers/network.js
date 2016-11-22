@@ -1,6 +1,7 @@
 function initState(){
   return {
     connected: false,
+    reconnect: false,
     target: null,
   };
 }
@@ -16,6 +17,11 @@ const network = (state = initState(), action) => {
             return { ...state,
               connected: false,
               target: null,
+            };
+        case 'CHANGE_RECCONECT':
+            return {
+              ...state,
+              reconnect: action.reconnect
             };
         default:
             return state;

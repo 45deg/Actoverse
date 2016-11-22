@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-const Actor = ({ x, textY, lineStartY, lineEndY, fontSize = 12, name, pid}) => {
+const Actor = ({ x, textY, lineStartY, lineEndY, fontSize = 12, klass, pid}) => {
   return (<g className="actor">
     {/* Label for actor */}
     <text x={x} y={textY} textAnchor="middle" fill="black" fontSize={fontSize} fill="#000">
-      {name}
+      {klass}
       <tspan x={x} y={textY + fontSize}>#{pid}</tspan>
     </text>
     { /* timeline */}

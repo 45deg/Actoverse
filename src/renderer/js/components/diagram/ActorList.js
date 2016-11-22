@@ -9,7 +9,7 @@ const ActorList = ({ actors, timeInterval, margin, width, clock }) => {
         textY={18}
         lineStartY={margin /* TODO: implement uptime */}
         lineEndY={(clock + 1) * timeInterval + margin}
-        name={actor.get('name')}
+        klass={actor.get('class')}
         pid={actor.get('pid')}
         key={actor.get('pid')} />
     ) }</g>;

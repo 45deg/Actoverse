@@ -6,12 +6,12 @@ const PointList = ({ timeInterval, margin, width, actors, actorSnapshots }) => {
   return <g>{
     actorSnapshots.map((snapshots, pid) => {
       let index = actors.keySeq().findIndex(k => k === pid);
-      let actorName = actors.getIn([pid, 'name']);
+      let actorClass = actors.getIn([pid, 'class']);
       return snapshots.map((state, time) => {
         return <Point cx={ width / (actors.size + 1) * (index + 1) }
           cy={time * timeInterval + margin }
           time={time}
-          name={actorName} state={state} key={`${pid}_${time}`} />;
+          klass={actorClass} state={state} key={`${pid}_${time}`} />;
       }).valueSeq();
     }).valueSeq()
   }</g>;

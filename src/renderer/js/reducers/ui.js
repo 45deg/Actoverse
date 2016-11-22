@@ -25,7 +25,7 @@ const ui = (state = initState(), action) => {
             return   { ...state,
               panelSize: {
                 ...state.panelSize,
-                [action.name]: [action.size],
+                [action.class]: [action.size],
               }
             };
         default:

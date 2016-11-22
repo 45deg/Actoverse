@@ -1,5 +1,5 @@
 import store from '../store';
-import { showAlertModal } from '../actions/modal';
+import { showAlertModal, hideAlertModal } from '../actions/modal';
 import { disconnectNetwork } from '../actions/network';
 import { initState } from '../actions/shadow';
 
@@ -7,8 +7,10 @@ class SocketManager {
   constructor(){
     this.socket = null;
     this.preparedToClose = false;
+    this.currentTarget = null;
   }
   connect(url){
+    this.currentTarget = url;
     return new Promise((resolve, reject) => {
       if(this.socket !== null) this.close();
       this.socket = new WebSocket('ws://' + url);
@@ -31,11 +33,25 @@ class SocketManager {
   }
   _onClose(){
     // reconnect
+    let reconnect = store.getState().network.reconnect;
     if(!this.preparedToClose) {
-      store.dispatch(showAlertModal("Connection lost."));
+      store.dispatch(showAlertModal("Connection lost."
+                                    + (reconnect ? ' Reconnecting...' : '')));
       store.dispatch(disconnectNetwork());
+      if(reconnect){
+        let connect = this.connect.bind(this);
+        let target = this.currentTarget;
+        let retry = () => {
+          connect(target).then(() => {
+            store.dispatch({ type: 'CONNECT_NETWORK', target });
+            store.dispatch(hideAlertModal());
+          });
+        }
+        setTimeout(retry, 1000);
+      }
     }
     this.preparedToClose = false;
+    this.socket = null;
   }
   _onError(){
     store.dispatch(showAlertModal("Error while connection."));

@@ -10,7 +10,7 @@ function initState(){
   return {
     actors : Immutable.OrderedMap(),
     actorSnapshots : Immutable.Map(),
-    messagePool: Immutable.Map(),
+    messagePool: Immutable.List(),
     messageLogs: Immutable.OrderedMap(),
     clock : 0,
   };
@@ -65,19 +65,21 @@ const shadow = (state = initState(), action) => {
         ...state,
         messageLogs: messageLogs.map(log => log.filter(e => e.get('timestamp') < action.time)),
         actorSnapshots: actorSnapshots.map(actor => actor.filter((_, t) => t < action.time)),
-        messagePool: messagePool.filter(time => time < action.time),
+        messagePool: messagePool.filter(msg => msg.get('pooled_at') < action.time),
         clock: action.time,
       };
     }
     case 'POOL_ADD':
       return {
         ...state,
-        messagePool: messagePool.set(imBody.get('uid'), action.time)
+        messagePool: messagePool.push(imBody.set('pooled_at', action.time))
       };
     case 'POOL_REMOVE':
       return {
         ...state,
-        messagePool: messagePool.delete(imBody.get('uid'))
+        messagePool: messagePool.filterNot(msg => imBody.get('target') === msg.get('target') &&
+                                                  imBody.get('sender') === msg.get('sender') &&
+                                                  Immutable.is(imBody.get('data'), msg.get('data')))
       };
     default:
       return state;

@@ -20,9 +20,8 @@ function processMessages(logs, messagePool){
         sendAt: sendMsg.get('timestamp') ,
         recvAt: recvMsg ? recvMsg.get('timestamp') : null,
         body:   msgBody,
-        candidate: !!messagePool.find(msg => msgBody.get('target') === msg.get('target') &&
-                                             msgBody.get('sender') === msg.get('sender') &&
-                                             Immutable.is(msgBody.get('data'), msg.get('data')))
+        candidate: !!messagePool.find(msg => msgBody.get('sender') === msg.get('sender') &&
+                                             msgBody.get('serial') === msg.get('serial'))
       };
     });
   });
@@ -58,13 +57,10 @@ const MessageList = ({ timeInterval, margin, messageLogs, messagePool,
           props.onClick = (body => () => {
             socket.send({
               type: 'select',
-              body
+              sender: body.sender,
+              serial: body.serial
             })
-          })({
-            target: targetPid,
-            sender: senderPid,
-            data: msgData,
-          });
+          })(msg.body);
           return <Message {...props} />;
         } else {
           return <Message {...props} />;

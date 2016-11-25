@@ -75,11 +75,15 @@ const shadow = (state = initState(), action) => {
         messagePool: messagePool.push(imBody.set('pooled_at', action.time))
       };
     case 'POOL_REMOVE':
+      let index = messagePool.findIndex(msg => imBody.get('serial') === msg.get('serial') &&
+                                               imBody.get('sender') === msg.get('sender'));
+      if(index === -1) {
+        throw 'Error: no such a message';
+        return state;
+      }
       return {
         ...state,
-        messagePool: messagePool.filterNot(msg => imBody.get('target') === msg.get('target') &&
-                                                  imBody.get('sender') === msg.get('sender') &&
-                                                  Immutable.is(imBody.get('data'), msg.get('data')))
+        messagePool: messagePool.delete(index)
       };
     default:
       return state;

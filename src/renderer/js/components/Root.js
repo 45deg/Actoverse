@@ -9,6 +9,7 @@ import SplitPane from './SplitPane';
 import StatePanel from './panels/StatePanel';
 import CensorshipPanel from './panels/CensorshipPanel';
 import LogPanel from './panels/LogPanel';
+import SelectPanel from './panels/SelectPanel';
 
 import AlertModal from './AlertModal';
 
@@ -25,8 +26,9 @@ const Root = ({ connected }) => {
           <Diagram />
           <Tabs defaultActiveKey={1} id="panel-tab">
             <Tab eventKey={1} title="State"><StatePanel /></Tab>
-            <Tab eventKey={2} title="Censorship"><CensorshipPanel /></Tab>
-            <Tab eventKey={3} title="Log"><LogPanel /></Tab>
+            <Tab eventKey={2} title="Select"><SelectPanel /></Tab>
+            <Tab eventKey={3} title="Censorship"><CensorshipPanel /></Tab>
+            <Tab eventKey={4} title="Log"><LogPanel /></Tab>
           </Tabs>
         </SplitPane>
       </section>

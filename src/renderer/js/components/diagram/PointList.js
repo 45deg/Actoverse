@@ -7,7 +7,9 @@ const PointList = ({ timeInterval, margin, width, actors, actorSnapshots }) => {
     actorSnapshots.map((snapshots, pid) => {
       let index = actors.keySeq().findIndex(k => k === pid);
       let actorClass = actors.getIn([pid, 'class']);
-      return snapshots.map((state, time) => {
+      return snapshots
+        .filter((_, time) => time > 0)
+        .map((state, time) => {
         return <Point cx={ width / (actors.size + 1) * (index + 1) }
           cy={time * timeInterval + margin }
           time={time}

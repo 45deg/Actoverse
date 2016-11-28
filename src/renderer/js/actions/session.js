@@ -1,5 +1,5 @@
-export function addSession(body){
-    return { type: 'ADD_SESSION', body };
+export function addSession(name, body){
+    return { type: 'ADD_SESSION', name, body, time: new Date() };
 }
 
 export function removeSession(id){

@@ -10,7 +10,11 @@ const session = (state = initState(), action) => {
     case 'ADD_SESSION':
       return { ...state,
         idCount: state.idCount + 1,
-        sessions: [...state.sessions, { id: state.idCount, body: action.body }],
+        sessions: [...state.sessions,
+                  { id: state.idCount,
+                    name: action.name,
+                    time: action.time,
+                    body: action.body }],
       };
     case 'REMOVE_SESSION':
       return { ...state,

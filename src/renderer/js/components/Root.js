@@ -10,6 +10,7 @@ import StatePanel from './panels/StatePanel';
 import CensorshipPanel from './panels/CensorshipPanel';
 import LogPanel from './panels/LogPanel';
 import SelectPanel from './panels/SelectPanel';
+import SessionPanel from './panels/SessionPanel';
 
 import AlertModal from './AlertModal';
 
@@ -29,6 +30,7 @@ const Root = ({ connected }) => {
             <Tab eventKey={2} title="Select"><SelectPanel /></Tab>
             <Tab eventKey={3} title="Censorship"><CensorshipPanel /></Tab>
             <Tab eventKey={4} title="Log"><LogPanel /></Tab>
+            <Tab eventKey={5} title="Sessions"><SessionPanel /></Tab>
           </Tabs>
         </SplitPane>
       </section>

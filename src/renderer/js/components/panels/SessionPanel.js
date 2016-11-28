@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Table, Button } from 'react-bootstrap';
-import { restoreCurrentSession } from '../../helpers/session';
+import { restoreSession } from '../../helpers/session';
 
 import { bindActionCreators } from 'redux';
 import * as sessionActionCreator from '../../actions/session';
@@ -15,7 +15,8 @@ const SessionPanel = ({ sessions, removeSession }) => {
   <tbody>{
     sessions.map(entry => {
       return <tr key={entry.id}>
-        <td><Button bsSize="small" bsStyle="primary">Execute</Button></td>
+        <td><Button bsSize="small" bsStyle="primary"
+              onClick={() => restoreSession(entry.body)}>Execute</Button></td>
         <td>{entry.name}</td>
         <td>{entry.time.toISOString()}</td>
         <td><Button bsSize="small" bsStyle="danger"

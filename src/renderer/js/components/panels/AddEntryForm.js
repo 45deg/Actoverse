@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { FormGroup, MenuItem, InputGroup,
          FormControl, DropdownButton, Form, Button } from 'react-bootstrap';
 
-import { bindActionCreators } from 'redux';
-import * as censorshipActionCreator from '../../actions/censorship';
+import { addCensorship } from '../../helpers/censorship';
 
 const CENSORSHIP_OPTIONS = {
   types : [
@@ -28,7 +27,7 @@ class AddEntryForm extends React.Component {
     this.setState({ [kind]: key });
   }
   onSubmit(){
-    this.props.addSensorship(this.state.type, this.state.value);
+    addCensorship(this.state.type, this.state.value);
     this.setState({ value: "" });
   }
   onSelect(key, index){
@@ -57,8 +56,4 @@ class AddEntryForm extends React.Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(censorshipActionCreator, dispatch);
-}
-
-export default connect(null, mapDispatchToProps)(AddEntryForm);
+export default AddEntryForm;

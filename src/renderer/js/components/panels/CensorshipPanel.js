@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { Table, Button } from 'react-bootstrap';
 import AddEntryForm from './AddEntryForm';
 
-import { bindActionCreators } from 'redux';
-import * as censorshipActionCreator from '../../actions/censorship';
+import { removeCensorship } from '../../helpers/censorship';
 
 const CensorshipPanel = ({ censorship, removeSensorship }) => {
   return <section id="censorship-panel">
@@ -20,7 +19,7 @@ const CensorshipPanel = ({ censorship, removeSensorship }) => {
             <td>{entry.type}</td>
             <td>{JSON.stringify(entry.value)}</td>
             <td><Button bsSize="small" bsStyle="danger"
-                onClick={() => removeSensorship(entry.id)} >Remove</Button></td>
+                onClick={() => removeCensorship(entry.id)} >Remove</Button></td>
           </tr>
         )
       }
@@ -35,8 +34,5 @@ function mapStateToProps(state) {
     censorship: state.censorship,
   };
 }
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(censorshipActionCreator, dispatch);
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(CensorshipPanel);
+export default connect(mapStateToProps)(CensorshipPanel);

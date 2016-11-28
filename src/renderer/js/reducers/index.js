@@ -4,6 +4,7 @@ import ui from './ui';
 import network from './network';
 import modal from './modal';
 import censorship from './censorship';
+import session from './session';
 
 var reducers = combineReducers({
     shadow,
@@ -11,6 +12,7 @@ var reducers = combineReducers({
     network,
     modal,
     censorship,
+    session,
 });
 
 export default reducers;

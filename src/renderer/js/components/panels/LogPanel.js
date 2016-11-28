@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Table, Button } from 'react-bootstrap';
+import { saveCurrentSession } from '../../helpers/session';
 
-const LogPanel = ({ actors,messageLogs }) => {
-  return <div style={{margin: '5px'}}>
+const LogPanel = ({ actors, messageLogs }) => {
+  return <div>
+  <Button style={{margin: '5px 0'}} onClick={saveCurrentSession}>
+    Save this session</Button>
   <Table striped bordered condensed hover>
-  <caption>State</caption>
   <thead><tr>
   <th>LC</th><th>Type</th><th>Sender</th><th>Receiver</th><th>Data</th>
   </tr></thead>

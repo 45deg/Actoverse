@@ -7,8 +7,8 @@ import { addCensorship } from '../../helpers/censorship';
 
 const CENSORSHIP_OPTIONS = {
   types : [
-    'sender_pid',
-    'target_pid',
+    'sender_name',
+    'target_name',
     'partial_match',
     'complete_match',
   ]

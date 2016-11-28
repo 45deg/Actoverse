@@ -50,7 +50,7 @@ class ActorEntry extends React.Component {
     return <div>
       <h2 className={ this.state.showDetails ? 'tables-open' : 'tables-closed'}
           onClick={this.toggleDetails.bind(this)}>
-        { actor.get('class') } #{ actor.get('pid') }
+        { actor.get('class') } #{ actor.get('name') }
       </h2>
       { this.state.showDetails &&
         <div className="tables-container">

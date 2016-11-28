@@ -27,8 +27,8 @@ const shadow = (state = initState(), action) => {
     case 'ACTOR_CREATED': {
       return {
         ...state,
-        actorSnapshots: actorSnapshots.setIn([action.pid, action.timestamp], imBody.get('state')),
-        actors: actors.set(action.pid, imBody.set('pid', action.pid))
+        actorSnapshots: actorSnapshots.setIn([action.name, action.timestamp], imBody.get('state')),
+        actors: actors.set(action.name, imBody.set('name', action.name))
       };
     }
     case 'SEND_MESSAGE':
@@ -36,7 +36,7 @@ const shadow = (state = initState(), action) => {
       let type = action.type === 'SEND_MESSAGE' ? 'send' : 'receive';
       return {
         ...state,
-        messageLogs: messageLogs.update(action.pid, // source pid
+        messageLogs: messageLogs.update(action.name, // source name
                                         Immutable.List(), // default value
                                         log => log.push(new LogRecord({
                                           type,
@@ -49,15 +49,15 @@ const shadow = (state = initState(), action) => {
     case 'ACTOR_UPDATED': {
       return {
         ...state,
-        actorSnapshots: actorSnapshots.setIn([action.pid, action.timestamp], imBody),
-        actors: actors.setIn([action.pid, 'state'], imBody),
+        actorSnapshots: actorSnapshots.setIn([action.name, action.timestamp], imBody),
+        actors: actors.setIn([action.name, 'state'], imBody),
         clock: Math.max(clock, action.timestamp)
       };
     }
     case 'ACTOR_REPLACED': {
       return {
         ...state,
-        actors: actors.setIn([action.pid, 'state'], imBody.get('state'))
+        actors: actors.setIn([action.name, 'state'], imBody.get('state'))
       };
     }
     case 'ROLLBACK_TIME': {

@@ -61,13 +61,13 @@ class SocketManager {
     console.log('<IN<', dataMsg.data);
     if(data.event === 'DUMP_LOG') {
       store.dispatch(initState());
-      for(let pid in data.body) {
-        let log = data.body[pid];
+      for(let name in data.body) {
+        let log = data.body[name];
         for(let entry of log) {
           store.dispatch({
             ...entry,
             type: entry.event,
-            pid: parseInt(pid),
+            name: parseInt(name),
           });
         }
       }

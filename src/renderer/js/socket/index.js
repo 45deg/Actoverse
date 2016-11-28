@@ -67,7 +67,7 @@ class SocketManager {
           store.dispatch({
             ...entry,
             type: entry.event,
-            name: parseInt(name),
+            name: name,
           });
         }
       }

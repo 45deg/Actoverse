@@ -1,6 +1,6 @@
 import store from '../store';
 import socket from '../socket';
-import { addSession } from '../actions/session';
+import { addSession, startSession, stopSession } from '../actions/session';
 import { rollbackTime } from '../actions/shadow';
 import { addCensorship, removeCensorship } from './censorship';
 import Immutable from 'immutable';
@@ -16,11 +16,18 @@ export function saveCurrentSession(name){
 
 // TODO: finilize uncompleted jobs
 
-export function restoreSession(session){
+export function restoreSession(id, session){
   if(session.size === 0) return;
   var unsubscribe;
   var behavior;
   var censorshipId;
+  var target = store.getState().network.target;
+
+  function finalize(){
+    unsubscribe(); // stop listening
+    removeCensorship(censorshipId);
+    store.dispatch(stopSession(id));
+  }
 
   unsubscribe = store.subscribe(() => {
     let state = store.getState();
@@ -42,19 +49,24 @@ export function restoreSession(session){
         session = session.shift(); // pop a top one out
       } else { // not found
         if(session.size == 0) { // completed
-          removeCensorship(censorshipId);
-          unsubscribe(); // stop listening
+          finalize();
         }
         /*if(target.size > 0) { // not completed all yet
           store.dispatch(showAlertModal("Message mismatch detected while restoring the session."));
         }*/
       }
     }
+
+    if(!state.network.connected || target !== state.network.target) {
+      // when disconnected
+      finalize();
+    }
   });
 
   // stage 0: command adding censorship
   addCensorship("any", null);
   behavior = "add_censorship";
+  store.dispatch(startSession(id, finalize));
 }
 
 function isEqualMessage(a, b){

@@ -6,7 +6,16 @@ import { restoreSession } from '../../helpers/session';
 import { bindActionCreators } from 'redux';
 import * as sessionActionCreator from '../../actions/session';
 
-const SessionPanel = ({ sessions, removeSession }) => {
+const SessionPanel = ({ sessions, running, finalizer,
+                        removeSession, startSession }) => {
+  const handleClick = (id, body) => {
+    if(running === null) {
+      restoreSession(id, body);
+    } else {
+      finalizer();
+    }
+  };
+
   return <div>
   <Table striped bordered condensed hover>
   <thead><tr>
@@ -15,11 +24,18 @@ const SessionPanel = ({ sessions, removeSession }) => {
   <tbody>{
     sessions.map(entry => {
       return <tr key={entry.id}>
-        <td><Button bsSize="small" bsStyle="primary"
-              onClick={() => restoreSession(entry.body)}>Execute</Button></td>
+        <td>
+          <Button bsSize="small"
+                  bsStyle={ running === entry.id ? "danger" : "primary" }
+                  disabled={ running !== null && running !== entry.id }
+                  onClick={ () => handleClick(entry.id, entry.body)}>
+            { running === entry.id ? 'Stop' : 'Start' }
+          </Button>
+        </td>
         <td>{entry.name}</td>
         <td>{entry.time.toISOString()}</td>
         <td><Button bsSize="small" bsStyle="danger"
+            disabled={ running !== null }
             onClick={() => removeSession(entry.id)} >Remove</Button></td>
       </tr>;
     })
@@ -31,6 +47,8 @@ const SessionPanel = ({ sessions, removeSession }) => {
 function mapStateToProps(state) {
   return {
     sessions: state.session.sessions,
+    running: state.session.running,
+    finalizer: state.session.finalizer,
   };
 }
 

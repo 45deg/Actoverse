@@ -21,7 +21,7 @@ function processMessages(logs, messagePool){
         recvAt: recvMsg ? recvMsg.get('timestamp') : null,
         body:   msgBody,
         candidate: !!messagePool.find(msg => msgBody.get('sender') === msg.get('sender') &&
-                                             msgBody.get('serial') === msg.get('serial'))
+                                             msgBody.get('uid') === msg.get('uid'))
       };
     });
   });
@@ -58,7 +58,7 @@ const MessageList = ({ timeInterval, margin, messageLogs, messagePool,
             socket.send({
               type: 'select',
               sender: body.sender,
-              serial: body.serial
+              uid: body.uid
             })
           })(msg.body);
           return <Message {...props} />;

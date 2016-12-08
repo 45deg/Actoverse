@@ -7,9 +7,9 @@ import Immutable from 'immutable';
 
 export function saveCurrentSession(name){
   var messageLogs = store.getState().shadow.messageLogs;
-  var serialLog = messageLogs.valueSeq().flatten(true)
+  var uidLog = messageLogs.valueSeq().flatten(true)
                              .sortBy(entry => entry.get('timestamp'));
-  var sendLog = serialLog.filter(e => e.get('type') == 'receive');
+  var sendLog = uidLog.filter(e => e.get('type') == 'receive');
   var sendMessages = sendLog.map(e => e.get('body'));
   store.dispatch(addSession(name, sendMessages.toList()));
 }
@@ -45,7 +45,7 @@ export function restoreSession(id, session){
       let selected = pool.find(msg => isEqualMessage(msg, target));
       console.log(selected);
       if(selected) { // found a message in the pool
-        selectMessage(selected.get('sender'), selected.get('serial'));
+        selectMessage(selected.get('sender'), selected.get('uid'));
         session = session.shift(); // pop a top one out
       } else { // not found
         if(session.size == 0) { // completed
@@ -75,10 +75,10 @@ function isEqualMessage(a, b){
          Immutable.is(a.get('data'), b.get('data'));
 }
 
-function selectMessage(sender, serial){
+function selectMessage(sender, uid){
   socket.send({
     type: 'select',
     sender: sender,
-    serial: serial
+    uid: uid
   });
 }

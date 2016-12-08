@@ -19,6 +19,7 @@ function initState(){
 const shadow = (state = initState(), action) => {
   let { actors, actorSnapshots, messageLogs, clock, messagePool } = state;
   let imBody = Immutable.fromJS(action.body);
+  console.log(imBody+"")
   // shadowing from API responses
   switch(action.type) {
     case 'INIT_STATE' : {
@@ -75,7 +76,7 @@ const shadow = (state = initState(), action) => {
         messagePool: messagePool.push(imBody.set('pooled_at', action.time))
       };
     case 'POOL_REMOVE':
-      let index = messagePool.findIndex(msg => imBody.get('serial') === msg.get('serial') &&
+      let index = messagePool.findIndex(msg => imBody.get('uid') === msg.get('uid') &&
                                                imBody.get('sender') === msg.get('sender'));
       if(index === -1) {
         throw 'Error: no such a message';

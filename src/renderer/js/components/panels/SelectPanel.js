@@ -15,13 +15,13 @@ const SelectPanel = ({ actors, messagePool }) => {
         socket.send({
           type: 'select',
           sender: body.get('sender'),
-          serial: body.get('serial'),
+          uid: body.get('uid'),
         })
       };
       return <tr key={idx}>
       <td><Button bsSize="small" onClick={onClick}>Send</Button></td>
-      <td>{actors.getIn([body.get('sender'), 'class'], 'master')}#{body.get('sender')}</td>
-      <td>{actors.getIn([body.get('target'), 'class'], 'master')}#{body.get('target')}</td>
+      <td>{actors.getIn([body.get('sender'), 'kind'], 'master')}#{body.get('sender')}</td>
+      <td>{actors.getIn([body.get('target'), 'kind'], 'master')}#{body.get('target')}</td>
       <td>{JSON.stringify(body.get('data').toJS())}</td>
       </tr>;
     })

@@ -34,8 +34,8 @@ class LogPanel extends React.Component {
           return <tr key={idx}>
           <td>{entry.get('timestamp')}</td>
           <td>{entry.get('type')}</td>
-          <td>{actors.getIn([body.get('sender'), 'class'], 'master')}#{body.get('sender')}</td>
-          <td>{actors.getIn([body.get('target'), 'class'], 'master')}#{body.get('target')}</td>
+          <td>{actors.getIn([body.get('sender'), 'kind'], 'master')}#{body.get('sender')}</td>
+          <td>{actors.getIn([body.get('target'), 'kind'], 'master')}#{body.get('target')}</td>
           <td>{JSON.stringify(body.get('data').toJS())}</td>
           </tr>;
         })

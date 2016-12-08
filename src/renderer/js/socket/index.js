@@ -28,7 +28,7 @@ class SocketManager {
   }
   _onOpen(){
     console.log('connected');
-    this.send({ type: 'dump_log' });
+    this.send({ type: 'dump_log' })
     this.send({ type: 'export_filters' });
   }
   _onClose(){
@@ -61,15 +61,12 @@ class SocketManager {
     console.log('<IN<', dataMsg.data);
     if(data.event === 'DUMP_LOG') {
       store.dispatch(initState());
-      for(let name in data.body) {
-        let log = data.body[name];
-        for(let entry of log) {
-          store.dispatch({
-            ...entry,
-            type: entry.event,
-            name: name,
-          });
-        }
+      for(let entry of data.body) {
+        store.dispatch({
+          ...entry,
+          type: entry.event,
+          name: entry.name,
+        });
       }
     } else {
       store.dispatch({

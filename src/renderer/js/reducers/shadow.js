@@ -19,7 +19,6 @@ function initState(){
 const shadow = (state = initState(), action) => {
   let { actors, actorSnapshots, messageLogs, clock, messagePool } = state;
   let imBody = Immutable.fromJS(action.body);
-  console.log(imBody+"")
   // shadowing from API responses
   switch(action.type) {
     case 'INIT_STATE' : {

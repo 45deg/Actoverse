@@ -6,7 +6,7 @@ import ElementArranger from './ElementArranger';
 import generateColor from '../../helpers/generateColor';
 import socket from '../../socket';
 import Immutable from 'immutable';
-
+import { toJSON } from '../../helpers/util'
 
 function processMessages(logs, messagePool){
   return logs.valueSeq().flatMap(log => {
@@ -14,8 +14,9 @@ function processMessages(logs, messagePool){
     return sends.map(sendMsg => {
       let msgBody = sendMsg.get('body');
       let recvMsg = logs.get(msgBody.get('target'), Immutable.List())
-                        .find(m => Immutable.is(m.get('body'), msgBody) &&
-                                   m.get('type') === 'receive');
+                        .filter(m => m.get('type') == 'receive')
+                        .map(m => m.get('body'))
+                        .find(recv => recv.get('uid') == msgBody.get('uid'));
       return {
         sendAt: sendMsg.get('timestamp') ,
         recvAt: recvMsg ? recvMsg.get('timestamp') : null,
@@ -37,11 +38,11 @@ const MessageList = ({ timeInterval, margin, messageLogs, messagePool,
         var senderPid = msg.body.get('sender');
         var targetIndex = actors.keySeq().findIndex(k => k === targetPid);
         var senderIndex = actors.keySeq().findIndex(k => k === senderPid);
-        var msgData = msg.body.get('data').toJS();
+        var msgData = msg.body.get('data');
         var props = {
           id: index,
           key: index,
-          text: JSON.stringify(msgData),
+          text: toJSON(msgData),
           fromX: xSpan * (senderIndex + 1),
           fromY: msg.sendAt * timeInterval + margin,
           toX: xSpan * (targetIndex + 1),
@@ -51,7 +52,7 @@ const MessageList = ({ timeInterval, margin, messageLogs, messagePool,
                       msg.candidate ? 'candidate' : '',
                       messageFlag ? '' : 'hide-message',
                       msg.recvAt ? '' : 'dash' ].join(' '),
-          color: generateColor(msgData[0])
+          color: generateColor(msgData[0]) // FIXIT
         };
         if (msg.candidate) {
           props.onClick = (body => () => {

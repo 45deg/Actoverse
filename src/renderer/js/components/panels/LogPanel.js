@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Table, Button, Form, FormControl } from 'react-bootstrap';
 import { saveCurrentSession } from '../../helpers/session';
+import { toJSON } from '../../helpers/util';
 
 class LogPanel extends React.Component {
   constructor(props){
@@ -36,7 +37,7 @@ class LogPanel extends React.Component {
           <td>{entry.get('type')}</td>
           <td>{actors.getIn([body.get('sender'), 'kind'], 'master')}#{body.get('sender')}</td>
           <td>{actors.getIn([body.get('target'), 'kind'], 'master')}#{body.get('target')}</td>
-          <td>{JSON.stringify(body.get('data').toJS())}</td>
+          <td>{toJSON(body.get('data'))}</td>
           </tr>;
         })
       }</tbody>

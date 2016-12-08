@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Table, Button } from 'react-bootstrap';
 import socket from '../../socket';
+import { toJSON } from '../../helpers/util';
 
 const SelectPanel = ({ actors, messagePool }) => {
   return <Table striped bordered condensed hover>
@@ -22,7 +23,7 @@ const SelectPanel = ({ actors, messagePool }) => {
       <td><Button bsSize="small" onClick={onClick}>Send</Button></td>
       <td>{actors.getIn([body.get('sender'), 'kind'], 'master')}#{body.get('sender')}</td>
       <td>{actors.getIn([body.get('target'), 'kind'], 'master')}#{body.get('target')}</td>
-      <td>{JSON.stringify(body.get('data').toJS())}</td>
+      <td>{toJSON(body.get('data'))}</td>
       </tr>;
     })
   }</tbody>

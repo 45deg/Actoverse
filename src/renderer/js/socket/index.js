@@ -2,6 +2,7 @@ import store from '../store';
 import { showAlertModal, hideAlertModal } from '../actions/modal';
 import { disconnectNetwork } from '../actions/network';
 import { initState } from '../actions/shadow';
+import { clearCensorship } from '../actions/censorship'
 
 class SocketManager {
   constructor(){
@@ -28,7 +29,8 @@ class SocketManager {
   }
   _onOpen(){
     console.log('connected');
-    this.send({ type: 'dump_log' })
+    this.send({ type: 'dump_log' });
+    store.dispatch(clearCensorship());
     this.send({ type: 'export_filters' });
   }
   _onClose(){

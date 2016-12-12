@@ -4,15 +4,15 @@ function initState(){
 
 const censorship = (state = initState(), action) => {
     switch(action.type) {
-        case 'ADD_SENSORSHIP':
+        case 'ADD_CENSORSHIP':
             return [...state, {
               type: action.body.type,
               value: action.body.value,
               id: action.id
             }];
-        case 'REMOVE_SENSORSHIP':
+        case 'REMOVE_CENSORSHIP':
             return state.filter(element => element.id !== action.id);
-        case 'EXPORT_SENSORSHIP':
+        case 'EXPORT_CENSORSHIP':
             return action.filters.map(filter => ({
               type: filter.type,
               value: filter.value,

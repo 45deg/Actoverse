@@ -5,7 +5,7 @@ import AddEntryForm from './AddEntryForm';
 
 import { removeCensorship } from '../../helpers/censorship';
 
-const CensorshipPanel = ({ censorship, removeSensorship }) => {
+const CensorshipPanel = ({ censorship, removeCensorship }) => {
   return <section id="censorship-panel">
     <Table striped bordered condensed hover>
       <caption>Censorship condition</caption>

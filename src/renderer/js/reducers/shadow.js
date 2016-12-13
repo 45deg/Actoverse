@@ -34,6 +34,11 @@ const shadow = (state = initState(), action) => {
     case 'SEND_MESSAGE':
     case 'MESSAGE_RECEIVED': {
       let type = action.type === 'SEND_MESSAGE' ? 'send' : 'receive';
+      let poolIndex =
+        messagePool.findIndex(msg => imBody.get('uid') === msg.get('uid'));
+      if(poolIndex >= 0 && type == 'receive') {
+        messagePool = messagePool.delete(poolIndex)
+      }
       return {
         ...state,
         messageLogs: messageLogs.update(action.name, // source name
@@ -43,7 +48,8 @@ const shadow = (state = initState(), action) => {
                                           timestamp: action.timestamp,
                                           body: imBody
                                         }))
-                                        )
+                                      ),
+        messagePool: messagePool
       };
     }
     case 'ACTOR_UPDATED': {
@@ -73,17 +79,6 @@ const shadow = (state = initState(), action) => {
       return {
         ...state,
         messagePool: messagePool.push(imBody.set('pooled_at', action.time))
-      };
-    case 'POOL_REMOVE':
-      let index = messagePool.findIndex(msg => imBody.get('uid') === msg.get('uid') &&
-                                               imBody.get('sender') === msg.get('sender'));
-      if(index === -1) {
-        throw 'Error: no such a message';
-        return state;
-      }
-      return {
-        ...state,
-        messagePool: messagePool.delete(index)
       };
     default:
       return state;

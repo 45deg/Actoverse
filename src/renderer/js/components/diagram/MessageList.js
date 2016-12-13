@@ -58,8 +58,8 @@ const MessageList = ({ timeInterval, margin, messageLogs, messagePool,
           props.onClick = (body => () => {
             socket.send({
               type: 'select',
-              sender: body.sender,
-              uid: body.uid
+              //sender: body.sender,
+              uid: body.get('uid')
             })
           })(msg.body);
           return <Message {...props} />;

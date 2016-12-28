@@ -9,23 +9,20 @@ import Immutable from 'immutable';
 import { toJSON } from '../../helpers/util'
 
 function processMessages(logs, messagePool){
-  return logs.valueSeq().flatMap(log => {
-    let sends = log.filter(m => m.get('type') === 'send');
-    return sends.map(sendMsg => {
-      let msgBody = sendMsg.get('body');
-      let recvMsg = logs.get(msgBody.get('target'), Immutable.List())
-                        .filter(m => m.get('type') == 'receive')
-                        .map(m => m.get('body'))
-                        .find(recv => recv.get('uid') == msgBody.get('uid'));
-      return {
-        sendAt: sendMsg.get('timestamp') ,
-        recvAt: recvMsg ? recvMsg.get('timestamp') : null,
-        body:   msgBody,
-        candidate: !!messagePool.find(msg => msgBody.get('sender') === msg.get('sender') &&
-                                             msgBody.get('uid') === msg.get('uid'))
-      };
-    });
-  });
+  let entireLog = logs.valueSeq().flatten(true);
+  return entireLog.groupBy(entry => entry.get('body').get('uid'))
+   .map((pair, uid) => {
+     let sendEntry = pair.find(e => e.get('type') === 'send');
+     let recvEntry = pair.find(e => e.get('type') === 'receive');
+     let msgBody = pair.first().get('body');
+     return {
+       sendAt: sendEntry ? sendEntry.get('timestamp')
+                         : recvEntry.get('timestamp') - 1,
+       recvAt: recvEntry ? recvEntry.get('timestamp') : null,
+       body: msgBody,
+       candidate: !!messagePool.find(msg => uid == msg.get('uid'))
+     };
+   }).valueSeq();
 }
 
 const MessageList = ({ timeInterval, margin, messageLogs, messagePool,
@@ -47,7 +44,7 @@ const MessageList = ({ timeInterval, margin, messageLogs, messagePool,
           fromY: msg.sendAt * timeInterval + margin,
           toX: xSpan * (targetIndex + 1),
           toY: msg.recvAt ? msg.recvAt * timeInterval + margin
-                          : (clock + 1) * timeInterval + margin,
+                          : clock * timeInterval + margin,
           className: ['log',
                       msg.candidate ? 'candidate' : '',
                       messageFlag ? '' : 'hide-message',

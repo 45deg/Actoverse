@@ -44,12 +44,14 @@ const MessageList = ({ timeInterval, margin, messageLogs, messagePool,
           fromY: msg.sendAt * timeInterval + margin,
           toX: xSpan * (targetIndex + 1),
           toY: msg.recvAt ? msg.recvAt * timeInterval + margin
-                          : clock * timeInterval + margin,
+                          : (msg.candidate ? clock + 1 : clock)
+                            * timeInterval + margin,
           className: ['log',
                       msg.candidate ? 'candidate' : '',
                       messageFlag ? '' : 'hide-message',
                       msg.recvAt ? '' : 'dash' ].join(' '),
-          color: generateColor(msgData[0]) // FIXIT
+          color: generateColor(msgData.get ? msgData.get(0)
+                                           : msgData[0])
         };
         if (msg.candidate) {
           props.onClick = (body => () => {

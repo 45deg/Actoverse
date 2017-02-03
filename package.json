@@ -1,7 +1,7 @@
 {
   "name": "Actoverse",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Message-Oriented Online Debugger for Actor Systems",
   "dependencies": {
     "babel-standalone": "^6.15.0",
     "bootstrap": "^3.3.7",
@@ -44,6 +44,6 @@
   "scripts": {
     "start": "node watch.js"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "45deg",
+  "license": "MIT"
 }

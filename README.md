@@ -1,4 +1,4 @@
-# Actoverse
+# 🛰️ Actoverse
 
 Actoverse is an online debugger suite for the Actor model, which provides a graphical visualization for message timeline, causal-consistent reverse debugging, and some useful features for debugging actors.
 

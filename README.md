@@ -4,7 +4,7 @@ Actoverse is an online debugger suite for the Actor model, which provides a grap
 
 **NOTE: This is a client interface of Actoverse protocol and this repository does not include demo target programs. Check a target API implementation for Scala.**
 
-# Features
+## Features
 
 - Live inspecting states inside actors
 - Visualizing the causal flow of messages between actors
@@ -13,18 +13,18 @@ Actoverse is an online debugger suite for the Actor model, which provides a grap
   + sender / receiver actor's name
   + partial / perfect pattern matching of message data
 
-# Downloading Binary
+## Downloading Binary
 
 will be provided later.
 
-# Executing from Source Repository
+## Executing from Source Repository
 
-## Requirements
+### Requirements
 
 - node.js environment (latest)
 - npm
 
-## How to run
+### How to run
 
 ```
 npm install

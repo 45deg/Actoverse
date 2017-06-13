@@ -4,10 +4,7 @@ function initState(){
         scrollValue: 0,
         timeInterval: 50,
         showMessage: true,
-        panelSize: {
-          'root-panel' : 400,
-          'vis-panel': 500
-        }
+        panelSize: 400,
     };
 }
 
@@ -23,10 +20,7 @@ const ui = (state = initState(), action) => {
             return   { ...state, showMessage: action.value };
         case 'CHANGE_PANEL_SIZE':
             return   { ...state,
-              panelSize: {
-                ...state.panelSize,
-                [action.class]: [action.size],
-              }
+              panelSize: action.size
             };
         default:
             return state;

@@ -20,7 +20,7 @@ class DiagramScroller extends Component {
 function mapStateToProps(state) {
     return {
         scrollValue: state.ui.scrollValue,
-        width: state.ui.panelSize['root-panel']
+        width: state.ui.panelSize
     };
 }
 

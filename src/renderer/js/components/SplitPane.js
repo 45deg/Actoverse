@@ -7,7 +7,7 @@ import { changePanelSize } from '../actions/ui';
 
 function mapDispatchToProps(dispatch, ownProps) {
     return {
-      onChange : c => dispatch(changePanelSize(ownProps.className, c))
+      onChange : c => dispatch(changePanelSize(c))
     }
 }
 

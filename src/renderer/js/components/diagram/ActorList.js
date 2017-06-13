@@ -19,7 +19,7 @@ function mapStateToProps(state) {
   return {
     actors: state.shadow.actors,
     clock: state.shadow.clock,
-    width: state.ui.panelSize['root-panel'],
+    width: state.ui.panelSize,
     timeInterval: state.ui.timeInterval,
   };
 }

@@ -75,7 +75,7 @@ function mapStateToProps(state) {
     messageLogs: state.shadow.messageLogs,
     messagePool: state.shadow.messagePool,
     clock: state.shadow.clock,
-    width: state.ui.panelSize['root-panel'],
+    width: state.ui.panelSize,
     timeInterval: state.ui.timeInterval,
     messageFlag: state.ui.showMessage,
   };

@@ -22,7 +22,7 @@ function mapStateToProps(state) {
   return {
     actors: state.shadow.actors,
     actorSnapshots: state.shadow.actorSnapshots,
-    width: state.ui.panelSize['root-panel'],
+    width: state.ui.panelSize,
     timeInterval: state.ui.timeInterval,
   };
 }

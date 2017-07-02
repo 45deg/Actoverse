@@ -23,6 +23,6 @@ app.on('ready', () => {
       cl.sendMessage('quit');
     });
   } catch (err) {
-    console.dir(err);
+    // console.dir(err);
   }
 });

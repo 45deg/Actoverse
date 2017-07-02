@@ -31,7 +31,7 @@ npm install
 npm start
 ```
 
-### Quick start with Scala
+## Quick start with Scala
 
 Using [Actoverse-Scala](https://github.com/45deg/Actoverse-Scala) for a target.
 
@@ -47,3 +47,7 @@ brew install sbt
 4. Select a example script to run by entering the index of it.
 5. Start the Actoverse debugger and input the address `localhost:2000` into the form and push the `Connect` button.
 6. Then a time-space diagram will show up.
+
+## License
+
+MIT

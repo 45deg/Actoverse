@@ -15,7 +15,7 @@ Actoverse is an online debugger suite for the Actor model, which provides a grap
 
 ## Downloading Binary
 
-will be provided later.
+[See the release page](https://github.com/45deg/Actoverse/releases)
 
 ## Executing from Source Repository
 

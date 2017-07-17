@@ -48,6 +48,14 @@ brew install sbt
 5. Start the Actoverse debugger and input the address `localhost:2000` into the form and push the `Connect` button.
 6. Then a time-space diagram will show up.
 
+## Internals
+
+### API Specifications
+
+The API through which communicates with a client program is handled with the JSON format over the WebSocket connection.
+
+API Specification: https://github.com/45deg/Actoverse/wiki/API-Specification
+
 ## License
 
 MIT

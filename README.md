@@ -4,6 +4,8 @@
 
 Actoverse is an online debugger suite for the Actor model, which provides a graphical visualization for message timeline, causal-consistent reverse debugging, and some useful features for debugging actors.
 
+📺 Movie → https://youtu.be/2x6KXKDG1jw
+
 **NOTE: This is a client interface of Actoverse protocol and this repository does not include libraries for debugging targets or demo applications. Check [a target API implementation for Scala](https://github.com/45deg/Actoverse-Scala) and [its examples](https://github.com/45deg/Actoverse-Scala-Demos).**
 
 ## Features

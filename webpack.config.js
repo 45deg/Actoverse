@@ -52,6 +52,5 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.less', '.css'],
     root: [path.join(__dirname, './src/renderer')]
-  },
-  target: 'electron'
+  }
 };

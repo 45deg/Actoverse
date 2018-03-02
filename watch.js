@@ -2,10 +2,10 @@
 
 const webpack = require('webpack');
 
-const rendererWebpack = webpack(
-  require('./webpack.config.js')
-);
+var config = require('./webpack.config.js')
+config.target = 'electron';
 
+const rendererWebpack = webpack(config);
 
 var electron = null;
 

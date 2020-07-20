@@ -8,6 +8,10 @@ Actoverse is an online debugger suite for the Actor model, which provides a grap
 
 **NOTE: This is a client interface of Actoverse protocol and this repository does not include libraries for debugging targets or demo applications. Check [a target API implementation for Scala](https://github.com/45deg/Actoverse-Scala) and [its examples](https://github.com/45deg/Actoverse-Scala-Demos).**
 
+## Citation
+
+> Kazuhiro Shibanai and Takuo Watanabe. 2017. Actoverse: a reversible debugger for actors. In Proceedings of the 7th ACM SIGPLAN International Workshop on Programming Based on Actors, Agents, and Decentralized Control (AGERE 2017). Association for Computing Machinery, New York, NY, USA, 50–57. DOI:https://doi.org/10.1145/3141834.3141840
+
 ## Features
 
 - Live inspecting states inside actors

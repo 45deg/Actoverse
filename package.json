@@ -4,7 +4,7 @@
   "description": "A Message-Oriented Online Debugger for Actor Systems",
   "dependencies": {
     "babel-standalone": "^6.15.0",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.1",
     "immutable": "^3.8.1",
     "lodash": "^4.17.19",
     "randomcolor": "^0.4.4",
